@@ -1,2 +1,4 @@
 <?php
-echo'peggyhiii';
+echo "hello!";
+echo "hello world!";
+echo "test";
