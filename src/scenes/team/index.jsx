@@ -1,12 +1,13 @@
 import { Box, Button, useTheme, Typography } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { mockDataTeam } from "../../data/mockData";
+import { useEffect, useState } from "react";
 import * as React from "react";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../components/Header";
+import axios from "axios";
 
 const Team = () => {
   const theme = useTheme();
@@ -16,6 +17,26 @@ const Team = () => {
     e.stopPropagation();
     setClickedRow(row);
   };
+
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
+    getUsers();
+  }, []);
+
+  function getUsers() {
+    console.log("axios go ~~~~~");
+    axios.get('http://localhost:3702/attdance')
+      .then(response => {
+        console.log(response.data);
+        setUsers(response.data)
+      })
+      .catch(error => {
+        console.error(error);
+      });
+
+    console.log("axios end ~~~~~");
+  }
+
   const columns = [
     { field: "id", headerName: "ID" },
     {
@@ -23,7 +44,7 @@ const Team = () => {
       headerName: "員工工號",
     },
     {
-      field: "name",
+      field: "EmployeeName",
       headerName: "姓名",
       flex: 1,
       cellClassName: "name-column--cell",
@@ -87,8 +108,8 @@ const Team = () => {
               access === "admin"
                 ? colors.greenAccent[600]
                 : access === "manager"
-                ? colors.greenAccent[700]
-                : colors.greenAccent[700]
+                  ? colors.greenAccent[700]
+                  : colors.greenAccent[700]
             }
             borderRadius="4px"
           >
@@ -136,7 +157,7 @@ const Team = () => {
           },
         }}
       >
-        <DataGrid checkboxSelection rows={mockDataTeam} columns={columns} />
+        <DataGrid checkboxSelection rows={users} columns={columns} />
       </Box>
     </Box>
   );
