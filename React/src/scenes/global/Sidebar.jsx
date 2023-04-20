@@ -395,6 +395,15 @@ const Sidebar = () => {
                 <List component="div" disablePadding>
                   <ListItemButton sx={{ pl: 4 }}>
                     <ListItemIcon>
+                      <FeedRoundedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="新增員工資料" />
+                    <Link to='form'></Link>
+                  </ListItemButton>
+                </List>
+                <List component="div" disablePadding>
+                  <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemIcon>
                       <PersonAddIcon />
                     </ListItemIcon>
                     <ListItemText primary="員工資料管理" />

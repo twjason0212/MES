@@ -41,7 +41,7 @@ const Form = () => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Employee ID"
+                label="員工編號"
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.EmployeeID}
@@ -54,7 +54,7 @@ const Form = () => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Age"
+                label="年齡"
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.age}
@@ -67,7 +67,7 @@ const Form = () => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label="First Name"
+                label="姓名"
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.firstName}
@@ -80,7 +80,7 @@ const Form = () => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Last Name"
+                label="帳號"
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.lastName}
@@ -93,7 +93,7 @@ const Form = () => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Email"
+                label="電子信箱"
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.email}
@@ -106,7 +106,7 @@ const Form = () => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Contact Number"
+                label="電話"
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.contact}
@@ -115,7 +115,6 @@ const Form = () => {
                 helperText={touched.contact && errors.contact}
                 sx={{ gridColumn: "span 2" }}
               />
-              
               {/* <TextField
                 fullWidth
                 variant="filled"
@@ -166,8 +165,8 @@ const checkoutSchema = yup.object().shape({
     .string()
     .matches(phoneRegExp, "Phone number is not valid")
     .required("required"),
-  // address1: yup.string().required("required"),
-  // address2: yup.string().required("required"),
+  address1: yup.string().required("required"),
+  address2: yup.string().required("required"),
 });
 const initialValues = {
   firstName: "",
