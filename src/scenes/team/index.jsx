@@ -9,6 +9,7 @@ import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../components/Header";
 import axios from "axios";
 
+
 const Team = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -25,7 +26,7 @@ const Team = () => {
 
   function getUsers() {
     console.log("axios go ~~~~~");
-    axios.get('http://localhost:3702/attdance')
+    axios.get('http://localhost:3702/employee')
       .then(response => {
         console.log(response.data);
         setUsers(response.data)
@@ -38,33 +39,44 @@ const Team = () => {
   }
 
   const columns = [
-    { field: "id", headerName: "ID" },
+    { field: 'Id', headerName: 'Id', width: 90 },
     {
-      field: "EmployeeID",
-      headerName: "員工工號",
+      field: 'EmployeeId',
+      headerName: '員工編碼',
+      width: 150,
+      editable: true,
     },
     {
-      field: "EmployeeName",
-      headerName: "姓名",
-      flex: 1,
-      cellClassName: "name-column--cell",
+      field: 'Name',
+      headerName: '員工名稱',
+      width: 150,
+      editable: true,
     },
     {
-      field: "age",
-      headerName: "年齡",
-      type: "number",
-      headerAlign: "left",
-      align: "left",
+      field: 'Dept',
+      headerName: '部門',
+      type: 'number',
+      width: 110,
+      editable: true,
     },
     {
-      field: "phone",
-      headerName: "電話",
-      flex: 1,
+      field: 'Year',
+      headerName: '年資',
+      type: 'number',
+      width: 110,
+      editable: true,
     },
     {
-      field: "email",
-      headerName: "Email",
-      flex: 1,
+      field: 'Address',
+      headerName: '地址',
+      width: 110,
+      editable: true,
+    },
+    {
+      field: 'Phone',
+      headerName: '電話',
+      width: 110,
+      editable: true,
     },
     {
       field: "actions",
@@ -125,40 +137,57 @@ const Team = () => {
     },
   ];
 
+
   return (
-    <Box m="20px">
-      <Header title="TEAM" subtitle="Managing the Team Members" />
-      <Box
-        m="40px 0 0 0"
-        height="75vh"
-        sx={{
-          "& .MuiDataGrid-root": {
-            border: "none",
-          },
-          "& .MuiDataGrid-cell": {
-            borderBottom: "none",
-          },
-          "& .name-column--cell": {
-            color: colors.greenAccent[300],
-          },
-          "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: colors.blueAccent[700],
-            borderBottom: "none",
-          },
-          "& .MuiDataGrid-virtualScroller": {
-            backgroundColor: colors.primary[400],
-          },
-          "& .MuiDataGrid-footerContainer": {
-            borderTop: "none",
-            backgroundColor: colors.blueAccent[700],
-          },
-          "& .MuiCheckbox-root": {
-            color: `${colors.greenAccent[200]} !important`,
+    // <Box m="20px">
+    //   <Header title="TEAM" subtitle="Managing the Team Members" />
+    //   <Box
+    //     m="40px 0 0 0"
+    //     height="75vh"
+    //     sx={{
+    //       "& .MuiDataGrid-root": {
+    //         border: "none",
+    //       },
+    //       "& .MuiDataGrid-cell": {
+    //         borderBottom: "none",
+    //       },
+    //       "& .name-column--cell": {
+    //         color: colors.greenAccent[700],
+    //       },
+    //       "& .MuiDataGrid-columnHeaders": {
+    //         backgroundColor: colors.blueAccent[700],
+    //         borderBottom: "none",
+    //       },
+    //       "& .MuiDataGrid-virtualScroller": {
+    //         backgroundColor: colors.primary[400],
+    //       },
+    //       "& .MuiDataGrid-footerContainer": {
+    //         borderTop: "none",
+    //         backgroundColor: colors.blueAccent[700],
+    //       },
+    //       "& .MuiCheckbox-root": {
+    //         color: `${colors.greenAccent[200]} !important`,
+    //       },
+    //     }}
+    //   >
+    //   </Box>
+    // </Box>
+    <Box sx={{ height: 400, width: '100%' }}>
+      <DataGrid
+        rows={users}
+        columns={columns}
+        getRowId={(user) => user.Id}
+        initialState={{
+          pagination: {
+            paginationModel: {
+              pageSize: 5,
+            },
           },
         }}
-      >
-        <DataGrid checkboxSelection rows={users} columns={columns} />
-      </Box>
+        pageSizeOptions={[5]}
+        checkboxSelection
+        disableRowSelectionOnClick
+      />
     </Box>
   );
 };

@@ -44,7 +44,8 @@ var connection = mysql.createConnection({
     user: 'root',
     password: '',
     post: '3306',
-    database: 'react_crud'
+    database: 'tododb'
+    // database: 'react_crud'
 
 })
 
@@ -56,14 +57,15 @@ connection.connect(function (error) {
     }
 })
 
-app.get("/attdance", function (req, res) {
-    connection.query("select id,EmployeeName,EmployeeId,DATE_FORMAT(starttime, '%Y-%m-%d %H:%i') as starttime,DATE_FORMAT(endtime, '%Y-%m-%d %H:%i') as endtime,holiday from att", function (error, data) {
+app.get("/employee", function (req, res) {
+    connection.query("SELECT employee.Id,employee.EmployeeId,employee.Name,department.name as Dept,employeeinfo.Year,employee.Address,employee.Phone,employee.Email FROM employee LEFT JOIN employeeinfo ON employee.Employeeid = employeeinfo.EmployeeId LEFT JOIN department ON employeeinfo.Dept = department.dept", function (error, data) {
+        // connection.query("select id,EmployeeName,EmployeeId,DATE_FORMAT(starttime, '%Y-%m-%d %H:%i') as starttime,DATE_FORMAT(endtime, '%Y-%m-%d %H:%i') as endtime,holiday from att", function (error, data) {
         res.send(JSON.stringify(data))
         console.log(data)
     })
 })
 
-app.put("/attdance", function (req, res) {
+app.put("/employee", function (req, res) {
     connection.query(
         "update att set starttime = ? , endtime = ? , holiday = ? where id =" + req.body.id,
         [req.body.starttime, req.body.endtime, req.body.holiday]
