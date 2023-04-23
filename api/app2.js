@@ -61,8 +61,14 @@ app.get("/employee", function (req, res) {
     connection.query("SELECT employee.Id,employee.EmployeeId,employee.Name,department.name as Dept,employeeinfo.Year,employee.Address,employee.Phone,employee.Email FROM employee LEFT JOIN employeeinfo ON employee.Employeeid = employeeinfo.EmployeeId LEFT JOIN department ON employeeinfo.Dept = department.dept", function (error, data) {
         // connection.query("select id,EmployeeName,EmployeeId,DATE_FORMAT(starttime, '%Y-%m-%d %H:%i') as starttime,DATE_FORMAT(endtime, '%Y-%m-%d %H:%i') as endtime,holiday from att", function (error, data) {
         res.send(JSON.stringify(data))
-        console.log(data)
+        console.log(data);
     })
+})
+
+app.post("/employee", function (req, res) {
+    console.log("post start");
+    console.log(req.body.EmployeeID);
+    connection.query(`insert into employee (employee_account) values (?)`, [req.body.EmployeeID])
 })
 
 app.put("/employee", function (req, res) {
@@ -71,4 +77,12 @@ app.put("/employee", function (req, res) {
         [req.body.starttime, req.body.endtime, req.body.holiday]
     );
     res.send("Update Finish");
+})
+
+app.get("/dept", function (req, res) {
+    connection.query("SELECT name,dept FROM  department ", function (error, data) {
+        // connection.query("select id,EmployeeName,EmployeeId,DATE_FORMAT(starttime, '%Y-%m-%d %H:%i') as starttime,DATE_FORMAT(endtime, '%Y-%m-%d %H:%i') as endtime,holiday from att", function (error, data) {
+        res.send(JSON.stringify(data))
+        console.log(data)
+    })
 })
