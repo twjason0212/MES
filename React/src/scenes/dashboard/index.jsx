@@ -9,10 +9,21 @@ import StatBox from "../../components/StatBox";
 import PersonPin from "@mui/icons-material/PersonPin";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import TaskIcon from "@mui/icons-material/Task";
+import React, { useState, useEffect } from "react";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [workO, setWorkO] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3702/allWorkOrder")
+      .then((response) => response.json())
+      .then((data) => setWorkO(data));
+  }, []);
+
+
+
 
 
   return (

@@ -312,3 +312,13 @@ app.get("/machine_list", function (req, res) {
         }
     )
 })
+
+
+//首頁
+app.get("/allWorkOrder", function (req, res) {
+    connection.query("SELECT COUNT(*) FROM work_order where DATE(process_date) = DATE(NOW());", [],
+        function (err, rows) {
+            res.send( JSON.stringify(rows) );
+        }
+    )
+})
