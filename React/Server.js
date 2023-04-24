@@ -44,7 +44,7 @@ var connection = mysql.createConnection({
     user: 'root',
     password: '',
     port: '3306',
-    database: 'mgbiglab'
+    database: 'eip'
 
 })
 
@@ -53,7 +53,7 @@ var pool = mysql.createPool({
     user: 'root',
     password: '',
     port: '3306',
-    database: 'mgbiglab'
+    database: 'eip'
 
 })
 
@@ -305,8 +305,10 @@ app.put("/products", function (req, res) {
 //機器(冠宇)
 
 
-app.get("/todo/machine", function (req, res) {
-    connection.query("select * from machinetable", [], function (err, rows) {
-        res.send(JSON.stringify(rows));
-    });
-});
+app.get("/machine_list", function (req, res) {
+    connection.query("select * from machine_list", [],
+        function (err, rows) {
+            res.send( JSON.stringify(rows) );
+        }
+    )
+})

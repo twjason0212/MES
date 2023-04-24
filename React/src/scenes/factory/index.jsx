@@ -52,7 +52,7 @@ const Factory = () => {
   // }, []);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:3702/todo/machine")
+    fetch("http://localhost:3702/machine_list")
       .then((response) => response.json())
       .then((data) => setMachines(data));
   }, []);
