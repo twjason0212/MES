@@ -17,7 +17,7 @@ const Order = () => {
         <React.Fragment>
             <Box m="20px">
                 <Header title="訂單總覽" />
-                <Box m="40px 0 0 0" height="75vh"
+                <Box m="40px 0 0 0" 
                     sx={{
                         "& .green-text": {
                             color: colors.greenAccent[300],

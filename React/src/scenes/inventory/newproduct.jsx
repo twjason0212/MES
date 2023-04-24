@@ -29,8 +29,8 @@ export default function Product() {
 
     const handleSubmitnew = (values, { setSubmitting }) => {
         const formData = new FormData();
-        formData.append('productname', values.productname);
-        formData.append('productphoto', values.productphoto);
+        formData.append('product_name', values.product_name);
+        formData.append('product_amount', values.product_amount);
         axios.post('http://127.0.0.1:3702/product/create', formData).then((response) => {
             console.log(response.data);
             });
@@ -55,13 +55,13 @@ export default function Product() {
                     <Formik
                         initialValues={{
                             
-                            productname: '',
-                            productphoto: ''
+                            product_name: '',
+                            photo_url: ''
                         }}
                         validationSchema={Yup.object({
                             
-                            productname: Yup.string().required('必填'),
-                            productphoto: Yup.mixed().required('必須選擇一個圖片'),
+                            product_name: Yup.string().required('必填'),
+                            photo_url: Yup.mixed().required('必須選擇一個圖片'),
                         })}
                         onSubmit={handleSubmitnew}
                     >
@@ -74,34 +74,34 @@ export default function Product() {
                                          InputLabelProps={{
                                             style:{ fontSize: 16 }
                                         }}
-                                            id="productname"
-                                            name="productname"
+                                            id="product_name"
+                                            name="product_name"
                                             label="產品名稱"
                                             fullWidth
-                                            value={values.productname}
+                                            value={values.product_name}
                                             onChange={handleChange}
-                                            error={touched.productname && Boolean(errors.productname)}
-                                            helperText={touched.productname && errors.productname}
+                                            error={touched.product_name && Boolean(errors.product_name)}
+                                            helperText={touched.product_name && errors.product_name}
                                         />
                                     </Grid>
                                 </Grid>
                                 <Grid container spacing={3}>
                                     <Grid xs={12}>
                                         <input
-                                            id="productphoto"
-                                            name="productphoto"
+                                            id="photo_url"
+                                            name="photo_url"
                                             label="產品照片"
                                             type='file'
                                             
                                             onChange={(event) => {
-                                                setFieldValue('productphoto', event.currentTarget.files[0]);
+                                                setFieldValue('photo_url', event.currentTarget.files[0]);
                                             }}
                                             
                                             
                                         />
-                                        {values.productphoto && (
+                                        {values.photo_url && (
                                             <div>
-                                                <img src={URL.createObjectURL(values.productphoto)} alt="proudct" />
+                                                <img src={URL.createObjectURL(values.photo_url)} alt="proudct" />
                                             </div>
                                         )}
                                     </Grid>

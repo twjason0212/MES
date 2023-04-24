@@ -6,6 +6,10 @@ var path = require('path');
 var fs = require('fs');
 var app = express();
 
+var bcrypt = require('bcrypt');
+var jwt = require('jsonwebtoken');
+var config = require('./config');
+
 app.use(cors());
 // 以 body-parser 模組協助 Express 解析表單與JSON資料
 var bodyParser = require('body-parser');
@@ -44,7 +48,7 @@ var connection = mysql.createConnection({
     user: 'root',
     password: '',
     port: '3306',
-    database: 'mgbiglab'
+    database: 'eip'
 
 })
 
@@ -53,7 +57,7 @@ var pool = mysql.createPool({
     user: 'root',
     password: '',
     port: '3306',
-    database: 'mgbiglab'
+    database: 'eip'
 
 })
 
@@ -75,6 +79,94 @@ connection.connect(function (error) {
         console.log('連線成功')
     }
 })
+
+//登入相關
+
+//設定token加密
+app.set('secret', config.secret);
+// 實做 api route
+var api = express.Router()
+
+app.use('/api', api)
+
+// API 根目錄，不須 middleware驗證token
+api.get('/', (req, res) => {
+    res.json({
+        success: true,
+        message: 'This is API Route ...'
+    })
+});
+
+// 使用者登入，傳送前端驗證Token , 不須 middleware驗證token
+api.post('/login', (req, res) => {
+    console.log(req.body);
+    // Mysql 找尋使用者
+
+    connection.query("select * from employee join department on  employee.department = department.id where employee_account = ?", [req.body.username], (error, result) => {
+        console.log(result[0].employee_pwd);
+        const paswod = bcrypt.compareSync(req.body.password, result[0].employee_pwd)
+        console.log(paswod);
+        //
+        if (error) {
+            res.json({
+                success: false,
+                error: error,
+                message: '資料庫錯誤'
+            })
+        }
+
+        //
+        if (!result) {
+            res.json({
+                success: false,
+                login_check: false,
+                password_check: false,
+                message: 'Login User 帳密不存在，請建立新使用者'
+            })
+        }
+
+        if (!paswod) {
+            res.json({
+                success: false,
+                login_check: true,
+                password_check: false,
+                message: 'Login User 帳密驗證錯誤',
+                token: ""
+            })
+
+        } else {
+            let setToken = {
+                login: result.employee_account,
+                name: result.employee_name,
+                email: result.employee_email
+
+            }
+
+            let token = jwt.sign(
+                JSON.parse(JSON.stringify(setToken)),
+                app.get('secret'),
+                { expiresIn: 60 * 60 * 24 }
+            )
+
+            res.json({
+                success: true,
+                login_check: true,
+                password_check: true,
+                message: '認證成功...',
+                token: token,
+                login: result[0].employee_account,
+                name: result[0].employee_name,
+                email: result[0].employee_email,
+                department: result[0].dept_name
+            })
+        }
+    });
+})
+
+
+
+
+
 
 app.get("/attdance", function (req, res) {
     connection.query("select id,EmployeeName,EmployeeId,DATE_FORMAT(starttime, '%Y-%m-%d %H:%i') as starttime,DATE_FORMAT(endtime, '%Y-%m-%d %H:%i') as endtime,holiday from att", function (error, data) {
@@ -269,13 +361,13 @@ app.get("/order/customerpie", function (req, res) {
 
 
 //新增產品(庫存)
-app.post('/product/create', upload.single('productphoto'), (req, res) => {
-    const { productname } = req.body;
-    const productphoto = req.file.filename;
+app.post('/product/create', upload.single('photo_url'), (req, res) => {
+    const { product_name } = req.body;
+    const photo_url = req.file.filename;
 
-    const sql = `INSERT INTO products (productname, productphoto) VALUES (?, ?)`;
+    const sql = `INSERT INTO product (product_name, photo_url) VALUES (?, ?)`;
 
-    connection.query(sql, [productname, productphoto], (err, result) => {
+    connection.query(sql, [product_name, photo_url], (err, result) => {
         if (err) {
             console.error('Error inserting product: ', err);
             res.status(500).send('Error inserting product');
@@ -286,17 +378,17 @@ app.post('/product/create', upload.single('productphoto'), (req, res) => {
 });
 
 //取得產品(庫存)
-app.get("/products", function (req, res) {
-    connection.query("select * from products", function (error, data) {
+app.get("/product", function (req, res) {
+    connection.query("select * from product", function (error, data) {
         res.send(JSON.stringify(data))
     })
 })
 
 //修改產品(庫存)
-app.put("/products", function (req, res) {
+app.put("/product", function (req, res) {
     connection.query(
-        "update products set stock = ? where productid =" + req.body.productid,
-        [req.body.stock]
+        "update products set product_amount	 = ? where product_id =" + req.body.product_id,
+        [req.body.product_amount	]
     );
     res.send("Update Finish");
 })
@@ -310,3 +402,41 @@ app.get("/todo/machine", function (req, res) {
         res.send(JSON.stringify(rows));
     });
 });
+
+
+
+// 言
+
+app.get("/employee", function (req, res) {
+    connection.query("SELECT employee.Id,employee.EmployeeId,employee.Name,department.name as Dept,employeeinfo.Year,employee.Address,employee.Phone,employee.Email FROM employee department ON employeeinfo.Dept = department.dept", function (error, data) {
+        // connection.query("select id,EmployeeName,EmployeeId,DATE_FORMAT(starttime, '%Y-%m-%d %H:%i') as starttime,DATE_FORMAT(endtime, '%Y-%m-%d %H:%i') as endtime,holiday from att", function (error, data) {
+        res.send(JSON.stringify(data))
+        console.log(data);
+    })
+})
+// 新增員工 言
+app.post("/employee/create", function (req, res) {
+    console.log("post start");
+    console.log(req.body.EmployeeID);
+    const paswod = bcrypt.hashSync(req.body.password, 10)
+    connection.query(`insert into employee (employee_account, employee_pwd, employee_name, employee_tel, employee_email, employee_status, department) 
+                 values (?,?,?,?,?,1,?)`, [req.body.account, paswod, req.body.name, req.body.tel, req.body.email, req.body.dept])
+})
+
+
+app.put("/employee", function (req, res) {
+    connection.query(
+        "update att set starttime = ? , endtime = ? , holiday = ? where id =" + req.body.id,
+        [req.body.starttime, req.body.endtime, req.body.holiday]
+    );
+    res.send("Update Finish");
+})
+
+//部門選擇 言
+app.get("/dept", function (req, res) {
+    connection.query("SELECT * FROM  department ", function (error, data) {
+        // connection.query("select id,EmployeeName,EmployeeId,DATE_FORMAT(starttime, '%Y-%m-%d %H:%i') as starttime,DATE_FORMAT(endtime, '%Y-%m-%d %H:%i') as endtime,holiday from att", function (error, data) {
+        res.send(JSON.stringify(data))
+        console.log(data)
+    })
+})

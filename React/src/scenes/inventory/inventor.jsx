@@ -19,7 +19,7 @@ export default function GridCard() {
     const colors = tokens(theme.palette.mode);
 
     useEffect(() => {
-        axios.get('http://127.0.0.1:3702/products')
+        axios.get('http://127.0.0.1:3702/product')
             .then(response => {
                 setCardData(response.data)
             })
@@ -43,7 +43,7 @@ export default function GridCard() {
     };
 
     const handleSave = (newData) => {
-        axios.put(`http://127.0.0.1:3702/products`, newData)
+        axios.put(`http://127.0.0.1:3702/product`, newData)
             .then(response => {
                 console.log(response);
             })
@@ -68,7 +68,7 @@ export default function GridCard() {
     const handleFilter = (event) => {
         setFilter({ ...filter, [event.target.name]: event.target.value });
     }
-    const filteredCard = cardData.filter((card) => {
+    const filteredCard = cardData?.filter((card) => {
         const { productname } = filter;
         return (
             card.productname.toLowerCase().includes(productname.toLowerCase())
@@ -92,18 +92,18 @@ export default function GridCard() {
             <Box sx={{ml:3}}> 
                 <Grid container spacing={2} >
                     {filteredCard.map((card) => (
-                        <Grid item xs={6} md={3} key={card.productid} onClick={() => handleClickOpen(card)}>
+                        <Grid item xs={6} md={3} key={card.product_id} onClick={() => handleClickOpen(card)}>
                             <Card sx={{ display: 'flex' }}>
                                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                                     <CardContent sx={{ flex: '1 0 auto' }}>
                                         <Typography component="div" variant="h6">
-                                            {card.productname}
+                                            {card.product_name}
                                         </Typography>
                                         <Typography variant="產品編號" color="text.secondary" component="div" mt="20px">
-                                            {card.productid}
+                                            {card.product_id}
                                         </Typography>
                                         <Typography variant="庫存數量" color="text.secondary" component="div" mt="20px">
-                                            數量:{card.stock}
+                                            數量:{card.product_amount}
                                         </Typography>
                                     </CardContent>
                                     <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
@@ -130,26 +130,26 @@ export default function GridCard() {
                             <DialogContent>
                                 <TextField sx={{ mt: 3 }}
                                     label="產品名稱"
-                                    value={datas.productname}
+                                    value={datas.product_name}
                                     fullWidth
 
                                     disabled
                                 />
                                 <TextField sx={{ mt: 5 }}
                                     label="產品編號"
-                                    value={datas.productid}
+                                    value={datas.product_id}
                                     fullWidth
 
                                     disabled
                                 />
                                 <TextField sx={{ mt: 5 }}
                                     label="庫存數量"
-                                    value={datas.stock}
+                                    value={datas.product_amount}
                                     fullWidth
                                     onChange={(event) =>
                                         setDatas({
                                             ...datas,
-                                            stock: event.target.value,
+                                            product_amount: event.target.value,
                                         })}
 
                                 />

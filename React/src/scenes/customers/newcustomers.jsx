@@ -27,9 +27,9 @@ export default function NewCustomers({ handleAdd }) {
 
 
     return (
-        <Box>
-            <Button variant='contained' color='primary' onClick={handleOpen}>
-                新增客戶資料
+        <Box sx={{'& .MuiButton-root':{fontSize:'16px',mr:4}}}>
+            <Button fullWidth variant="contained" size='large' color="secondary" onClick={handleOpen}>
+                新增客戶
             </Button>
             <Dialog open={open} onClose={handleClose}
                 maxWidth='lg'
@@ -67,7 +67,7 @@ export default function NewCustomers({ handleAdd }) {
                         {({ handleSubmit, handleChange, values, errors, touched }) => (
                             <Box component={Form} onSubmit={handleSubmit}>
                                 <Grid container spacing={3}>
-                                    <Grid item xs={6}>
+                                    <Grid  xs={6}>
                                         <TextField
                                             id="customername"
                                             name="customername"
@@ -79,7 +79,7 @@ export default function NewCustomers({ handleAdd }) {
                                             helperText={touched.customername && errors.customername}
                                         />
                                     </Grid>
-                                    <Grid item xs={6}>
+                                    <Grid  xs={6}>
                                         <TextField
                                             id="customerphone"
                                             name="customerphone"
@@ -93,7 +93,7 @@ export default function NewCustomers({ handleAdd }) {
                                     </Grid>
                                 </Grid>
                                 <Grid container spacing={3}>
-                                    <Grid item xs={6}>
+                                    <Grid  xs={6}>
                                         <TextField
                                             id="customeremail"
                                             name="customeremail"
@@ -106,7 +106,7 @@ export default function NewCustomers({ handleAdd }) {
                                             helperText={touched.customeremail && errors.customeremail}
                                         />
                                     </Grid>
-                                    <Grid item xs={6}>
+                                    <Grid  xs={6}>
                                         <TextField
                                             id="customerfax"
                                             name="customerfax"
@@ -120,7 +120,7 @@ export default function NewCustomers({ handleAdd }) {
                                     </Grid>
                                 </Grid>
                                 <Grid container spacing={3}>
-                                    <Grid item xs={12}>
+                                    <Grid  xs={12}>
                                         <TextField
                                             id="customeraddress"
                                             name="customeraddress"
