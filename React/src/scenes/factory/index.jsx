@@ -12,8 +12,6 @@
 import Header from "../../components/Header";
 import Grid from "@mui/material/Unstable_Grid2";
 import imgUrl from "../../media/pngwing.png";
-// import MachineCard1 from "../../components/MachineCard1";
-// import MachineCard2 from "../../components/MachineCard2";
 import imgUrl1 from "../../media/pngwing1.png";
 import imgUrl2 from "../../media/pngwing2.png";
 import {
@@ -159,7 +157,7 @@ const Factory = () => {
                         </DialogContentText>
                       </DialogContent>
                       <DialogActions>
-                        <Button autoFocus onClick={() => setOpen(false)}>
+                        <Button variant="contained" color="secondary" autoFocus onClick={() => setOpen(false)}>
                           <Typography variant="h4">Cancel</Typography>
                         </Button>
                       </DialogActions>

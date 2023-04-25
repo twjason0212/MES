@@ -314,9 +314,55 @@ app.get("/machine_list", function (req, res) {
 })
 
 
-//首頁
-app.get("/allWorkOrder", function (req, res) {
-    connection.query("SELECT COUNT(*) FROM work_order where DATE(process_date) = DATE(NOW());", [],
+//首頁(工單進度)
+app.get("/allWorkO", function (req, res) {
+    connection.query("SELECT COUNT(*) as totWo FROM work_order where DATE(process_date) = DATE(NOW());", [],
+        function (err, rows) {
+            res.send( JSON.stringify(rows) );
+        }
+    )
+})
+app.get("/todoWorkO", function (req, res) {
+    connection.query("SELECT COUNT(*) AS todoWo FROM work_order where work_order_status =0 and DATE(process_date) = DATE(NOW());", [],
+        function (err, rows) {
+            res.send( JSON.stringify(rows) );
+        }
+    )
+})
+//首頁(應到人數)
+app.get("/allEmp", function (req, res) {
+    connection.query("SELECT COUNT(*) as emp FROM `employee`;", [],
+        function (err, rows) {
+            res.send( JSON.stringify(rows) );
+        }
+    )
+})
+app.get("/punchInEmp", function (req, res) {
+    connection.query("SELECT COUNT(start_time) as punchinemp FROM attendance where DATE(start_time) = DATE(NOW());", [],
+        function (err, rows) {
+            res.send( JSON.stringify(rows) );
+        }
+    )
+})
+
+//首頁(安全庫存)
+app.get("/allPro", function (req, res) {
+    connection.query("SELECT COUNT(*) as proType FROM `product`;", [],
+        function (err, rows) {
+            res.send( JSON.stringify(rows) );
+        }
+    )
+})
+app.get("/proIsSafe", function (req, res) {
+    connection.query("SELECT COUNT(*) as proTypeIsSafe FROM `product` where (`product_amount`-`product_safe_amount`>0);", [],
+        function (err, rows) {
+            res.send( JSON.stringify(rows) );
+        }
+    )
+})
+//首頁(稼動)
+app.get("/machineAvgAva", function (req, res) {
+    connection.query("SELECT AVG(day_availability) as avg FROM `machine_list`;", [],
         function (err, rows) {
             res.send( JSON.stringify(rows) );
         }
