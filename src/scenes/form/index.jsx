@@ -24,7 +24,7 @@ const EmployeeForm = (props) => {
   const handleFormSubmit = (values) => {
     console.log(values);
     alert(JSON.stringify(values, null, 2));
-    axios.post('http://localhost:3702/employee', values)
+    axios.post('http://localhost:3702/employee/create', values)
       .then(response => {
         console.log(response.data);
         setDepts(response.data)
@@ -34,24 +34,6 @@ const EmployeeForm = (props) => {
       });
   };
 
-  // const [dept, setDepts] = useState([]);
-  // useEffect(() => {
-  //   getDepts();
-  // }, []);
-
-
-  // function getDepts() {
-  //   console.log("axios go ~~~~~");
-  //   axios.get('http://localhost:3702/dept')
-  //     .then(response => {
-  //       // console.log(response.data);
-  //       setDepts(response.data)
-  //     })
-  //     .catch(error => {
-  //       console.error(error);
-  //     });
-
-  // }
 
   // const department = () => map((dep) => ({ value: dep.name, label: dep.name }), dept);
   const [dept, setDepts] = useState([]);
@@ -60,7 +42,6 @@ const EmployeeForm = (props) => {
   }, []);
 
   function getDepts() {
-    console.log("axios go ~~~~~");
     axios.get('http://localhost:3702/dept')
       .then(response => {
         console.log(response.data);
@@ -73,245 +54,120 @@ const EmployeeForm = (props) => {
   }
 
   // 部門
-  const department = () => map((dep) => ({ value: dep.name, label: dep.name }), dept);
+  // const department = () => map((dep) => ({ value: dep.name, label: dep.name }), dept);
+
 
   return (
     <Box m="20px">
       <Header title="人資表" subtitle="基本資料" />
-
 
       <Formik
         onSubmit={handleFormSubmit}
         initialValues={initialValues}
       // validationSchema={checkoutSchema}
       >
+        {({ handleBlur, handleSubmit, handleChange, values, errors, touched }) => (
+          <Box component={Form} onSubmit={handleSubmit}>
+            <TextField
+              fullWidth
+              variant="filled"
+              type="text"
+              label="姓名"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={values.name}
+              name="name"
+              error={!!touched.name && !!errors.name}
+              helperText={touched.name && errors.name}
+              sx={{ '& label.Mui-focused': { color: '#4cceac' }, gridColumn: "span 2" }}
+            />
+            <TextField
+              fullWidth
+              variant="filled"
+              type="text"
+              label="帳號"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={values.account}
+              name="account"
+              error={!!touched.account && !!errors.account}
+              helperText={touched.account && errors.account}
+              sx={{ '& label.Mui-focused': { color: '#4cceac' }, gridColumn: "span 2" }}
+            />
+            <TextField
+              fullWidth
+              variant="filled"
+              type="text"
+              label="密碼"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={values.password}
+              name="password"
+              error={!!touched.password && !!errors.password}
+              helperText={touched.password && errors.password}
+              sx={{ '& label.Mui-focused': { color: '#4cceac' }, gridColumn: "span 2" }}
+            />
 
-        <Form>
-          <Box
-            display="grid"
-            gap="30px"
-            gridTemplateColumns="repeat(4, minmax(0, 1fr))"
-            sx={{
-              "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
-            }}
-          >
-
-            <Field
-              render={({ field, form }: FieldProps<IMyFormValues>) => (
-                <TextField
-                  fullWidth
-                  variant="filled"
-                  type="text"
-                  label="帳號"
-                  error={Boolean(
-                    form.errors.account && form.touched.account
-                  )}
-                  onBlur={form.handleBlur}
-                  onChange={form.handleChange}
-                  name="account"
-                  helperText={
-                    form.errors.account &&
-                    form.touched.account &&
-                    String(form.errors.account)
-                  }
-                />
-              )}
+            <TextField
+              fullWidth
+              variant="filled"
+              type="text"
+              label="電話"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={values.tel}
+              name="tel"
+              error={!!touched.tel && !!errors.tel}
+              helperText={touched.tel && errors.tel}
+              sx={{ '& label.Mui-focused': { color: '#4cceac' }, gridColumn: "span 2" }}
             />
-            <Field
-              render={({ field, form }: FieldProps<IMyFormValues>) => (
-                <TextField
-                  fullWidth
-                  variant="filled"
-                  type="text"
-                  label="密碼"
-                  error={Boolean(
-                    form.errors.password && form.touched.password
-                  )}
-                  onBlur={form.handleBlur}
-                  onChange={form.handleChange}
-                  name="password"
-                  helperText={
-                    form.errors.password &&
-                    form.touched.password &&
-                    String(form.errors.password)
-                  }
-                />
-              )}
+            <TextField
+              fullWidth
+              variant="filled"
+              type="text"
+              label="電子信箱"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={values.email}
+              name="email"
+              error={!!touched.email && !!errors.email}
+              helperText={touched.email && errors.email}
+              sx={{ '& label.Mui-focused': { color: '#4cceac' }, gridColumn: "span 2" }}
             />
-            <Field
-              render={({ field, form }: FieldProps<IMyFormValues>) => (
-                <TextField
-                  fullWidth
-                  variant="filled"
-                  type="text"
-                  label="姓名"
-                  error={Boolean(
-                    form.errors.name && form.touched.name
-                  )}
-                  onBlur={form.handleBlur}
-                  onChange={form.handleChange}
-                  name="name"
-                  helperText={
-                    form.errors.name &&
-                    form.touched.name &&
-                    String(form.errors.name)
-                  }
-                />
-              )}
+            {/* <select
+              name="dept"
+              value={values.color}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              style={{ display: "block" }}
+            >
+              <option value="" label="選擇部門">
+                選擇部門{" "}
+              </option>
+              {dept.map((option) => (
+                <option value={option.id} label={option.dept_name}>{option.dept_name}</option>
+              ))}
+            </select> */}
+            <Select
+              name="dept"
+              options={dept.map((option) => (
+                <option value={option.id} label={option.dept_name}>{option.dept_name}</option>
+              ))}
+              value={values.color}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              style={{ display: "block" }}
             />
-            <Field
-              render={({ field, form }: FieldProps<IMyFormValues>) => (
-                <TextField
-                  fullWidth
-                  variant="filled"
-                  type="text"
-                  label="電話"
-                  error={Boolean(
-                    form.errors.tel && form.touched.tel
-                  )}
-                  onBlur={form.handleBlur}
-                  onChange={form.handleChange}
-                  name="tel"
-                  helperText={
-                    form.errors.tel &&
-                    form.touched.tel &&
-                    String(form.errors.tel)
-                  }
-                />
-              )}
-            />
-            <Field
-              render={({ field, form }: FieldProps<IMyFormValues>) => (
-                <TextField
-                  fullWidth
-                  variant="filled"
-                  type="text"
-                  label="信箱"
-                  error={Boolean(
-                    form.errors.email && form.touched.email
-                  )}
-                  onBlur={form.handleBlur}
-                  onChange={form.handleChange}
-                  name="email"
-                  helperText={
-                    form.errors.email &&
-                    form.touched.email &&
-                    String(form.errors.email)
-                  }
-                />
-              )}
-            />
-            <Field
-              render={({ field, form }: FieldProps<IMyFormValues>) => (
-                <Select>
-                  options={department()}
-                </Select>
-              )}
-            />
-            {/* <Field
-              name="firstName"
-              render={({ field, form }: FieldProps<IMyFormValues>) => (
-                <TextField
-                  error={Boolean(
-                    form.errors.EmployeeID && form.touched.EmployeeID
-                  )}
-
-                  helperText={
-                    form.errors.EmployeeID &&
-                    form.touched.EmployeeID &&
-                    String(form.errors.EmployeeID)
-                  }
-                />
-              )}
-            /> */}
-            {/* <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="員工編號"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.EmployeeID}
-                name="EmployeeID"
-                error={!!touched.EmployeeID && !!errors.EmployeeID}
-                helperText={touched.EmployeeID && errors.EmployeeID}
-                sx={{ gridColumn: "span 2" }}
-            /> */}
-
-            {/* <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="年齡"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.age}
-                name="age"
-                error={!!touched.age && !!errors.age}
-                helperText={touched.age && errors.age}
-                sx={{ gridColumn: "span 2" }}
-              />
-              <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="姓名"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.firstName}
-                name="firstName"
-                error={!!touched.firstName && !!errors.firstName}
-                helperText={touched.firstName && errors.firstName}
-                sx={{ gridColumn: "span 2" }}
-              />
-              <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="帳號"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.lastName}
-                name="lastName"
-                error={!!touched.lastName && !!errors.lastName}
-                helperText={touched.lastName && errors.lastName}
-                sx={{ gridColumn: "span 2" }}
-              />
-              <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="電子信箱"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.email}
-                name="email"
-                error={!!touched.email && !!errors.email}
-                helperText={touched.email && errors.email}
-                sx={{ gridColumn: "span 2" }}
-              />
-              <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="電話"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.contact}
-                name="contact"
-                error={!!touched.contact && !!errors.contact}
-                helperText={touched.contact && errors.contact}
-                sx={{ gridColumn: "span 2" }}
-              /> */}
+           
+           
+            <button type="submit">Submit</button>
 
           </Box>
-          <Box display="flex" justifyContent="end" mt="20px">
-            <button type="submit">  Create New User</button>
-          </Box>
-        </Form>
 
-      </Formik>
-    </Box>
+        )
+        }
+      </Formik >
+    </Box >
   );
 };
 
@@ -333,12 +189,11 @@ const checkoutSchema = yup.object().shape({
   address2: yup.string().required("required"),
 });
 const initialValues = {
-  firstName: "",
-  lastName: "",
+  name: "",
+  account: "",
   email: "",
-  contact: "",
-  // address1: "",
-  // address2: "",
+  password: "",
+  dept: "",
 };
 
 export default EmployeeForm;

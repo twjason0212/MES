@@ -39,42 +39,35 @@ const Team = () => {
   }
 
   const columns = [
-    { field: 'Id', headerName: 'Id', width: 90 },
+    { field: 'employee_id', headerName: 'Id', width: 90 },
     {
-      field: 'EmployeeId',
+      field: 'employee_account',
       headerName: '員工編碼',
       width: 150,
       editable: true,
     },
     {
-      field: 'Name',
+      field: 'employee_name',
       headerName: '員工名稱',
       width: 150,
       editable: true,
     },
     {
-      field: 'Dept',
+      field: 'dept_name',
       headerName: '部門',
       type: 'number',
       width: 110,
       editable: true,
     },
     {
-      field: 'Year',
-      headerName: '年資',
-      type: 'number',
-      width: 110,
-      editable: true,
-    },
-    {
-      field: 'Address',
-      headerName: '地址',
-      width: 110,
-      editable: true,
-    },
-    {
-      field: 'Phone',
+      field: 'employee_tel',
       headerName: '電話',
+      width: 110,
+      editable: true,
+    },
+    {
+      field: 'employee_email',
+      headerName: '信箱',
       width: 110,
       editable: true,
     },
@@ -176,7 +169,7 @@ const Team = () => {
       <DataGrid
         rows={users}
         columns={columns}
-        getRowId={(user) => user.Id}
+        getRowId={(user) => user.employee_id}
         initialState={{
           pagination: {
             paginationModel: {

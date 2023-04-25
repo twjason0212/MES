@@ -44,7 +44,7 @@ var connection = mysql.createConnection({
     user: 'root',
     password: '',
     post: '3306',
-    database: 'tododb'
+    database: 'eip'
     // database: 'react_crud'
 
 })
@@ -58,17 +58,22 @@ connection.connect(function (error) {
 })
 
 app.get("/employee", function (req, res) {
-    connection.query("SELECT employee.Id,employee.EmployeeId,employee.Name,department.name as Dept,employeeinfo.Year,employee.Address,employee.Phone,employee.Email FROM employee LEFT JOIN employeeinfo ON employee.Employeeid = employeeinfo.EmployeeId LEFT JOIN department ON employeeinfo.Dept = department.dept", function (error, data) {
+    connection.query(`SELECT employee_id, employee.employee_account, employee.employee_name, 
+    department.dept_name, employee.employee_tel, employee.employee_email, role.role_name 
+    FROM employee
+    LEFT JOIN role ON employee.employee_role = role.id 
+    LEFT JOIN department ON employee.department = department.id`, function (error, data) {
         // connection.query("select id,EmployeeName,EmployeeId,DATE_FORMAT(starttime, '%Y-%m-%d %H:%i') as starttime,DATE_FORMAT(endtime, '%Y-%m-%d %H:%i') as endtime,holiday from att", function (error, data) {
         res.send(JSON.stringify(data))
         console.log(data);
     })
 })
 
-app.post("/employee", function (req, res) {
+app.post("/employee/create", function (req, res) {
     console.log("post start");
     console.log(req.body.EmployeeID);
-    connection.query(`insert into employee (employee_account) values (?)`, [req.body.EmployeeID])
+    connection.query(`insert into employee (employee_account, employee_pwd, employee_name, employee_tel, employee_email, employee_status, department) 
+                 values (?,?,?,?,?,1,?)`, [req.body.account, req.body.password, req.body.name, req.body.tel, req.body.email, req.body.dept])
 })
 
 app.put("/employee", function (req, res) {
@@ -80,9 +85,17 @@ app.put("/employee", function (req, res) {
 })
 
 app.get("/dept", function (req, res) {
-    connection.query("SELECT name,dept FROM  department ", function (error, data) {
+    connection.query("SELECT id, dept_name FROM  department ", function (error, data) {
         // connection.query("select id,EmployeeName,EmployeeId,DATE_FORMAT(starttime, '%Y-%m-%d %H:%i') as starttime,DATE_FORMAT(endtime, '%Y-%m-%d %H:%i') as endtime,holiday from att", function (error, data) {
         res.send(JSON.stringify(data))
         console.log(data)
+    })
+})
+
+app.get("/auth", function (req, res) {
+    connection.query(`SELECT employee_role.role_id, role.role_name,title,url FROM employee_role left join role on employee_role.role_id = role.id`, function (error, data) {
+        // connection.query("select id,EmployeeName,EmployeeId,DATE_FORMAT(starttime, '%Y-%m-%d %H:%i') as starttime,DATE_FORMAT(endtime, '%Y-%m-%d %H:%i') as endtime,holiday from att", function (error, data) {
+        res.send(JSON.stringify(data))
+        console.log(data);
     })
 })
