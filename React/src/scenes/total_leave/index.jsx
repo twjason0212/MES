@@ -7,6 +7,7 @@ import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../components/Header";
 import { tokens } from "../../theme";
 import { DataGrid } from "@mui/x-data-grid";
+import withAuth from "../../components/withAuth";
 
 const TotalLeave = () => {
 
@@ -79,4 +80,4 @@ const TotalLeave = () => {
     )
 };
 
-export default TotalLeave;
+export default withAuth(TotalLeave);

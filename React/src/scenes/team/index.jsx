@@ -7,6 +7,8 @@ import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettin
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../components/Header";
+import withAuth from "../../components/withAuth";
+
 
 const Team = () => {
   const theme = useTheme();
@@ -142,4 +144,4 @@ const Team = () => {
   );
 };
 
-export default Team;
+export default withAuth(Team);

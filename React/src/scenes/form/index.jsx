@@ -14,7 +14,7 @@ import React, { useState, useEffect, Component } from "react";
 import { map, find, propEq, forEach, isNil } from 'ramda';
 import axios from "axios";
 import chroma from 'chroma-js';
-
+import withAuth from "../../components/withAuth";
 import Select, { StylesConfig } from 'react-select';
 
 
@@ -207,4 +207,4 @@ const initialValues = {
   dept: "",
 };
 
-export default EmployeeForm;
+export default withAuth(EmployeeForm);

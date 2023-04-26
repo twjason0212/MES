@@ -7,12 +7,18 @@ import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Unstable_Grid2';
+import {useTheme }from '@mui/material';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
+import { tokens } from "../../theme";
 
 export default function NewCustomers({ handleAdd }) {
     const [open, setopen] = useState(false);
+
+    const theme = useTheme();
+    const colors = tokens(theme.palette.mode);
+
 
     const handleOpen = () => {
         setopen(true);
@@ -27,14 +33,24 @@ export default function NewCustomers({ handleAdd }) {
 
 
     return (
-        <Box sx={{'& .MuiButton-root':{fontSize:'16px',mr:4}}}>
-            <Button fullWidth variant="contained" size='large' color="secondary" onClick={handleOpen}>
-                新增客戶
-            </Button>
+        <Box sx={{ '& .MuiButton-root': { fontSize: '16px', mr: 2 } }}>
+            <Box sx={{display:'flex',justifyContent:'flex-end'}}>
+                <Button variant="contained" size='large' color="secondary" onClick={handleOpen}>
+                    新增客戶
+                </Button>
+            </Box>
             <Dialog open={open} onClose={handleClose}
                 maxWidth='lg'
-                sx={{ '& .MuiTextField-root': { m: 1, mt: 2 }, }}>
-                <DialogTitle>新增客戶資料</DialogTitle>
+                sx={{ '& .MuiTextField-root': { m: 1, mt: 2 }, 
+                "& .green-text": {
+                    color: colors.greenAccent[200],
+                    fontSize: "16px",
+                },
+                "& .titlegreen-text": {
+                    color: colors.greenAccent[500],
+                    fontSize: "22px",
+                },}}>
+                <DialogTitle className="titlegreen-text">新增客戶資料</DialogTitle>
                 <DialogContent>
                     <Formik
                         initialValues={{
@@ -59,15 +75,16 @@ export default function NewCustomers({ handleAdd }) {
                                 .catch((error) => {
                                     console.log(error);
                                 });
-                            
+
                             handleAdd();
                             handleClose();
                         }}
                     >
                         {({ handleSubmit, handleChange, values, errors, touched }) => (
-                            <Box component={Form} onSubmit={handleSubmit}>
+                            <Box component={Form} onSubmit={handleSubmit} sx={{'& label.Mui-focused': {
+                                color: '#4cceac'}}}>
                                 <Grid container spacing={3}>
-                                    <Grid  xs={6}>
+                                    <Grid xs={6}>
                                         <TextField
                                             id="customername"
                                             name="customername"
@@ -79,7 +96,7 @@ export default function NewCustomers({ handleAdd }) {
                                             helperText={touched.customername && errors.customername}
                                         />
                                     </Grid>
-                                    <Grid  xs={6}>
+                                    <Grid xs={6}>
                                         <TextField
                                             id="customerphone"
                                             name="customerphone"
@@ -93,7 +110,7 @@ export default function NewCustomers({ handleAdd }) {
                                     </Grid>
                                 </Grid>
                                 <Grid container spacing={3}>
-                                    <Grid  xs={6}>
+                                    <Grid xs={6}>
                                         <TextField
                                             id="customeremail"
                                             name="customeremail"
@@ -106,7 +123,7 @@ export default function NewCustomers({ handleAdd }) {
                                             helperText={touched.customeremail && errors.customeremail}
                                         />
                                     </Grid>
-                                    <Grid  xs={6}>
+                                    <Grid xs={6}>
                                         <TextField
                                             id="customerfax"
                                             name="customerfax"
@@ -120,7 +137,7 @@ export default function NewCustomers({ handleAdd }) {
                                     </Grid>
                                 </Grid>
                                 <Grid container spacing={3}>
-                                    <Grid  xs={12}>
+                                    <Grid xs={12}>
                                         <TextField
                                             id="customeraddress"
                                             name="customeraddress"
@@ -133,9 +150,9 @@ export default function NewCustomers({ handleAdd }) {
                                         />
                                     </Grid>
                                 </Grid>
-                                <DialogActions>
-                                    <Button onClick={handleClose} color="primary">取消</Button>
-                                    <Button type="submit">儲存</Button>
+                                <DialogActions sx={{mt:2}}>
+                                    <Button variant="contained" onClick={handleClose} color="error">取消</Button>
+                                    <Button variant="contained" color="info" type="submit">儲存</Button>
                                 </DialogActions>
                             </Box>
                         )}

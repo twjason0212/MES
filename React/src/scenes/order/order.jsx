@@ -5,7 +5,7 @@ import { Box, useTheme } from '@mui/material';
 import Ordertable from './ordertable.jsx';
 import Pie from './pieproduct';
 import Pie2 from './piecustomer';
-
+import withAuth from "../../components/withAuth";
 import Header from "../../components/Header";
 import { tokens } from "../../theme";
 const Order = () => {
@@ -60,4 +60,4 @@ const Order = () => {
 
 }
 
-export default Order;
+export default withAuth(Order);

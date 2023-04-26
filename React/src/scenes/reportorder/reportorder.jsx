@@ -1,49 +1,51 @@
-import React from 'react';
-import { Box, useTheme, TextField, Button } from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2';
-import { Formik, Form } from 'formik';
+import React from "react";
+import { TextField } from "@mui/material";
+import axios from "axios";
+import { Formik } from "formik";
 import * as Yup from 'yup';
-import axios from 'axios';
 import Header from "../../components/Header";
 import { tokens } from "../../theme";
 import withAuth from "../../components/withAuth";
 
 
-const WorkOrder = () => {
+
+const ReportOrder = () => {
 
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-
     return (
         <Box m="20px">
-            <Header title="派工單" subtitle="新增派工單"/>
+            <Header title="報工單" subtitle="填寫報工單" />
             <Box sx={{
                 // backgroundColor: colors.primary[400],
                 "& .green-text": {
                     color: colors.greenAccent[300],
                     fontSize: "22px",
-                    p:3,
+                    p: 3,
                 },
             }} >
                 {/* <div className="green-text">填寫派工單</div> */}
                 <Formik
                     initialValues={{
                         work_order_id: '',
-                        work_order_creator: '',
-                        work_order_executor: '',
                         machine_uuid: '',
-                        product_name: '',
-                        process_date: '',
                         tar_process_amount: '',
+                        product_name: '',
+                        report_order_creator: '',
+                        real_process_amount: '',
+                        defect_process_amount: '',
+                        process_date: '',
                     }}
                     validationSchema={Yup.object({
                         work_order_id: Yup.string().required('請輸入派工單號'),
-                        work_order_creator: Yup.string().required('請輸入派工單建立人員'),
-                        work_order_executor: Yup.string().required('請輸入派工單接收人員'),
                         machine_uuid: Yup.string().required('請輸入機器編號'),
-                        product_name: Yup.string().required('請輸入產品名稱'),
-                        process_date: Yup.date().max(new Date(), '日期不能晚於今天').required('請輸入建立日期'),
                         tar_process_amount: Yup.number().typeError('必須為數字').min(1, '數量不能為0或負數').required('必填'),
+                        product_name: Yup.string().required('請輸入產品名稱'),
+                        report_order_creator: Yup.string().required('請輸入報工單建立人員'),
+                        real_process_amount: Yup.number().typeError('必須為數字').min(1, '數量不能為0或負數').required('必填'),
+                        defect_process_amount: Yup.number().typeError('必須為數字').min(0, '數量不能為負數').required('必填'),
+                        process_date: Yup.date().max(new Date(), '日期不能晚於今天').required('請輸入建立日期'),
+
                     })}
                     onSubmit={(values) => {
                         // axios.post('http://127.0.0.1:3702/coustomer/create', values)
@@ -57,8 +59,11 @@ const WorkOrder = () => {
                     }}
                 >
                     {({ handleSubmit, handleChange, values, errors, touched }) => (
-                        <Box component={Form} onSubmit={handleSubmit} sx={{'& label.Mui-focused': {
-                            color: '#4cceac'}}}>
+                        <Box component={Form} onSubmit={handleSubmit} sx={{
+                            '& label.Mui-focused': {
+                                color: '#4cceac'
+                            }
+                        }}>
                             <Grid container spacing={3} p="20px 12px">
                                 <Grid xs={6}>
                                     <TextField
@@ -75,7 +80,7 @@ const WorkOrder = () => {
                                 </Grid>
                                 <Grid xs={6}>
                                     <TextField
-                                    variant="filled"
+                                        variant="filled"
                                         id="work_order_creator"
                                         name="work_order_creator"
                                         label="派工單建立人員"
@@ -90,7 +95,7 @@ const WorkOrder = () => {
                             <Grid container spacing={3} p="20px 12px" >
                                 <Grid xs={6}>
                                     <TextField
-                                    variant="filled"
+                                        variant="filled"
                                         id="work_order_executor"
                                         name="work_order_executor"
                                         label="派工單接收人員"
@@ -103,7 +108,7 @@ const WorkOrder = () => {
                                 </Grid>
                                 <Grid xs={6}>
                                     <TextField
-                                    variant="filled"
+                                        variant="filled"
                                         id="machine_uuid"
                                         name="machine_uuid"
                                         label="機器編號"
@@ -118,7 +123,7 @@ const WorkOrder = () => {
                             <Grid container spacing={3} p="20px 12px">
                                 <Grid xs={6}>
                                     <TextField
-                                    variant="filled"
+                                        variant="filled"
                                         id="product_name"
                                         name="product_name"
                                         label="產品名稱"
@@ -131,7 +136,7 @@ const WorkOrder = () => {
                                 </Grid>
                                 <Grid xs={6}>
                                     <TextField
-                                    variant="filled"
+                                        variant="filled"
                                         id="process_date"
                                         name="process_date"
                                         label="建立日期"
@@ -152,7 +157,7 @@ const WorkOrder = () => {
                             <Grid container spacing={3} p="20px 12px">
                                 <Grid xs={6}>
                                     <TextField
-                                    variant="filled"
+                                        variant="filled"
                                         id="tar_process_amount"
                                         name="tar_process_amount"
                                         label="預計加工量"
@@ -176,5 +181,4 @@ const WorkOrder = () => {
     )
 
 }
-
-export default withAuth(WorkOrder);
+export default withAuth(ReportOrder);

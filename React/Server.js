@@ -64,7 +64,7 @@ var pool = mysql.createPool({
 //定義storage是存在public/media/資料夾中
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'src/media');
+        cb(null, 'public/media');
     },
     filename: (req, file, cb) => {
         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
@@ -164,31 +164,108 @@ api.post('/login', (req, res) => {
 })
 
 
+//打卡
+app.post("/attendance/checkin", function (req, res) {
+    console.log(req.body.starttime)
+    if (req.body.starttime != " ") {
+        // 上班
+        connection.query("SELECT * FROM attendance WHERE employee_account = ? AND DATE(starttime) = CURDATE()", [req.body.employee_account], function (error, results, fields) {
+            if (error) {
+                console.log("Error occurred: " + error.message);
+                res.status(500).send("Error occurred: " + error.message);
+            } else if (results.length > 0) {
+                // 已经有上班记录了
+                res.status(400).send("You have already checked in");
+            } else {
+                connection.query("INSERT INTO attendance SET employee_account = ?, starttime = ?, status = ?", [req.body.employee_account, req.body.starttime, 1], function (error, results, fields) {
+                    if (error) {
+                        console.log("Error occurred: " + error.message);
+                        res.status(500).send("Error occurred: " + error.message);
+                    } else {
+                        res.send("Attendance record inserted successfully");
+                    }
+                });
+            }
+        });
+    } else if (req.body.endtime != " ") {
+        // 下班
+        connection.query("SELECT * FROM attendance WHERE employee_account = ? AND DATE(starttime) = CURDATE()", [req.body.employee_account], function (error, results, fields) {
+            if (error) {
+                console.log("Error occurred: " + error.message);
+                res.status(500).send("Error occurred: " + error.message);
+            } else if (results.length === 0) {
+                // 没有上班记录
+                res.status(400).send("You haven't checked in yet");
+            } else if (results[0].endtime !== null) {
+                // 已经有下班记录了
+                res.status(400).send("You have already checked out");
+            } else {
+                connection.query("UPDATE attendance SET endtime = ? WHERE employee_account = ? AND DATE(starttime) = CURDATE()", [req.body.endtime, req.body.employee_account], function (error, results, fields) {
+                    if (error) {
+                        console.log("Error occurred: " + error.message);
+                        res.status(500).send("Error occurred: " + error.message);
+                    } else {
+                        res.send("Attendance record updated successfully");
+                    }
+                });
+            }
+        });
+    } else {
+        res.status(400).send("Invalid request body");
+    }
+});
+
+//個人版出缺勤
+app.get("/attendance/emp", function(req, res) {
+    connection.query("select starttime, endtime from attendance  where employee_account = ?",[req.query.user], function (error, data){
+        if (error) {
+            console.log(error);
+            return res.status(500).send(error);
+          }
+          
+          const newData = data.map((item) => {
+            const start = new Date(item.starttime);
+            const end = new Date(item.endtime);
+            const startWithOffset = new Date(start.getTime() - (start.getTimezoneOffset() * 60000));
+            const endWithOffset = new Date(end.getTime() - (end.getTimezoneOffset() * 60000));
+            
+            return {
+              starttime: startWithOffset,
+              endtime: endWithOffset,
+            };
+          });
+          
+          res.send(newData);
+          console.log(newData);
+        });
+})
 
 
-
-
-app.get("/attdance", function (req, res) {
-    connection.query("select id,EmployeeName,EmployeeId,DATE_FORMAT(starttime, '%Y-%m-%d %H:%i') as starttime,DATE_FORMAT(endtime, '%Y-%m-%d %H:%i') as endtime,holiday from att", function (error, data) {
+//人事版出缺勤
+app.get("/attendance", function (req, res) {
+    connection.query("select id, employee.employee_name, employee.employee_id ,DATE_FORMAT(starttime, '%Y-%m-%d %H:%i') as starttime,DATE_FORMAT(endtime, '%Y-%m-%d %H:%i') as endtime from attendance join employee on employee.employee_account = attendance.employee_account;", function (error, data) {
         res.send(JSON.stringify(data))
-        console.log(data)
+        // console.log(data)
     })
 })
 
-app.put("/attdance", function (req, res) {
+//人事版出缺勤修改
+app.put("/attendance", function (req, res) {
     connection.query(
-        "update att set starttime = ? , endtime = ? , holiday = ? where id =" + req.body.id,
-        [req.body.starttime, req.body.endtime, req.body.holiday]
+        "update attendance set starttime = ? , endtime = ? , status = ? where id =" + req.body.id,
+        [req.body.starttime, req.body.endtime, req.body.status]
     );
     res.send("Update Finish");
 })
 
+//客戶資料取得
 app.get("/coustomer", function (req, res) {
     connection.query("select * from customers", function (error, data) {
         res.send(JSON.stringify(data))
     })
 })
 
+//客戶資料修改
 app.put("/coustomer", function (req, res) {
     connection.query(
         "update customers set customerphone = ? , customeremail = ? , customeraddress = ? ,customerfax = ? where customerid =" + req.body.customerid,
@@ -197,6 +274,7 @@ app.put("/coustomer", function (req, res) {
     res.send("Update Finish");
 })
 
+//新增客戶資料
 app.post("/coustomer/create", function (req, res) {
     connection.query("insert into customers set customername = ?, customerphone = ? , customeremail = ?, customeraddress = ?, customerfax = ?",
         [req.body.customername, req.body.customerphone, req.body.customeremail, req.body.customeraddress, req.body.customerfax]);
@@ -364,6 +442,7 @@ app.get("/order/customerpie", function (req, res) {
 app.post('/product/create', upload.single('photo_url'), (req, res) => {
     const { product_name } = req.body;
     const photo_url = req.file.filename;
+    console.log(req.body);
 
     const sql = `INSERT INTO product (product_name, photo_url) VALUES (?, ?)`;
 
@@ -388,10 +467,22 @@ app.get("/product", function (req, res) {
 app.put("/product", function (req, res) {
     connection.query(
         "update products set product_amount	 = ? where product_id =" + req.body.product_id,
-        [req.body.product_amount	]
+        [req.body.product_amount]
     );
     res.send("Update Finish");
 })
+
+
+//報工
+app.get('/workorder', function (req , res){
+    connection.query("select * from work_order join work_order_status on work_order.work_order_status = work_order_status.id join product on product.product_id = work_order.product_id",function(error, data){
+        
+          res.send(JSON.stringify(data));
+          console.log(data);
+        });
+    })
+
+
 
 
 //機器(冠宇)

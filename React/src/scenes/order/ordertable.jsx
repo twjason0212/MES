@@ -4,7 +4,7 @@ import { TablePagination, useTheme, Box, Button, Dialog, DialogContent, DialogTi
 import axios from 'axios';
 import { tokens } from "../../theme";
 import Neworder2 from './neworder2.jsx';
-
+import Grid from '@mui/material/Unstable_Grid2';
 function getDaysDiff(date1, date2) {
     const timeDiff = date2.getTime() - date1.getTime();
     const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
@@ -102,10 +102,16 @@ const OrdersTable = () => {
     };
 
     return (
-        <Box sx={{mt:2}}>
-            <div style={{ backgroundColor: colors.primary[400] ,marginBottom:'20px'}}>
-                <Typography sx={{color: colors.greenAccent[300],
-                            fontSize: "22px",px:"30px" ,py:'20px'}}>
+        <Box sx={{ mt: 2 }}>
+            <Box style={{ backgroundColor: colors.primary[400], marginBottom: '20px' }} sx={{
+                '& label.Mui-focused': {
+                    color: '#4cceac'
+                }
+            }}>
+                <Typography sx={{
+                    color: colors.greenAccent[300],
+                    fontSize: "22px", px: "30px", py: '20px'
+                }}>
                     搜索欄
                 </Typography>
                 <div style={{ display: 'flex', justifyContent: 'Space-evenly', paddingBottom: '20px' }}>
@@ -130,12 +136,12 @@ const OrdersTable = () => {
                         onChange={handleChange}
                     />
                 </div>
-            </div>
+            </Box>
             <Neworder2 />
             <TableContainer >
                 <Table sx={{ backgroundColor: colors.primary[400], mt: 3, '& .textcen': { fontSize: '16px', textAlign: "center" } }}>
                     <TableHead sx={{
-                        backgroundColor: colors.blueAccent[700], mt: 2,
+                        backgroundColor: colors.blueAccent[600], mt: 2,
                     }}>
                         <TableRow>
                             <TableCell className='textcen'>訂單編號</TableCell>
@@ -170,38 +176,50 @@ const OrdersTable = () => {
                                     <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
                                         <Collapse in={collopen.includes(order.orderid)} timeout="auto" unmountOnExit>
                                             <AccordionSummary aria-controls="panel1c-content" id="panel1c-header">
-                                                <Typography >客戶資料</Typography>
+                                                <Typography variant="h4" sx={{ mt: 1, p: 1, backgroundColor: colors.blueAccent[700] }}>客戶資料</Typography>
                                             </AccordionSummary>
                                             <AccordionDetails>
-                                                <Typography>
+                                                <Grid container spacing={3} sx={{ml:3}}>
+                                                    <Grid xs={6}>
+                                                        <Typography variant='h5'>客戶名稱:{order.customername}</Typography>
+                                                    </Grid>
+                                                    <Grid xs={6}>
+                                                        <Typography variant='h5'>客戶電話:{order.customerphone}</Typography>
+                                                    </Grid>
+                                                    <Grid xs={6}>
+                                                        <Typography variant='h5'>客戶e-mail: {order.customeremail}</Typography>
+                                                    </Grid>
+                                                    <Grid xs={6}>
 
-                                                    客戶名稱: {order.customername}<br />
-                                                    客戶e-mail: {order.customeremail}<br />
-                                                    客戶電話:   {order.customerphone}<br />
-                                                    客戶傳真:   {order.customerfax}<br />
-                                                    客戶地址:   {order.customeraddress}<br />
-
-                                                </Typography>
+                                                        <Typography variant='h5'>客戶傳真:{order.customerfax}</Typography>
+                                                    </Grid>
+                                                    <Grid xs={6}>
+                                                        <Typography variant='h5'>客戶地址:{order.customeraddress}</Typography>
+                                                    </Grid>
+                                                </Grid>
                                             </AccordionDetails>
                                             <AccordionSummary aria-controls="panel1c-content" id="panel1c-header">
-                                                <Typography >產品資料</Typography>
+                                                <Typography variant="h4" sx={{ mt: 1, p: 1, backgroundColor: colors.blueAccent[700] }}>訂單資料</Typography>
                                             </AccordionSummary>
                                             <AccordionDetails>
-                                                <Table>
-                                                    <TableHead>
+                                                <Table sx={{
+                                                    '& .MuiTableCell-body': { fontSize: '16px' },
+                                                    '& .MuiTableCell-head': { fontSize: '16px' }
+                                                }}>
+                                                    <TableHead sx={{ backgroundColor: colors.blueAccent[700] }}>
                                                         <TableRow>
-                                                            <TableCell>產品名稱</TableCell>
-                                                            <TableCell>數量</TableCell>
-                                                            <TableCell>價格</TableCell>
+                                                            <TableCell align='center'>產品名稱</TableCell>
+                                                            <TableCell align='center'>數量</TableCell>
+                                                            <TableCell align='center'>價格</TableCell>
                                                         </TableRow>
                                                     </TableHead>
                                                     {order.product.map((product) => (
 
                                                         <TableBody key={product.productname}>
                                                             <TableRow>
-                                                                <TableCell>{product.productname}</TableCell>
-                                                                <TableCell>{product.quty}</TableCell>
-                                                                <TableCell>{product.price}</TableCell>
+                                                                <TableCell align='center'>{product.productname}</TableCell>
+                                                                <TableCell align='center'>{product.quty}</TableCell>
+                                                                <TableCell align='center'>{product.price}</TableCell>
                                                             </TableRow>
                                                         </TableBody>
 
@@ -215,7 +233,7 @@ const OrdersTable = () => {
                         ))}
 
                     </TableBody>
-                    <TableFooter sx={{
+                    {/* <TableFooter sx={{
                         backgroundColor: colors.blueAccent[700]
                     }}>
                         <TableRow>
@@ -235,16 +253,17 @@ const OrdersTable = () => {
 
                             </TableCell>
                         </TableRow>
-                    </TableFooter>
+                    </TableFooter> */}
                 </Table>
 
                 {/* 編輯資料 */}
                 {orderdata && (
-                    <Dialog open={clickOpen} onClose={handleClose} sx={{ '& .MuiTextField-root': { mt: 2 }, }}
+                    <Dialog open={clickOpen} onClose={handleClose} sx={{ '& .MuiTextField-root': { mt: 2,fontSize:'16px'},
+                    '& label.Mui-focused': {color: '#4cceac'}  }}
                         maxWidth='lg'
                     >
-                        <DialogTitle>編輯訂單</DialogTitle>
-                        <DialogContent>
+                        <DialogTitle variant="h4" sx={{color:colors.greenAccent[500]}}>編輯訂單</DialogTitle>
+                        <DialogContent sx={{ml:2}}>
                             <TextField
                                 label="訂單編號"
                                 value={orderdata.orderid}
@@ -294,9 +313,9 @@ const OrdersTable = () => {
                                     })
                                 }
                             />
-                            <DialogActions>
-                                <Button variant="contained" onClick={handleClose} color="primary">取消</Button>
-                                <Button variant="contained" onClick={() => handleSaveClick(orderdata)}>
+                            <DialogActions sx={{mt:2}}>
+                                <Button sx={{width:'50%'}} variant="contained" onClick={handleClose} color="error">取消</Button>
+                                <Button sx={{width:'50%'}} variant="contained" type="submit" color="info" onClick={() => handleSaveClick(orderdata)}>
                                     儲存
                                 </Button>
                             </DialogActions>
@@ -307,7 +326,7 @@ const OrdersTable = () => {
 
             </TableContainer>
 
-        </Box>
+        </Box >
     );
 };
 

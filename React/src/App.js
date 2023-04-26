@@ -20,6 +20,9 @@ import Order from "./scenes/order/order";
 import Attendance from "./scenes/attendance/attendance";
 import Customers from "./scenes/customers/customers";
 import WorkOrder from './scenes/workorder/workOrder';
+import WorkOrderList from "./scenes/workorderlist/workorderlist";
+import Attdatetime from "./scenes/attdatetime/attdatetime";
+import Checkin from "./scenes/checkin/checkin";
 
 
 
@@ -93,6 +96,9 @@ function App() {
             <Route path="/order" element={<Layout><Order /></Layout>} />-
             <Route path="/customers" element={<Layout><Customers /></Layout>} />
             <Route path='/workorder' element={<Layout><WorkOrder /></Layout>} />-
+            <Route path='/checkin' element={<Layout><Checkin /></Layout>} />-
+            <Route path='/attdatetime' element={<Layout><Attdatetime /></Layout>} />-
+            <Route path='/workorderlist' element={<Layout><WorkOrderList /></Layout>} />-
 
             {/* <Route path="/attendance" element={<Attendance />} /> */}
             <Route path="/total_leave" element={<Layout><TotalLeave /></Layout>} />

@@ -106,7 +106,8 @@ export default function NewOrder() {
                             handleClose();
                         }}>
                         {({ values, errors, touched, setFieldValue, handleChange, handleBlur, handleSubmit }) => (
-                            <Box component={Form} onSubmit={handleSubmit} 
+                            <Box component={Form} onSubmit={handleSubmit} sx={{'& label.Mui-focused': {
+                                color: '#4cceac'}}}
                             >
                                 <Grid container spacing={2}>
                                     <Grid item xs display="flex" justifyContent="center" alignItems="center">
@@ -243,7 +244,7 @@ export default function NewOrder() {
                                     )}
                                 </FieldArray>
 
-                                <DialogActions>
+                                <DialogActions sx={{mt:2}}>
                                     <Button variant="contained" onClick={handleClose} color="error">取消</Button>
                                     <Button variant="contained" type="submit" color="info">儲存</Button>
                                 </DialogActions>

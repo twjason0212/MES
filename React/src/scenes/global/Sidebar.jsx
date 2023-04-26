@@ -195,143 +195,178 @@ const Sidebar = () => {
             <>
 
               言
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <PeopleOutlinedIcon />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary="員工基本資料" />
-                  {/* <Link to="/team"></Link> */}
-                </ListItemButton>
-              </List>
+              <>
+                <List component="div" disablePadding>
+                  <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemIcon>
+                      <PeopleOutlinedIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary="員工基本資料" />
+                    {/* <Link to="/team"></Link> */}
+                  </ListItemButton>
+                </List>
 
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <PeopleOutlinedIcon />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary="所有員工資料" />
-                  <Link to="/team"></Link>
-                </ListItemButton>
-              </List>
+                <List component="div" disablePadding>
+                  <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemIcon>
+                      <PeopleOutlinedIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary="所有員工資料" />
+                    <Link to="/team"></Link>
+                  </ListItemButton>
+                </List>
 
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <FeedRoundedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="新增員工" />
-                  <Link to="/form"></Link>
-                </ListItemButton>
-              </List>
-
+                <List component="div" disablePadding>
+                  <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemIcon>
+                      <FeedRoundedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="新增員工" />
+                    <Link to="/form"></Link>
+                  </ListItemButton>
+                </List>
+              </>
 
               佩
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <FeedRoundedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="請假單申請" />
-                  <Link to="/leave"></Link>
-                </ListItemButton>
-              </List>
+              <>
+                <List component="div" disablePadding>
+                  <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemIcon>
+                      <FeedRoundedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="請假單申請" />
+                    <Link to="/leave"></Link>
+                  </ListItemButton>
+                </List>
 
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <FeedRoundedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="加班單申請" />
-                  <Link to="/overtime"></Link>
-                </ListItemButton>
-              </List>
+                <List component="div" disablePadding>
+                  <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemIcon>
+                      <FeedRoundedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="加班單申請" />
+                    <Link to="/overtime"></Link>
+                  </ListItemButton>
+                </List>
 
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <ChecklistIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="出缺勤狀況 1" />
-                  <Link to="/total_leave"></Link>
-                </ListItemButton>
-              </List>
+                <List component="div" disablePadding>
+                  <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemIcon>
+                      <ChecklistIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="出缺勤狀況 1" />
+                    <Link to="/total_leave"></Link>
+                  </ListItemButton>
+                </List>
+              </>
 
               冠
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <FeedRoundedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="監控面板" />
-                  <Link to="/dashboard"></Link>
-                </ListItemButton>
-              </List>
+              <>
+                <List component="div" disablePadding>
+                  <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemIcon>
+                      <FeedRoundedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="監控面板" />
+                    <Link to="/dashboard"></Link>
+                  </ListItemButton>
+                </List>
 
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <FeedRoundedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="機台總攬" />
-                  <Link to="/factory"></Link>
-                </ListItemButton>
-              </List>
-
+                <List component="div" disablePadding>
+                  <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemIcon>
+                      <FeedRoundedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="機台總攬" />
+                    <Link to="/factory"></Link>
+                  </ListItemButton>
+                </List>
+              </>
 
               峰
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <FeedRoundedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="報工" />
-                  <Link to="/workorder"></Link>
-                </ListItemButton>
-              </List>
+              <>
+                <List component="div" disablePadding>
+                  <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemIcon>
+                      <FeedRoundedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="報工" />
+                    <Link to="/workorder"></Link>
+                  </ListItemButton>
+                </List>
 
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <FeedRoundedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="產品管理" />
-                  <Link to="/inventory"></Link>
-                </ListItemButton>
-              </List>
+                <List component="div" disablePadding>
+                  <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemIcon>
+                      <FeedRoundedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="工單列表" />
+                    <Link to="/workorderlist"></Link>
+                  </ListItemButton>
+                </List>
 
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <FeedRoundedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="訂單管理" />
-                  <Link to="/order"></Link>
-                </ListItemButton>
-              </List>
+                <List component="div" disablePadding>
+                  <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemIcon>
+                      <FeedRoundedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="產品管理" />
+                    <Link to="/inventory"></Link>
+                  </ListItemButton>
+                </List>
 
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <FeedRoundedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="客戶管理" />
-                  <Link to="/customers"></Link>
-                </ListItemButton>
-              </List>
+                <List component="div" disablePadding>
+                  <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemIcon>
+                      <FeedRoundedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="訂單管理" />
+                    <Link to="/order"></Link>
+                  </ListItemButton>
+                </List>
 
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <FeedRoundedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="出缺勤狀況 2" />
-                  <Link to="/attendance"></Link>
-                </ListItemButton>
-              </List>
+                <List component="div" disablePadding>
+                  <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemIcon>
+                      <FeedRoundedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="客戶管理" />
+                    <Link to="/customers"></Link>
+                  </ListItemButton>
+                </List>
 
+                <List component="div" disablePadding>
+                  <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemIcon>
+                      <FeedRoundedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="出缺勤狀況 2" />
+                    <Link to="/attendance"></Link>
+                  </ListItemButton>
+                </List>
+
+                <List component="div" disablePadding>
+                  <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemIcon>
+                      <FeedRoundedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="員工打卡" />
+                    <Link to="/checkin"></Link>
+                  </ListItemButton>
+                </List>
+
+                <List component="div" disablePadding>
+                  <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemIcon>
+                      <FeedRoundedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="員工個人出缺勤" />
+                    <Link to="/attdatetime"></Link>
+                  </ListItemButton>
+                </List>
+              </>
 
             </>
 
@@ -460,8 +495,6 @@ const Sidebar = () => {
                 </Collapse>
               </>
             )}
-
-
             {/* 人事 */}
             {department.includes("人事部") && (
               <>

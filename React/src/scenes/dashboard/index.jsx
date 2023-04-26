@@ -9,6 +9,7 @@ import StatBox from "../../components/StatBox";
 import PersonPin from "@mui/icons-material/PersonPin";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import TaskIcon from "@mui/icons-material/Task";
+import withAuth from "../../components/withAuth";
 
 const Dashboard = () => {
   const theme = useTheme();
@@ -213,4 +214,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default withAuth(Dashboard);

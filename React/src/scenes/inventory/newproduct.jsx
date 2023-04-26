@@ -7,7 +7,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Unstable_Grid2';
-import { useTheme }from '@mui/material';
+import { useTheme,InputAdornment } from '@mui/material';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -30,36 +30,37 @@ export default function Product() {
     const handleSubmitnew = (values, { setSubmitting }) => {
         const formData = new FormData();
         formData.append('product_name', values.product_name);
-        formData.append('product_amount', values.product_amount);
+        formData.append('photo_url', values.photo_url);
+        console.log(values);
         axios.post('http://127.0.0.1:3702/product/create', formData).then((response) => {
             console.log(response.data);
-            });
-            setSubmitting(false);
-            handleClosenew();
-            };
+        });
+        setSubmitting(false);
+        handleClosenew();
+    };
 
 
 
 
 
     return (
-        <Box sx={{'& .MuiButton-root':{fontSize:'18px',mr:4}}}>
+        <Box sx={{ '& .MuiButton-root': { fontSize: '18px', mr: 4 } }}>
             <Button variant="contained" size='large' color="secondary" onClick={handleOpennew}>
                 新增產品資料
             </Button>
             <Dialog open={opennew} onClose={handleClosenew}
                 maxWidth='lg'
                 sx={{ '& .MuiTextField-root': { m: 1, mt: 2 }, }}>
-                <DialogTitle>新增產品資料</DialogTitle>
+                <DialogTitle variant='h4' sx={{ color: colors.greenAccent[500], }}>新增產品資料</DialogTitle>
                 <DialogContent>
                     <Formik
                         initialValues={{
-                            
+
                             product_name: '',
                             photo_url: ''
                         }}
                         validationSchema={Yup.object({
-                            
+
                             product_name: Yup.string().required('必填'),
                             photo_url: Yup.mixed().required('必須選擇一個圖片'),
                         })}
@@ -70,10 +71,10 @@ export default function Product() {
                                 <Grid container spacing={3}>
                                     <Grid xs={12}>
                                         <TextField
-                                          
-                                         InputLabelProps={{
-                                            style:{ fontSize: 16 }
-                                        }}
+
+                                            InputLabelProps={{
+                                                style: { fontSize: 16 }
+                                            }}
                                             id="product_name"
                                             name="product_name"
                                             label="產品名稱"
@@ -87,23 +88,60 @@ export default function Product() {
                                 </Grid>
                                 <Grid container spacing={3}>
                                     <Grid xs={12}>
-                                        <input
+                                        <TextField
                                             id="photo_url"
                                             name="photo_url"
-                                            label="產品照片"
-                                            type='file'
+                                            type="text"
                                             
-                                            onChange={(event) => {
-                                                setFieldValue('photo_url', event.currentTarget.files[0]);
+                                            value={values.photo_url ? values.photo_url.name : ''}
+                                            InputProps={{
+                                                endAdornment: (
+                                                    <InputAdornment position="end">
+                                                        <Button
+                                                            variant="contained"
+                                                            component="label"
+                                                            disableElevation
+                                                        >
+                                                            Upload
+                                                            <input
+                                                                type="file"
+                                                                hidden
+                                                                onChange={(event) => {
+                                                                    setFieldValue('photo_url', event.currentTarget.files[0]);
+                                                                }}
+                                                            />
+                                                        </Button>
+                                                    </InputAdornment>
+                                                ),
                                             }}
-                                            
-                                            
                                         />
+                                        {errors.photo_url && touched.photo_url && <div>{errors.photo_url}</div>}
                                         {values.photo_url && (
                                             <div>
                                                 <img src={URL.createObjectURL(values.photo_url)} alt="proudct" />
                                             </div>
                                         )}
+                                        {/* <label htmlFor="photo_url">
+
+                                            <Button  type="button" herf="photo_url">
+                                                選擇檔案
+                                            </Button>
+                                        </label>
+                                        <input
+                                            id="photo_url"
+                                            name="photo_url"
+                                            label="產品照片"
+                                            type='file'
+                                            style={{ display: 'none' }}
+                                            onChange={(event) => {
+                                                setFieldValue('photo_url', event.currentTarget.files[0]);
+                                            }}
+                                        />
+                                        {values.photo_url && (
+                                            <div>
+                                                <img src={URL.createObjectURL(values.photo_url)} alt="proudct" />
+                                            </div>
+                                        )} */}
                                     </Grid>
                                 </Grid>
                                 <DialogActions>

@@ -1,19 +1,19 @@
 import {
     useTheme, Box, Grid, Typography, CardMedia,
-    CardContent, Card, Button, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions
+    CardContent, Card, Button, Dialog, DialogTitle, DialogContent, TextField, DialogActions
 } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Newproduct from './newproduct';
 import Header from "../../components/Header";
 import { tokens } from "../../theme";
+import withAuth from "../../components/withAuth";
 
 
 
 
 
-
-export default function GridCard() {
+const  GridCard = () => {
     const [cardData, setCardData] = useState([]);
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
@@ -53,7 +53,7 @@ export default function GridCard() {
 
 
         const updatedRows = cardData.map(row =>
-            row.productid === datas.productid ? datas : row
+            row.product_id === datas.product_id ? datas : row
         );
         setCardData(updatedRows);
         setOpen(false);
@@ -64,14 +64,14 @@ export default function GridCard() {
 
 
     //搜索
-    const [filter, setFilter] = useState({ productname: '' })
+    const [filter, setFilter] = useState({ product_name: '' })
     const handleFilter = (event) => {
         setFilter({ ...filter, [event.target.name]: event.target.value });
     }
     const filteredCard = cardData?.filter((card) => {
-        const { productname } = filter;
+        const { product_name } = filter;
         return (
-            card.productname.toLowerCase().includes(productname.toLowerCase())
+            card.product_name.toLowerCase().includes(product_name.toLowerCase())
         );
     })
 
@@ -81,9 +81,9 @@ export default function GridCard() {
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Box sx={{ width: '30%', backgroundColor: colors.primary[400], ml: 3, mb: 3 }}>
                     <TextField sx={{ width: '92%', m: 2 }}
-                        name="productname"
+                        name="product_name"
                         label="產品名稱"
-                        value={filter.productname}
+                        value={filter.product_name}
                         onChange={handleFilter}
                     />
                 </Box>
@@ -92,7 +92,7 @@ export default function GridCard() {
             <Box sx={{ml:3}}> 
                 <Grid container spacing={2} >
                     {filteredCard.map((card) => (
-                        <Grid item xs={6} md={3} key={card.product_id} onClick={() => handleClickOpen(card)}>
+                        <Grid item xs={6} md={3} key={card.product_id} >
                             <Card sx={{ display: 'flex' }}>
                                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                                     <CardContent sx={{ flex: '1 0 auto' }}>
@@ -115,7 +115,7 @@ export default function GridCard() {
                                 <CardMedia
                                     component="img"
                                     sx={{ width: 151, height: 245 }}
-                                    //image={`../../public/media/${card.productphoto}`}
+                                    image={`${process.env.PUBLIC_URL}/media/${card.photo_url}`}
                                     // image={require(`${card.productphoto}`).default}
 
                                     alt="Prod"
@@ -128,21 +128,21 @@ export default function GridCard() {
                             <DialogTitle sx={{color: colors.greenAccent[500],
                     fontSize: "22px"}}>修改產品資訊</DialogTitle>
                             <DialogContent>
-                                <TextField sx={{ mt: 3 }}
+                                <TextField sx={{ mt: 2 }}
                                     label="產品名稱"
                                     value={datas.product_name}
                                     fullWidth
 
                                     disabled
                                 />
-                                <TextField sx={{ mt: 5 }}
+                                <TextField sx={{ mt: 3 }}
                                     label="產品編號"
                                     value={datas.product_id}
                                     fullWidth
 
                                     disabled
                                 />
-                                <TextField sx={{ mt: 5 }}
+                                <TextField sx={{ mt: 3 }}
                                     label="庫存數量"
                                     value={datas.product_amount}
                                     fullWidth
@@ -165,6 +165,8 @@ export default function GridCard() {
         </Box>
     );
 }
+
+export default withAuth(GridCard);
 
 
 
