@@ -69,6 +69,23 @@ app.get("/employee", function (req, res) {
     })
 })
 
+app.get("/employee/:keyword", function (req, res) {
+    console.log("/employee?keyword=?ok~");
+    let sqlString = `SELECT employee_id, employee.employee_account, employee.employee_name, 
+    department.dept_name, employee.employee_tel, employee.employee_email, role.role_name 
+    FROM employee
+    LEFT JOIN role ON employee.employee_role = role.id 
+    LEFT JOIN department ON employee.department = department.id
+    WHERE employee_name like '` + '%' + req.params.keyword + '%' + `'`
+    connection.query(sqlString, function (error, data) {
+        // connection.query("select id,EmployeeName,EmployeeId,DATE_FORMAT(starttime, '%Y-%m-%d %H:%i') as starttime,DATE_FORMAT(endtime, '%Y-%m-%d %H:%i') as endtime,holiday from att", function (error, data) {
+        res.send(JSON.stringify(data))
+        console.log(req.params.keyword);
+        console.log(sqlString);
+        console.log(data);
+    })
+})
+
 app.post("/employee/create", function (req, res) {
     console.log("post start");
     console.log(req.body.EmployeeID);
@@ -76,12 +93,13 @@ app.post("/employee/create", function (req, res) {
                  values (?,?,?,?,?,1,?)`, [req.body.account, req.body.password, req.body.name, req.body.tel, req.body.email, req.body.dept])
 })
 
-app.put("/employee", function (req, res) {
+app.delete("/employee/del/:id", function (req, res) {
+    console.log("sssssssss", req.params.id, req.body, "~~~~");
     connection.query(
-        "update att set starttime = ? , endtime = ? , holiday = ? where id =" + req.body.id,
-        [req.body.starttime, req.body.endtime, req.body.holiday]
+        "delete from employee  where employee_id =" + req.params.id,
+        []
     );
-    res.send("Update Finish");
+    res.send("Delete Finish");
 })
 
 app.get("/dept", function (req, res) {

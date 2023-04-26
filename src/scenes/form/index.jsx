@@ -13,28 +13,12 @@ import Header from "../../components/Header";
 import React, { useState, useEffect, Component } from "react";
 import { map, find, propEq, forEach, isNil } from 'ramda';
 import axios from "axios";
-import chroma from 'chroma-js';
-
 import Select, { StylesConfig } from 'react-select';
 
 
 const EmployeeForm = (props) => {
-  const isNonMobile = useMediaQuery("(min-width:600px)");
 
-  const handleFormSubmit = (values) => {
-    console.log(values);
-    alert(JSON.stringify(values, null, 2));
-    axios.post('http://localhost:3702/employee/create', values)
-      .then(response => {
-        console.log(response.data);
-        setDepts(response.data)
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  };
-
-
+  const [email, setEmail] = useState([]);
   // const department = () => map((dep) => ({ value: dep.name, label: dep.name }), dept);
   const [dept, setDepts] = useState([]);
   useEffect(() => {
@@ -53,9 +37,35 @@ const EmployeeForm = (props) => {
 
   }
 
+  const handleFormSubmit = (values, { resetForm }) => {
+    console.log(values);
+    alert(JSON.stringify(values, null, 2));
+    axios.post('http://localhost:3702/employee/create', values)
+      .then(response => {
+        console.log(response.data);
+        // setDepts(response.data)
+      })
+      .catch(error => {
+        console.error(error);
+      });
+
+    getDepts();
+    resetForm();
+  };
+
+
   // 部門
   // const department = () => map((dep) => ({ value: dep.name, label: dep.name }), dept);
-
+  // const withFormik = Formik({
+  //   mapPropsToValues: () => ({ color: "" }),
+  //   handleSubmit: (values, { setSubmitting }) => {
+  //     setTimeout(() => {
+  //       alert(JSON.stringify(values, null, 2));
+  //       setSubmitting(false);
+  //     }, 1000);
+  //   },
+  //   displayName: "BasicForm" // helps with React DevTools
+  // });
 
   return (
     <Box m="20px">
@@ -66,7 +76,7 @@ const EmployeeForm = (props) => {
         initialValues={initialValues}
       // validationSchema={checkoutSchema}
       >
-        {({ handleBlur, handleSubmit, handleChange, values, errors, touched }) => (
+        {({ handleBlur, handleSubmit, handleChange, handleReset, values, errors, touched }) => (
           <Box component={Form} onSubmit={handleSubmit}>
             <TextField
               fullWidth
@@ -134,7 +144,7 @@ const EmployeeForm = (props) => {
               helperText={touched.email && errors.email}
               sx={{ '& label.Mui-focused': { color: '#4cceac' }, gridColumn: "span 2" }}
             />
-            {/* <select
+            <select
               name="dept"
               value={values.color}
               onChange={handleChange}
@@ -147,8 +157,8 @@ const EmployeeForm = (props) => {
               {dept.map((option) => (
                 <option value={option.id} label={option.dept_name}>{option.dept_name}</option>
               ))}
-            </select> */}
-            <Select
+            </select>
+            {/* <Select
               name="dept"
               options={dept.map((option) => (
                 <option value={option.id} label={option.dept_name}>{option.dept_name}</option>
@@ -157,10 +167,10 @@ const EmployeeForm = (props) => {
               onChange={handleChange}
               onBlur={handleBlur}
               style={{ display: "block" }}
-            />
-           
-           
-            <button type="submit">Submit</button>
+            /> */}
+
+
+            <button type="submit" onClick={handleReset}>Submit</button>
 
           </Box>
 
@@ -178,22 +188,23 @@ const phoneRegExp =
   /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
 
 const checkoutSchema = yup.object().shape({
-  firstName: yup.string().required("required"),
-  lastName: yup.string().required("required"),
+  name: yup.string().required("required"),
+  account: yup.string().required("required"),
   email: yup.string().email("invalid email").required("required"),
   contact: yup
     .string()
     .matches(phoneRegExp, "Phone number is not valid")
     .required("required"),
-  address1: yup.string().required("required"),
-  address2: yup.string().required("required"),
+  dept: yup.string().required("required"),
+  password: yup.string().required("required"),
 });
 const initialValues = {
   name: "",
   account: "",
   email: "",
+  tel: "",
   password: "",
-  dept: "",
+  dept: "選擇部門",
 };
 
 export default EmployeeForm;

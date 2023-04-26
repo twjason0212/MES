@@ -8,18 +8,33 @@ import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../components/Header";
 import axios from "axios";
+import TextField from "@mui/material/TextField";
 
 
 const Team = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [clickedRow, setClickedRow] = React.useState();
-  const onButtonClick = (e, row) => {
-    e.stopPropagation();
-    setClickedRow(row);
+  const [clickedRow, setClickedRow] = useState([]);
+  const [users, setUsers] = useState([]);
+
+  const onButtonDelClick = (row) => {
+    // e.stopPropagation();
+    // setClickedRow(row);
+
+    console.log(clickedRow);
+
+    axios.delete('http://localhost:3702/employee/del/' + row.employee_id)
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+    console.log("set user");
+    getUsers();
+    console.log("reflash end");
   };
 
-  const [users, setUsers] = useState([]);
   useEffect(() => {
     getUsers();
   }, []);
@@ -28,14 +43,25 @@ const Team = () => {
     console.log("axios go ~~~~~");
     axios.get('http://localhost:3702/employee')
       .then(response => {
-        console.log(response.data);
         setUsers(response.data)
       })
       .catch(error => {
         console.error(error);
       });
 
-    console.log("axios end ~~~~~");
+  }
+  // const [inputText, setInputText] = useState([]);
+
+  let inputHandler = (e) => {
+    var value = e.target.value;
+    axios.get('http://localhost:3702/employee/' + value)
+      .then(response => {
+        console.log(response.data);
+        setUsers(response.data)
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
 
   const columns = [
@@ -80,7 +106,7 @@ const Team = () => {
           <Box>
             <Button
               color="secondary"
-              onClick={(e) => onButtonClick(e, params.row)}
+              // onClick={(e) => onButtonClick(e, params.row)}
               variant="contained"
             >
               Edit
@@ -88,7 +114,7 @@ const Team = () => {
             &nbsp;&nbsp;&nbsp;
             <Button
               color="error"
-              onClick={(e) => onButtonClick(e, params.row)}
+              onClick={() => onButtonDelClick(params.row)}
               variant="contained"
             >
               Delete
@@ -132,55 +158,63 @@ const Team = () => {
 
 
   return (
-    // <Box m="20px">
-    //   <Header title="TEAM" subtitle="Managing the Team Members" />
-    //   <Box
-    //     m="40px 0 0 0"
-    //     height="75vh"
-    //     sx={{
-    //       "& .MuiDataGrid-root": {
-    //         border: "none",
-    //       },
-    //       "& .MuiDataGrid-cell": {
-    //         borderBottom: "none",
-    //       },
-    //       "& .name-column--cell": {
-    //         color: colors.greenAccent[700],
-    //       },
-    //       "& .MuiDataGrid-columnHeaders": {
-    //         backgroundColor: colors.blueAccent[700],
-    //         borderBottom: "none",
-    //       },
-    //       "& .MuiDataGrid-virtualScroller": {
-    //         backgroundColor: colors.primary[400],
-    //       },
-    //       "& .MuiDataGrid-footerContainer": {
-    //         borderTop: "none",
-    //         backgroundColor: colors.blueAccent[700],
-    //       },
-    //       "& .MuiCheckbox-root": {
-    //         color: `${colors.greenAccent[200]} !important`,
-    //       },
-    //     }}
-    //   >
-    //   </Box>
-    // </Box>
-    <Box sx={{ height: 400, width: '100%' }}>
-      <DataGrid
-        rows={users}
-        columns={columns}
-        getRowId={(user) => user.employee_id}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 5,
-            },
-          },
-        }}
-        pageSizeOptions={[5]}
-        checkboxSelection
-        disableRowSelectionOnClick
+    <Box m="20px">
+      <Header title="TEAM" subtitle="Managing the Team Members" />
+      {/* <Box
+         m="40px 0 0 0"
+         height="75vh"
+         sx={{
+           "& .MuiDataGrid-root": {
+             border: "none",
+           },
+           "& .MuiDataGrid-cell": {
+             borderBottom: "none",
+           },
+           "& .name-column--cell": {
+             color: colors.greenAccent[700],
+           },
+           "& .MuiDataGrid-columnHeaders": {
+             backgroundColor: colors.blueAccent[700],
+             borderBottom: "none",
+           },
+           "& .MuiDataGrid-virtualScroller": {
+             backgroundColor: colors.primary[400],
+           },
+           "& .MuiDataGrid-footerContainer": {
+             borderTop: "none",
+             backgroundColor: colors.blueAccent[700],
+           },
+           "& .MuiCheckbox-root": {
+             color: `${colors.greenAccent[200]} !important`,
+           },
+         }}
+       >
+       </Box> */}
+
+      <TextField
+        id="outlined-basic"
+        variant="outlined"
+        onChange={inputHandler}
+        fullWidth
+        label="Search"
       />
+      <Box sx={{ height: 400, width: '100%' }}>
+        <DataGrid
+          rows={users}
+          columns={columns}
+          getRowId={(user) => user.employee_id}
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 5,
+              },
+            },
+          }}
+          pageSizeOptions={[5]}
+          checkboxSelection
+          disableRowSelectionOnClick
+        />
+      </Box>
     </Box>
   );
 };
