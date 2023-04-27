@@ -44,7 +44,7 @@ var connection = mysql.createConnection({
     user: 'root',
     password: '',
     port: '3306',
-    database: 'mgbiglab'
+    database: 'eip'
 
 })
 
@@ -53,7 +53,7 @@ var pool = mysql.createPool({
     user: 'root',
     password: '',
     port: '3306',
-    database: 'mgbiglab'
+    database: 'eip'
 
 })
 
@@ -77,7 +77,7 @@ connection.connect(function (error) {
 })
 
 app.get("/attdance", function (req, res) {
-    connection.query("select id,EmployeeName,EmployeeId,DATE_FORMAT(starttime, '%Y-%m-%d %H:%i') as starttime,DATE_FORMAT(endtime, '%Y-%m-%d %H:%i') as endtime,holiday from att", function (error, data) {
+    connection.query("select id,employee_account,DATE_FORMAT(starttime, '%Y-%m-%d %H:%i') as starttime,DATE_FORMAT(endtime, '%Y-%m-%d %H:%i') as endtime,status from attendance;", function (error, data) {
         res.send(JSON.stringify(data))
         console.log(data)
     })
@@ -310,3 +310,27 @@ app.get("/todo/machine", function (req, res) {
         res.send(JSON.stringify(rows));
     });
 });
+
+//請假單申請
+app.post('/leave', (req, res) => {
+    connection.query("insert into leave_form set employee_account = ? , department = ?, status = ?, start_time = ?, end_time=?,cause_img=?",
+        [req.body.employee_account, req.body.department, req.body.status, req.body.start_time, req.body.end_time, req.body.cause_img]);
+    res.send("新增成功") 
+});
+    //加班單申請
+    app.post('/overtime', (req, res) => {
+        connection.query("insert into overtime_form set employee_account = ? , department = ?, start_time = ?, end_time=?,cause=?",
+            [req.body.employee_account, req.body.department, req.body.start_time, req.body.end_time, req.body.cause]);
+        res.send("新增成功")
+        // const query = `INSERT INTO leave_form ( employee_account, department, leave_type,DATE_FORMAT(start_time, '%Y-%m-%d %H:%i') as start_time,DATE_FORMAT(end_time, '%Y-%m-%d %H:%i') as end_time,cause_img) VALUES (?, ?, ?, ?, ?, ?)`;
+        // connection.query(query, [ employee_account, department, leave_type,start_time,end_time,cause_img], (error, results) => {
+        //   if (error) {
+        //     console.error(error);
+        //     res.status(500).send('Error submitting form data');
+        //   } else {
+        //     res.status(200).send('Form data submitted successfully');
+        //   }
+        // });
+    });
+
+

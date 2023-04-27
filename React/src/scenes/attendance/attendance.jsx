@@ -23,19 +23,19 @@ const Attenddance = () => {
 
 
     const [filter, setFilter] = useState({
-        EmployeeName: '',
+        employee_account: '',
         starttime: '',
-        holiday: ''
+        status: ''
     });
 
     const filteredAtt = attdata.filter((att) => {
-        const { EmployeeName, starttime, holiday } = filter;
-        const attEmployeeName = att.EmployeeName ? att.EmployeeName.toLowerCase() : '';
-        const attHoliday = att.holiday ? att.holiday.toLowerCase() : '';
+        const { employee_account, starttime, status } = filter;
+        const attemployee_account = att.employee_account ? att.employee_account.toLowerCase() : '';
+        const attstatus = att.status ? att.status.toLowerCase() : '';
         return (
-            attEmployeeName.includes(EmployeeName.toLowerCase()) &&
+            attemployee_account.includes(employee_account.toLowerCase()) &&
             att.starttime.includes(starttime) &&
-            attHoliday.includes(holiday.toLowerCase())
+            attstatus.includes(status.toLowerCase())
         )
     })
 
@@ -83,9 +83,9 @@ const Attenddance = () => {
             <div>
                 <div style={{ display: 'flex', justifyContent: 'Space-evenly', padding: '10px' }}>
                     <TextField sx={{ width: '100%', m: 1 }}
-                        name="Employee Name"
-                        label="員工姓名"
-                        value={filter.EmployeeName}
+                        name="employee_account"
+                        label="員工工號"
+                        value={filter.employee_account}
                         onChange={handleChange}
                     />
                     <TextField sx={{ width: '100%', m: 1 }}
@@ -97,9 +97,9 @@ const Attenddance = () => {
                         onChange={handleChange}
                     />
                     <TextField sx={{ width: '100%', m: 1 }}
-                        name="holiday"
+                        name="status"
                         label="假別"
-                        value={filter.holiday}
+                        value={filter.status}
                         onChange={handleChange}
                     />
                 </div>
@@ -108,6 +108,7 @@ const Attenddance = () => {
                 <TableHead>
                     <TableRow >
                         <TableCell sx={{ textAlign: 'center' }}>員工編號</TableCell>
+                        <TableCell>員工工號</TableCell>
                         <TableCell>員工姓名</TableCell>
                         <TableCell>開始日期</TableCell>
                         <TableCell>結束日期</TableCell>
@@ -118,8 +119,8 @@ const Attenddance = () => {
                 <TableBody>
                     {filteredAtt.map((att) => (
                         <TableRow key={att.id} >
-                            <TableCell >{att.EmployeeId}</TableCell>
-                            <TableCell >{att.EmployeeName}</TableCell>
+                            <TableCell >{att.id}</TableCell>
+                            <TableCell >{att.employee_account}</TableCell>
                             <TableCell >{new Date(att.starttime).toLocaleString('zh-TW', {
                                 hour12: false,
                                 year: 'numeric',
@@ -136,7 +137,7 @@ const Attenddance = () => {
                                 hour: '2-digit',
                                 minute: '2-digit',
                             })}</TableCell>
-                            <TableCell >{att.holiday}</TableCell>
+                            <TableCell >{att.status}</TableCell>
                             <TableCell>
                                 <Button variant="contained" color="primary" onClick={() => handleClick(att)}>
                                     修改
@@ -153,7 +154,7 @@ const Attenddance = () => {
                     <DialogContent>
                         <TextField
                             label="員工姓名"
-                            value={chattdata.EmployeeName}
+                            value={chattdata.employee_name}
                             fullWidth
                             disabled
                         />
@@ -187,12 +188,12 @@ const Attenddance = () => {
                         <TextField
                             label="假別"
                             //value為null的話，會導致React無法正確管理元件的狀態
-                            value={chattdata.holiday !== null ? chattdata.holiday : ''}
+                            value={chattdata.status !== null ? chattdata.status : ''}
                             fullWidth
                             onChange={(event) =>
                                 setChattData({
                                     ...chattdata,
-                                    holiday: event.target.value,
+                                    status: event.target.value,
                                 })
                             }
                         />
