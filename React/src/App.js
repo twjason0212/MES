@@ -23,6 +23,7 @@ import WorkOrder from './scenes/workorder/workOrder';
 import WorkOrderList from "./scenes/workorderlist/workorderlist";
 import Attdatetime from "./scenes/attdatetime/attdatetime";
 import Checkin from "./scenes/checkin/checkin";
+import PendingWork from "./scenes/pendingwork/pendingwork";
 
 
 
@@ -99,6 +100,7 @@ function App() {
             <Route path='/checkin' element={<Layout><Checkin /></Layout>} />-
             <Route path='/attdatetime' element={<Layout><Attdatetime /></Layout>} />-
             <Route path='/workorderlist' element={<Layout><WorkOrderList /></Layout>} />-
+            <Route path='/pendingwork' element={<Layout><PendingWork /></Layout>} />-
 
             {/* <Route path="/attendance" element={<Attendance />} /> */}
             <Route path="/total_leave" element={<Layout><TotalLeave /></Layout>} />

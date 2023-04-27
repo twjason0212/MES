@@ -13,6 +13,7 @@ const WorkOrder = () => {
 
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
+    const work_creator = window.sessionStorage.getItem('name');
 
     return (
         <Box m="20px">
@@ -29,9 +30,7 @@ const WorkOrder = () => {
                 <Formik
                     initialValues={{
                         work_order_id: '',
-                        work_order_creator: '',
-                        work_order_executor: '',
-                        machine_uuid: '',
+                        work_order_creator: work_creator,
                         product_name: '',
                         process_date: '',
                         tar_process_amount: '',
@@ -39,21 +38,19 @@ const WorkOrder = () => {
                     validationSchema={Yup.object({
                         work_order_id: Yup.string().required('請輸入派工單號'),
                         work_order_creator: Yup.string().required('請輸入派工單建立人員'),
-                        work_order_executor: Yup.string().required('請輸入派工單接收人員'),
-                        machine_uuid: Yup.string().required('請輸入機器編號'),
                         product_name: Yup.string().required('請輸入產品名稱'),
                         process_date: Yup.date().max(new Date(), '日期不能晚於今天').required('請輸入建立日期'),
                         tar_process_amount: Yup.number().typeError('必須為數字').min(1, '數量不能為0或負數').required('必填'),
                     })}
                     onSubmit={(values) => {
-                        // axios.post('http://127.0.0.1:3702/coustomer/create', values)
-                        //     .then((response) => {
-                        //         console.log(response.data);
-                        //     })
-                        //     .catch((error) => {
-                        //         console.log(error);
-                        //     });
-                        console.log(values);
+                        axios.post('http://127.0.0.1:3702/workorder', values)
+                            .then((response) => {
+                                console.log(response.data);
+                            })
+                            .catch((error) => {
+                                console.log(error);
+                            });
+                        // console.log(values);
                     }}
                 >
                     {({ handleSubmit, handleChange, values, errors, touched }) => (
@@ -80,38 +77,11 @@ const WorkOrder = () => {
                                         name="work_order_creator"
                                         label="派工單建立人員"
                                         fullWidth
-                                        value={values.work_order_creator}
+                                        value={work_creator}
+                                        disabled 
                                         onChange={handleChange}
                                         error={touched.work_order_creator && Boolean(errors.work_order_creator)}
                                         helperText={touched.work_order_creator && errors.work_order_creator}
-                                    />
-                                </Grid>
-                            </Grid>
-                            <Grid container spacing={3} p="20px 12px" >
-                                <Grid xs={6}>
-                                    <TextField
-                                    variant="filled"
-                                        id="work_order_executor"
-                                        name="work_order_executor"
-                                        label="派工單接收人員"
-                                        fullWidth
-                                        value={values.work_order_executor}
-                                        onChange={handleChange}
-                                        error={touched.work_order_executor && Boolean(errors.work_order_executor)}
-                                        helperText={touched.work_order_executor && errors.work_order_executor}
-                                    />
-                                </Grid>
-                                <Grid xs={6}>
-                                    <TextField
-                                    variant="filled"
-                                        id="machine_uuid"
-                                        name="machine_uuid"
-                                        label="機器編號"
-                                        fullWidth
-                                        value={values.machine_uuid}
-                                        onChange={handleChange}
-                                        error={touched.machine_uuid && Boolean(errors.machine_uuid)}
-                                        helperText={touched.machine_uuid && errors.machine_uuid}
                                     />
                                 </Grid>
                             </Grid>
@@ -135,7 +105,7 @@ const WorkOrder = () => {
                                         id="process_date"
                                         name="process_date"
                                         label="建立日期"
-                                        type="date"
+                                        type="datetime-local"
                                         InputLabelProps={{
                                             shrink: true, classes: {
                                                 focused: colors.primary[400],

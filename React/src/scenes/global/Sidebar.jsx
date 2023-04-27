@@ -292,7 +292,7 @@ const Sidebar = () => {
                     <ListItemIcon>
                       <FeedRoundedIcon />
                     </ListItemIcon>
-                    <ListItemText primary="報工" />
+                    <ListItemText primary="新增派工單" />
                     <Link to="/workorder"></Link>
                   </ListItemButton>
                 </List>
@@ -302,8 +302,18 @@ const Sidebar = () => {
                     <ListItemIcon>
                       <FeedRoundedIcon />
                     </ListItemIcon>
-                    <ListItemText primary="工單列表" />
+                    <ListItemText primary="派工單列表" />
                     <Link to="/workorderlist"></Link>
+                  </ListItemButton>
+                </List>
+
+                <List component="div" disablePadding>
+                  <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemIcon>
+                      <FeedRoundedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="個人待辦工單" />
+                    <Link to="/pendingwork"></Link>
                   </ListItemButton>
                 </List>
 

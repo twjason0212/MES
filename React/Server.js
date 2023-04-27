@@ -216,28 +216,28 @@ app.post("/attendance/checkin", function (req, res) {
 });
 
 //個人版出缺勤
-app.get("/attendance/emp", function(req, res) {
-    connection.query("select starttime, endtime from attendance  where employee_account = ?",[req.query.user], function (error, data){
+app.get("/attendance/emp", function (req, res) {
+    connection.query("select starttime, endtime from attendance  where employee_account = ?", [req.query.user], function (error, data) {
         if (error) {
             console.log(error);
             return res.status(500).send(error);
-          }
-          
-          const newData = data.map((item) => {
+        }
+
+        const newData = data.map((item) => {
             const start = new Date(item.starttime);
             const end = new Date(item.endtime);
             const startWithOffset = new Date(start.getTime() - (start.getTimezoneOffset() * 60000));
             const endWithOffset = new Date(end.getTime() - (end.getTimezoneOffset() * 60000));
-            
+
             return {
-              starttime: startWithOffset,
-              endtime: endWithOffset,
+                starttime: startWithOffset,
+                endtime: endWithOffset,
             };
-          });
-          
-          res.send(newData);
-          console.log(newData);
         });
+
+        res.send(newData);
+        console.log(newData);
+    });
 })
 
 
@@ -353,13 +353,20 @@ app.post("/order/create", function (req, res) {
 //取得訂單資料
 app.get("/order", function (req, res) {
     connection.query("select o.orderid, o.orderdate, o.deliverydate, o.orderstate, o.changdate, c.customername, oi.productname, oi.quty, oi.price , c.customerphone, c.customeremail, c.customeraddress, c.customerfax from orders o join orderitems oi on o.id = oi.id join customers c on o.customername = c.customername", function (error, data) {
+        // const formatDate = (dateString) => {
+        //     const date = new Date(dateString);
+        //     const year = date.getFullYear();
+        //     const month = String(date.getMonth() + 1).padStart(2, '0');
+        //     const day = String(date.getDate()).padStart(2, '0');
+        //     return `${year}-${month}-${day}`;
+        // };
+
         const formatDate = (dateString) => {
             const date = new Date(dateString);
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const day = String(date.getDate()).padStart(2, '0');
-            return `${year}-${month}-${day}`;
+            const formattedDate = date.toISOString().split('T')[0];
+            return formattedDate;
         };
+
 
         const result = data.reduce((acc, curr) => {
             // 如果 acc 中已經存在該 orderid 的物件，則將產品資訊加入其 product 陣列中
@@ -473,14 +480,73 @@ app.put("/product", function (req, res) {
 })
 
 
-//報工
-app.get('/workorder', function (req , res){
-    connection.query("select * from work_order join work_order_status on work_order.work_order_status = work_order_status.id join product on product.product_id = work_order.product_id",function(error, data){
-        
-          res.send(JSON.stringify(data));
-          console.log(data);
-        });
+//工單列表
+app.get('/workorder', function (req, res) {
+    connection.query("select * from work_order join work_order_status on work_order.work_order_status = work_order_status.id where work_order_status = 1", function (error, data) {
+
+        res.send(JSON.stringify(data));
+        console.log(data);
+    });
+})
+
+//工單列表-接單
+app.put('/workorderlist', function (req, res) {
+    console.log(req.body)
+    connection.query(
+        'update work_order set machine_uuid = ? ,work_order_executor = ?, work_order_status = ? where id = ' + req.body.id, [req.body.machine_uuid, req.body.work_order_executor, 2])
+    res.send("接單完成");
+})
+
+//新增報工單
+app.post('/workorder', function (req, res) {
+    const workerorder = req.body;
+    const workdata = {
+        work_order_id: workerorder.work_order_id,
+        work_order_creator: workerorder.work_order_creator,
+        product_name: workerorder.product_name,
+        tar_process_amount: workerorder.tar_process_amount,
+        process_date: workerorder.process_date,
+        work_order_status: 1
+    }
+    connection.query("insert into work_order set ? ", workdata, function (error, result) {
+        if (error) {
+            console.error('錯誤: ', error);
+            res.status(500).send('派工單 新增失敗');
+        } else {
+            res.status(200).send('派工單 新增成功');
+        }
     })
+})
+
+//待辦工單(接單人 與 狀態2)
+app.get('/workorder/:id', function (req, res) {
+    connection.query("select * from work_order join work_order_status on work_order.work_order_status = work_order_status.id where work_order_executor = ? and work_order_status = 2 ", [req.params.id], function (error, data) {
+        if (error) throw error;
+        res.send(JSON.stringify(data));
+        console.log(data);
+    });
+})
+
+//待辦工單(報工)
+app.post('/reportorder' , function (req, res) {
+    const data = req.body;
+    const reportdata = {
+        work_order_id: data.work_order_id,
+        report_order_creator:data.work_order_executor,
+        machine_uuid:data.machine_uuid,
+        real_process_amount:data.real_process_amount,
+        defect_process_amount:data.defect_process_amount,
+        process_date:data.finish_date
+    }
+    connection.query('insert into report_order set ?', [reportdata])
+
+    res.send('報工完成')
+})
+
+app.put('/reportorder', function (req, res) {
+    connection.query('update work_order set work_order_status = ?'+ req.body.id, [3])
+    res.send("狀態更新");
+})
 
 
 
