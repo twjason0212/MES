@@ -1,13 +1,16 @@
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Card, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import BarChart from "../../components/BarChart";
+// import BarChart2 from "../../components/BarChart2";
 import ProgressCircle from "../../components/ProgressCircle";
 import PieChart from "../../components/PieChart";
+import LineChart1 from "../../components/LineChart1"
 // import GoogleMaps from "../../components/GoogleMaps";
 import StatBox from "../../components/StatBox";
 import PersonPin from "@mui/icons-material/PersonPin";
 import InventoryIcon from "@mui/icons-material/Inventory";
+import ListAltIcon from '@mui/icons-material/ListAlt';
 import TaskIcon from "@mui/icons-material/Task";
 import React, { useState, useEffect } from "react";
 
@@ -18,20 +21,34 @@ const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
+
   const [workO, setWorkO] = useState([]);
   const [todoworkO, setTodWorkO] = useState([]);
   let woFinishRate = (todoworkO.todoWo) / (workO.totWo)
   let hunWoFinishRate = Math.round(woFinishRate * 100)
+
 
   const [emp, setEmp] = useState([]);
   const [punchInEmp, setPunchInEmp] = useState([]);
   let attRate = (punchInEmp.punchinemp) / (emp.emp)
   let hunAttRate = Math.round(attRate * 100)
 
+
   const [pro, setPro] = useState([]);
   const [proIsSafe, setProIsSafe] = useState([]);
   let proSaveRate = (proIsSafe.proTypeIsSafe) / (pro.proType)
   let hunProSaveRate = Math.round(proSaveRate * 100)
+
+
+  const [allOrd, setAllOrd] = useState([]);
+  const [orderFinish, setOrderFinish] = useState([]);
+  let orderFinishRate= (orderFinish.orderFinishNum)/(allOrd.allOrderNum)
+  let hunOrderFinishRate= Math.round(orderFinishRate * 100)
+
+  const [macNum, setMacNum] = useState([]);
+  const [macWorkingNum, setMacWorkingNum] = useState([]);
+  let macWorkingRate= (macWorkingNum.machineWorkingNum)/(macNum.machineNum)
+  let hunMacWorkingRate= Math.round(macWorkingRate * 100)
 
 
   const [machineAvgAva, setMachineAvgAva] = useState([]);
@@ -71,6 +88,27 @@ const Dashboard = () => {
     fetch('http://localhost:3702/proIsSafe')
       .then(res => res.json())
       .then(data => setProIsSafe(data[0]))
+  }, [])
+  useEffect(() => {
+    fetch('http://localhost:3702/allOrder')
+      .then(res => res.json())
+      .then(data => setAllOrd(data[0]))
+  }, [])
+  useEffect(() => {
+    fetch('http://localhost:3702/orderFinish')
+      .then(res => res.json())
+      .then(data => setOrderFinish(data[0]))
+  }, [])
+
+  useEffect(() => {
+    fetch('http://localhost:3702/macNum')
+      .then(res => res.json())
+      .then(data => setMacNum(data[0]))
+  }, [])
+  useEffect(() => {
+    fetch('http://localhost:3702/macWorkingNum')
+      .then(res => res.json())
+      .then(data => setMacWorkingNum(data[0]))
   }, [])
 
   useEffect(() => {
@@ -163,12 +201,12 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="100%"
-            subtitle="安全庫存狀態"
-            progress="1.0"
-            increase="100/100"
+            title={hunOrderFinishRate+"%"}
+            subtitle="訂單狀態"
+            progress={orderFinishRate}
+            increase={allOrd.allOrderNum+"/"+orderFinish.orderFinishNum}
             icon={
-              <InventoryIcon
+              <ListAltIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
               />
             }
@@ -225,8 +263,9 @@ const Dashboard = () => {
           backgroundColor={colors.primary[400]}
           p="30px"
         >
+          {/* todo */}
           <Typography variant="h2" fontWeight="600">
-            稼動狀況
+            機台整體狀況
           </Typography>
           <Box
             display="flex"
@@ -234,18 +273,35 @@ const Dashboard = () => {
             alignItems="center"
             mt="25px"
           >
-            <ProgressCircle size="125" />
+            <ProgressCircle size="125" progress={macWorkingRate} />
             <Typography
               variant="h3"
               color={colors.greenAccent[500]}
               sx={{ mt: "20px" }}
             >
-              75%
+             {hunMacWorkingRate+"%"}
             </Typography>
-            <Typography variant="h3">機台平均稼動率</Typography>
+            <Typography variant="h3">機台運作中狀態比例</Typography>
           </Box>
         </Box>
         <Box
+          gridColumn="span 12"
+          gridRow="span 2"
+          backgroundColor={colors.primary[400]}
+        >
+          <Typography
+            variant="h2"
+            fontWeight="600"
+            sx={{ padding: "30px 30px 0 30px" }}
+          >
+            季度訂單情況
+          </Typography>
+          <Box height="250px" mt="-20px">
+              <LineChart1  isCustomLineColors = {false} isDashboard={true} />
+          </Box>
+        </Box>
+        {/* 長條圖備份 */}
+        {/* <Box
           gridColumn="span 12"
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
@@ -260,7 +316,7 @@ const Dashboard = () => {
           <Box height="250px" mt="-20px">
             <BarChart isDashboard={true} />
           </Box>
-        </Box>
+        </Box> */}
         {/* <Box
           gridColumn="span 6"
           gridRow="span 2"

@@ -135,24 +135,24 @@ const Factory = () => {
 
                       <DialogContent>
                         <DialogContentText id="dialog-description">
-                          <Typography variant="h3" mt={2}>
+                          {/* <Typography variant="h3" mt={2}>
                             運行時間：{dialog.brand}
                           </Typography>
                           <br />
                           <Typography variant="h3" mt={2}>
                             待機時間：{dialog.brand}
                           </Typography>
-                          <br />
+                          <br /> */}
                           <Typography variant="h3" mt={2}>
-                            目標完工件數：{dialog.brand}
+                            目標完工件數：{dialog.tar_process_amount+"個"}
                           </Typography>
                           <br />
                           <Typography variant="h3" mt={2}>
-                            實際完工件數：{dialog.brand}
+                            實際完工件數：{dialog.real_process_amount+"個"}
                           </Typography>
                           <br />
                           <Typography variant="h3" mt={2}>
-                            當日稼動率：{dialog.brand}
+                            當日稼動率：{dialog.day_availability+"%"}
                           </Typography>
                         </DialogContentText>
                       </DialogContent>

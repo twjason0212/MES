@@ -1,5 +1,5 @@
-import { ResponsiveLine } from "@nivo/line";
 import { useTheme } from "@mui/material";
+import { ResponsiveLine } from "@nivo/line";
 import { tokens } from "../theme";
 import { mockLineData as data } from "../data/mockData";
 
@@ -48,10 +48,11 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
       xScale={{ type: "point" }}
       yScale={{
         type: "linear",
-        min: "auto",
-        max: "auto",
+        min: "0",
+        max: "100",
         stacked: true,
         reverse: false,
+        tickValues: 5
       }}
       yFormat=" >-.2f"
       curve="catmullRom"

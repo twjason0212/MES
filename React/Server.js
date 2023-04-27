@@ -306,7 +306,7 @@ app.put("/products", function (req, res) {
 
 
 app.get("/machine_list", function (req, res) {
-    connection.query("select * from machine_list", [],
+    connection.query("SELECT `machine_list`.`uuid`,`machine_list`.`brand`,`machine_list`.`status`,`machine_list`.`day_availability`,`work_order`.`tar_process_amount`,`work_order`.`real_process_amount` FROM machine_list RIGHT JOIN work_order ON `machine_list`.`uuid`=`work_order`.`machine_uuid`", [],
         function (err, rows) {
             res.send( JSON.stringify(rows) );
         }
@@ -338,7 +338,7 @@ app.get("/allEmp", function (req, res) {
     )
 })
 app.get("/punchInEmp", function (req, res) {
-    connection.query("SELECT COUNT(start_time) as punchinemp FROM attendance where DATE(start_time) = DATE(NOW());", [],
+    connection.query("SELECT COUNT(start_time) as punchinemp FROM attendance where status = 1 and DATE(start_time) = DATE(NOW());", [],
         function (err, rows) {
             res.send( JSON.stringify(rows) );
         }
@@ -360,6 +360,39 @@ app.get("/proIsSafe", function (req, res) {
         }
     )
 })
+
+//首頁(訂單狀態)
+app.get("/allOrder", function (req, res) {
+    connection.query("SELECT COUNT(*) as allOrderNum FROM orders;", [],
+        function (err, rows) {
+            res.send( JSON.stringify(rows) );
+        }
+    )
+})
+app.get("/orderFinish", function (req, res) {
+    connection.query("SELECT COUNT(*) as orderFinishNum FROM orders WHERE orderstate=3;", [],
+        function (err, rows) {
+            res.send( JSON.stringify(rows) );
+        }
+    )
+})
+
+//首頁(機台狀態)
+app.get("/macNum", function (req, res) {
+    connection.query("SELECT COUNT(*) as machineNum FROM `machine_list`;", [],
+        function (err, rows) {
+            res.send( JSON.stringify(rows) );
+        }
+    )
+})
+app.get("/macWorkingNum", function (req, res) {
+    connection.query("SELECT COUNT(*) as machineWorkingNum FROM `machine_list` where status = 0;", [],
+        function (err, rows) {
+            res.send( JSON.stringify(rows) );
+        }
+    )
+})
+
 //首頁(稼動)
 app.get("/machineAvgAva", function (req, res) {
     connection.query("SELECT AVG(day_availability) as avg FROM `machine_list`;", [],

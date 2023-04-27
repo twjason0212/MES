@@ -10,6 +10,7 @@ const PieChart = () => {
     <ResponsivePie
       data={data}
       theme={{
+        fontSize: 20,
         axis: {
           domain: {
             line: {
