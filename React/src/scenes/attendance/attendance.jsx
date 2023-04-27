@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Button, Dialog, DialogContent, DialogTitle, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from '@mui/material';
+import { useTheme,Box,Button, Dialog, DialogContent, DialogTitle, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from '@mui/material';
 import InputProps from '@mui/material';
+import Header from "../../components/Header";
+import { tokens } from "../../theme";
 const Attenddance = () => {
+    const theme = useTheme();
+    const colors = tokens(theme.palette.mode);
 
     const [attdata, setAttData] = useState([]);
 
@@ -18,6 +22,9 @@ const Attenddance = () => {
                 console.error(error);
             });
     }, []);
+    
+      
+      
 
 
 
@@ -25,17 +32,17 @@ const Attenddance = () => {
     const [filter, setFilter] = useState({
         employee_account: '',
         starttime: '',
-        status: ''
+        att_status_name: ''
     });
 
     const filteredAtt = attdata.filter((att) => {
-        const { employee_account, starttime, status } = filter;
+        const { employee_account, starttime, att_status_name } = filter;
         const attemployee_account = att.employee_account ? att.employee_account.toLowerCase() : '';
-        const attstatus = att.status ? att.status.toLowerCase() : '';
+        const attatt_status_name = att.att_status_name ? att.att_status_name.toLowerCase() : '';
         return (
             attemployee_account.includes(employee_account.toLowerCase()) &&
             att.starttime.includes(starttime) &&
-            attstatus.includes(status.toLowerCase())
+            attatt_status_name.includes(att_status_name.toLowerCase())
         )
     })
 
@@ -79,12 +86,15 @@ const Attenddance = () => {
 
 
     return (
-        <TableContainer>
+        <Box m="20px">
+        <Header title="出缺勤" />
+        <TableContainer   sx={{'& label.Mui-focused': { color: '#4cceac'}}}>
             <div>
                 <div style={{ display: 'flex', justifyContent: 'Space-evenly', padding: '10px' }}>
-                    <TextField sx={{ width: '100%', m: 1 }}
+                    <TextField sx={{ width: '100%', m: 1}}
                         name="employee_account"
                         label="員工工號"
+                        variant="filled"
                         value={filter.employee_account}
                         onChange={handleChange}
                     />
@@ -92,35 +102,38 @@ const Attenddance = () => {
                         name="starttime"
                         label="開始日期"
                         type="month"
+                        variant="filled"
                         InputLabelProps={{ shrink: true }}
                         value={filter.starttime}
                         onChange={handleChange}
                     />
                     <TextField sx={{ width: '100%', m: 1 }}
-                        name="status"
-                        label="假別"
-                        value={filter.status}
+                        name="att_status_name"
+                        label="類別"
+                        variant="filled"
+                        value={filter.att_status_name}
                         onChange={handleChange}
                     />
                 </div>
             </div>
-            <Table>
-                <TableHead>
+            <Table sx={{ backgroundColor: colors.primary[400]}}>
+                <TableHead sx={{backgroundColor: colors.blueAccent[700],'& .MuiTableCell-root': { fontSize: '16px', textAlign: "center" }}}>
                     <TableRow >
-                        <TableCell sx={{ textAlign: 'center' }}>員工編號</TableCell>
+                        <TableCell sx={{ textAlign: 'center' }}>編號</TableCell>
                         <TableCell>員工工號</TableCell>
                         <TableCell>員工姓名</TableCell>
                         <TableCell>開始日期</TableCell>
                         <TableCell>結束日期</TableCell>
-                        <TableCell>假別</TableCell>
+                        <TableCell>類別</TableCell>
                         <TableCell></TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {filteredAtt.map((att) => (
-                        <TableRow key={att.id} >
-                            <TableCell >{att.id}</TableCell>
+                        <TableRow key={att.id} sx={{'& .MuiTableCell-root': { fontSize: '16px', textAlign: "center" }}}>
+                            <TableCell sx={{ textAlign: 'center' }}>{att.id}</TableCell>
                             <TableCell >{att.employee_account}</TableCell>
+                            <TableCell >{att.employee_name}</TableCell>
                             <TableCell >{new Date(att.starttime).toLocaleString('zh-TW', {
                                 hour12: false,
                                 year: 'numeric',
@@ -137,7 +150,7 @@ const Attenddance = () => {
                                 hour: '2-digit',
                                 minute: '2-digit',
                             })}</TableCell>
-                            <TableCell >{att.status}</TableCell>
+                            <TableCell >{att.att_status_name}</TableCell>
                             <TableCell>
                                 <Button variant="contained" color="primary" onClick={() => handleClick(att)}>
                                     修改
@@ -188,12 +201,12 @@ const Attenddance = () => {
                         <TextField
                             label="假別"
                             //value為null的話，會導致React無法正確管理元件的狀態
-                            value={chattdata.status !== null ? chattdata.status : ''}
+                            value={chattdata.att_status_name !== null ? chattdata.att_status_name : ''}
                             fullWidth
                             onChange={(event) =>
                                 setChattData({
                                     ...chattdata,
-                                    status: event.target.value,
+                                    att_status_name: event.target.value,
                                 })
                             }
                         />
@@ -204,6 +217,7 @@ const Attenddance = () => {
                 </Dialog>
             )}
         </TableContainer>
+        </Box>
 
     );
 }

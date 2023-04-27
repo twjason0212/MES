@@ -16,7 +16,7 @@ export default function OvertimeFormik() {
 
 
     const valuesSchema = Yup.object().shape({
-        employee_account: Yup.number().required("請輸入員工編號").positive().integer(),
+        employee_account: Yup.string().required("請輸入員工編號"),
         department: Yup.string().required("請輸入申請部門"),
         start_time: Yup.string().required("請輸入開始時間"),
         end_time: Yup.string().required("請輸入結束時間"),

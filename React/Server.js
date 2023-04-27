@@ -77,12 +77,11 @@ connection.connect(function (error) {
 })
 
 app.get("/attdance", function (req, res) {
-    connection.query("select id,employee_account,DATE_FORMAT(starttime, '%Y-%m-%d %H:%i') as starttime,DATE_FORMAT(endtime, '%Y-%m-%d %H:%i') as endtime,status from attendance;", function (error, data) {
+    connection.query("select attendance.id,employee.employee_account,employee_name,DATE_FORMAT(starttime, '%Y-%m-%d %H:%i') as starttime,DATE_FORMAT(endtime, '%Y-%m-%d %H:%i') as endtime,att_status_name from attendance JOIN employee ON attendance.employee_account = employee.employee_account JOIN att_status_type ON attendance.status = att_status_type.id; ", function (error, data) {
         res.send(JSON.stringify(data))
         console.log(data)
     })
 })
-
 app.put("/attdance", function (req, res) {
     connection.query(
         "update att set starttime = ? , endtime = ? , holiday = ? where id =" + req.body.id,
@@ -313,15 +312,16 @@ app.get("/todo/machine", function (req, res) {
 
 //請假單申請
 app.post('/leave', (req, res) => {
-    connection.query("insert into leave_form set employee_account = ? , department = ?, status = ?, start_time = ?, end_time=?,cause_img=?",
-        [req.body.employee_account, req.body.department, req.body.status, req.body.start_time, req.body.end_time, req.body.cause_img]);
+    connection.query("insert into attendance set employee_account = ? , status = ?, starttime = ?, endtime=?,cause_img=?",
+        [req.body.employee_account, req.body.status, req.body.start_time, req.body.end_time, req.body.cause_img]);
     res.send("新增成功") 
 });
     //加班單申請
     app.post('/overtime', (req, res) => {
-        connection.query("insert into overtime_form set employee_account = ? , department = ?, start_time = ?, end_time=?,cause=?",
-            [req.body.employee_account, req.body.department, req.body.start_time, req.body.end_time, req.body.cause]);
-        res.send("新增成功")
+        connection.query("insert into attendance set employee_account = ? ,  starttime = ?, endtime=?,cause=?,status=?",
+            [req.body.employee_account,req.body.start_time, req.body.end_time, req.body.cause,5]);
+        res.send("新增成功")});
+        
         // const query = `INSERT INTO leave_form ( employee_account, department, leave_type,DATE_FORMAT(start_time, '%Y-%m-%d %H:%i') as start_time,DATE_FORMAT(end_time, '%Y-%m-%d %H:%i') as end_time,cause_img) VALUES (?, ?, ?, ?, ?, ?)`;
         // connection.query(query, [ employee_account, department, leave_type,start_time,end_time,cause_img], (error, results) => {
         //   if (error) {
@@ -331,6 +331,6 @@ app.post('/leave', (req, res) => {
         //     res.status(200).send('Form data submitted successfully');
         //   }
         // });
-    });
+    
 
 
