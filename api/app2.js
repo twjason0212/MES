@@ -69,8 +69,22 @@ app.get("/employee", function (req, res) {
     })
 })
 
-app.get("/employee/:keyword", function (req, res) {
-    console.log("/employee?keyword=?ok~");
+app.get("/employee/:id", function (req, res) {
+    console.log("666", req.params.id);
+    connection.query(`SELECT employee_id, employee.employee_account, employee.employee_name, 
+    department.dept_name, employee.employee_tel, employee.employee_email, role.role_name, startwork_time
+    FROM employee
+    LEFT JOIN role ON employee.employee_role = role.id 
+    LEFT JOIN department ON employee.department = department.id
+      WHERE employee_id = `+ req.params.id, function (error, data) {
+        // connection.query("select id,EmployeeName,EmployeeId,DATE_FORMAT(starttime, '%Y-%m-%d %H:%i') as starttime,DATE_FORMAT(endtime, '%Y-%m-%d %H:%i') as endtime,holiday from att", function (error, data) {
+        res.send(JSON.stringify(data))
+        console.log(data);
+    })
+})
+
+
+app.get("/employee/select/:keyword", function (req, res) {
     let sqlString = `SELECT employee_id, employee.employee_account, employee.employee_name, 
     department.dept_name, employee.employee_tel, employee.employee_email, role.role_name 
     FROM employee
@@ -93,8 +107,12 @@ app.post("/employee/create", function (req, res) {
                  values (?,?,?,?,?,1,?)`, [req.body.account, req.body.password, req.body.name, req.body.tel, req.body.email, req.body.dept])
 })
 
+app.post("/employee/update", function (req, res) {
+    console.log(req.body.EmployeeID);
+    connection.query(`update employee set employee_account = ?, employee_pwd = ?, employee_name = ?, employee_tel = ?, employee_email = ?, startwork_time = ? where employee_id = ` + req.body.employee_id, [req.body.account, req.body.password, req.body.name, req.body.tel, req.body.email, req.body.dept])
+})
+
 app.delete("/employee/del/:id", function (req, res) {
-    console.log("sssssssss", req.params.id, req.body, "~~~~");
     connection.query(
         "delete from employee  where employee_id =" + req.params.id,
         []
@@ -116,4 +134,31 @@ app.get("/auth", function (req, res) {
         res.send(JSON.stringify(data))
         console.log(data);
     })
+})
+
+app.get("/attdance", function (req, res) {
+    connection.query("select id,EmployeeName,EmployeeId,DATE_FORMAT(starttime, '%Y-%m-%d %H:%i') as starttime,DATE_FORMAT(endtime, '%Y-%m-%d %H:%i') as endtime,holiday from att", function (error, data) {
+        res.send(JSON.stringify(data))
+        console.log(data)
+    })
+})
+
+app.get("/coustomer", function (req, res) {
+    connection.query("select * from customers", function (error, data) {
+        res.send(JSON.stringify(data))
+    })
+})
+
+app.put("/coustomer", function (req, res) {
+    connection.query(
+        "update customers set customerphone = ? , customeremail = ? , customeraddress = ? ,customerfax = ? where customerid =" + req.body.customerid,
+        [req.body.customerphone, req.body.customeremail, req.body.customeraddress, req.body.customerfax]
+    );
+    res.send("Update Finish");
+})
+
+app.post("/coustomer/create", function (req, res) {
+    connection.query("insert into customers set customername = ?, customerphone = ? , customeremail = ?, customeraddress = ?, customerfax = ?",
+        [req.body.customername, req.body.customerphone, req.body.customeremail, req.body.customeraddress, req.body.customerfax]);
+    res.send("新增成功")
 })

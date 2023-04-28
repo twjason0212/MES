@@ -19,8 +19,9 @@ import Select, { StylesConfig } from 'react-select';
 const EmployeeForm = (props) => {
 
   const [email, setEmail] = useState([]);
-  // const department = () => map((dep) => ({ value: dep.name, label: dep.name }), dept);
   const [dept, setDepts] = useState([]);
+  const department = () => map((dep) => ({ value: dep.dept_name, label: dep.dept_name }), dept);
+
   useEffect(() => {
     getDepts();
   }, []);
@@ -66,6 +67,30 @@ const EmployeeForm = (props) => {
   //   },
   //   displayName: "BasicForm" // helps with React DevTools
   // });
+  const groupStyles = {
+    display: 'flex',
+    alignItems: 'center',
+    backgroundColor: '#4cceac',
+    justifyContent: 'space-between',
+  };
+  const groupBadgeStyles = {
+    backgroundColor: '#4cceac',
+    borderRadius: '2em',
+    color: '#4cceac',
+    display: 'inline-block',
+    fontSize: 12,
+    fontWeight: 'normal',
+    lineHeight: '1',
+    minWidth: 1,
+    padding: '0.16666666666667em 0.5em',
+    textAlign: 'center',
+  };
+  const formatGroupLabel = (data) => (
+    <div style={groupStyles}>
+      <span>{data.label}</span>
+      <span style={groupBadgeStyles}>{data.options.length}</span>
+    </div>
+  );
 
   return (
     <Box m="20px">
@@ -73,8 +98,8 @@ const EmployeeForm = (props) => {
 
       <Formik
         onSubmit={handleFormSubmit}
-        initialValues={initialValues}
-      // validationSchema={checkoutSchema}
+        initialValues={iniValues}
+       validationSchema={checkoutSchema}
       >
         {({ handleBlur, handleSubmit, handleChange, handleReset, values, errors, touched }) => (
           <Box component={Form} onSubmit={handleSubmit}>
@@ -144,7 +169,7 @@ const EmployeeForm = (props) => {
               helperText={touched.email && errors.email}
               sx={{ '& label.Mui-focused': { color: '#4cceac' }, gridColumn: "span 2" }}
             />
-            <select
+            {/* <select
               name="dept"
               value={values.color}
               onChange={handleChange}
@@ -157,17 +182,16 @@ const EmployeeForm = (props) => {
               {dept.map((option) => (
                 <option value={option.id} label={option.dept_name}>{option.dept_name}</option>
               ))}
-            </select>
-            {/* <Select
+            </select> */}
+            <Select
               name="dept"
-              options={dept.map((option) => (
-                <option value={option.id} label={option.dept_name}>{option.dept_name}</option>
-              ))}
-              value={values.color}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              style={{ display: "block" }}
-            /> */}
+              // options={dept.map((option) => (
+              //   <option value={option.id} label={option.dept_name}>{option.dept_name}</option>
+              // ))}
+              options={department()}
+              defaultValue="選擇部門"
+              formatGroupLabel={formatGroupLabel}
+            />
 
 
             <button type="submit" onClick={handleReset}>Submit</button>
@@ -198,7 +222,7 @@ const checkoutSchema = yup.object().shape({
   dept: yup.string().required("required"),
   password: yup.string().required("required"),
 });
-const initialValues = {
+const iniValues = {
   name: "",
   account: "",
   email: "",
