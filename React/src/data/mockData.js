@@ -201,35 +201,36 @@ export const mockBarDatabk = [
 
 export const mockPieData = [
   {
-    id: "A",
-    label: "A-100",
-    value: 239,
-    color: "hsl(104, 70%, 50%)",
+    id:"運作中",
+    label: "運作中",
+    value: 5,
+    color: "hsl(41, 70%, 50%)",
+    
   },
   {
-    id: "B",
-    label: "B",
-    value: 170,
-    color: "hsl(162, 70%, 50%)",
+    id: "待機中",
+    label: "待機中",
+    value: 2,
+    color: "hsl(41, 70%, 50%)",
   },
   {
-    id: "C",
-    label: "C",
-    value: 322,
-    color: "hsl(291, 70%, 50%)",
+    id: "警告",
+    label: "警告",
+    value: 0,
+    color: "hsl(0, 100%, 50%)",
   },
-  {
-    id: "D",
-    label: "D",
-    value: 503,
-    color: "hsl(229, 70%, 50%)",
-  },
-  {
-    id: "E",
-    label: "E",
-    value: 584,
-    color: "hsl(344, 70%, 50%)",
-  },
+  // {
+  //   id: "D",
+  //   label: "D",
+  //   value: 503,
+  //   color: "hsl(229, 70%, 50%)",
+  // },
+  // {
+  //   id: "E",
+  //   label: "E",
+  //   value: 584,
+  //   color: "hsl(344, 70%, 50%)",
+  // },
 ];
 
 export const mockDataFactory = [

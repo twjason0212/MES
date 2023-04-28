@@ -1,7 +1,7 @@
-import { Box, Card, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
-import BarChart from "../../components/BarChart";
+// import BarChart from "../../components/BarChart";
 // import BarChart2 from "../../components/BarChart2";
 import ProgressCircle from "../../components/ProgressCircle";
 import PieChart from "../../components/PieChart";
@@ -42,20 +42,22 @@ const Dashboard = () => {
 
   const [allOrd, setAllOrd] = useState([]);
   const [orderFinish, setOrderFinish] = useState([]);
-  let orderFinishRate= (orderFinish.orderFinishNum)/(allOrd.allOrderNum)
-  let hunOrderFinishRate= Math.round(orderFinishRate * 100)
+  let orderFinishRate = (orderFinish.orderFinishNum) / (allOrd.allOrderNum)
+  let hunOrderFinishRate = Math.round(orderFinishRate * 100)
 
-  const [macNum, setMacNum] = useState([]);
-  const [macWorkingNum, setMacWorkingNum] = useState([]);
-  let macWorkingRate= (macWorkingNum.machineWorkingNum)/(macNum.machineNum)
-  let hunMacWorkingRate= Math.round(macWorkingRate * 100)
+  // const [macNum, setMacNum] = useState([]);
+  // const [macWorkingNum, setMacWorkingNum] = useState([]);
+  // let macWorkingRate = (macWorkingNum.machineWorkingNum) / (macNum.machineNum)
+  // let hunMacWorkingRate = Math.round(macWorkingRate * 100)
 
 
   const [machineAvgAva, setMachineAvgAva] = useState([]);
-  let pIntmachineAvgAva=Math.round(machineAvgAva.avg)
-  let decMachineAvgAva=(pIntmachineAvgAva)/100
-  
+  let pIntmachineAvgAva = Math.round(machineAvgAva.avg)
+  let decMachineAvgAva = (pIntmachineAvgAva) / 100
 
+  const [yieldRate, setYieldRate] = useState([]);
+  let hunYieldRate = yieldRate.yieldRateDB*100
+  console.log()
 
   useEffect(() => {
     fetch('http://localhost:3702/allWorkO')
@@ -100,15 +102,21 @@ const Dashboard = () => {
       .then(data => setOrderFinish(data[0]))
   }, [])
 
+  // useEffect(() => {
+  //   fetch('http://localhost:3702/macNum')
+  //     .then(res => res.json())
+  //     .then(data => setMacNum(data[0]))
+  // }, [])
+  // useEffect(() => {
+  //   fetch('http://localhost:3702/macWorkingNum')
+  //     .then(res => res.json())
+  //     .then(data => setMacWorkingNum(data[0]))
+  // }, [])
+
   useEffect(() => {
-    fetch('http://localhost:3702/macNum')
+    fetch('http://localhost:3702/yieldRate')
       .then(res => res.json())
-      .then(data => setMacNum(data[0]))
-  }, [])
-  useEffect(() => {
-    fetch('http://localhost:3702/macWorkingNum')
-      .then(res => res.json())
-      .then(data => setMacWorkingNum(data[0]))
+      .then(data => setYieldRate(data[0]))
   }, [])
 
   useEffect(() => {
@@ -146,7 +154,7 @@ const Dashboard = () => {
             title={isNaN(hunWoFinishRate) ? 0 + "%" : hunWoFinishRate + "%"}
             subtitle="今日工單進度"
             progress={isNaN(woFinishRate) ? 0 : woFinishRate}
-            increase={workO.totWo + "/" + todoworkO.todoWo}
+            increase={todoworkO.todoWo + "/" + workO.totWo}
             icon={
               <TaskIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -164,9 +172,9 @@ const Dashboard = () => {
         >
           <StatBox
             title={hunAttRate + "%"}
-            subtitle="應到人數/實到人數"
+            subtitle="實到人數/應到人數"
             progress={attRate}
-            increase={emp.emp + "/" + punchInEmp.punchinemp}
+            increase={punchInEmp.punchinemp + "/" + emp.emp}
             icon={
               <PersonPin
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -185,7 +193,7 @@ const Dashboard = () => {
             title={hunProSaveRate + "%"}
             subtitle="安全庫存狀態"
             progress={proSaveRate}
-            increase={pro.proType + "/" + proIsSafe.proTypeIsSafe}
+            increase={proIsSafe.proTypeIsSafe + "/" + pro.proType}
             icon={
               <InventoryIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -201,10 +209,10 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title={hunOrderFinishRate+"%"}
+            title={hunOrderFinishRate + "%"}
             subtitle="訂單狀態"
             progress={orderFinishRate}
-            increase={allOrd.allOrderNum+"/"+orderFinish.orderFinishNum}
+            increase={orderFinish.orderFinishNum + "/" + allOrd.allOrderNum}
             icon={
               <ListAltIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -241,6 +249,7 @@ const Dashboard = () => {
             <Typography variant="h3">機台平均稼動率</Typography>
           </Box>
         </Box>
+        {/* todo */}
         <Box
           gridColumn="span 4"
           gridRow="span 2"
@@ -251,7 +260,7 @@ const Dashboard = () => {
             fontWeight="600"
             sx={{ padding: "30px 30px 0 30px" }}
           >
-            圓餅圖類型2
+            機台整體狀況
           </Typography>
           <Box height="250px" mt="-20px">
             <PieChart isDashboard={true} />
@@ -263,27 +272,28 @@ const Dashboard = () => {
           backgroundColor={colors.primary[400]}
           p="30px"
         >
-          {/* todo */}
           <Typography variant="h2" fontWeight="600">
-            機台整體狀況
+            生產良率
           </Typography>
+
           <Box
             display="flex"
             flexDirection="column"
             alignItems="center"
             mt="25px"
           >
-            <ProgressCircle size="125" progress={macWorkingRate} />
+            <ProgressCircle size="125" progress={yieldRate.yieldRateDB} />
             <Typography
               variant="h3"
               color={colors.greenAccent[500]}
               sx={{ mt: "20px" }}
             >
-             {hunMacWorkingRate+"%"}
+              {hunYieldRate + "%"}
             </Typography>
-            <Typography variant="h3">機台運作中狀態比例</Typography>
+            <Typography variant="h3">已完成工單之生產良率</Typography>
           </Box>
         </Box>
+
         <Box
           gridColumn="span 12"
           gridRow="span 2"
@@ -297,7 +307,7 @@ const Dashboard = () => {
             季度訂單情況
           </Typography>
           <Box height="250px" mt="-20px">
-              <LineChart1  isCustomLineColors = {false} isDashboard={true} />
+            <LineChart1 isCustomLineColors={false} isDashboard={true} />
           </Box>
         </Box>
         {/* 長條圖備份 */}

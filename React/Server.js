@@ -302,13 +302,11 @@ app.put("/products", function (req, res) {
 })
 
 
-//機器(冠宇)
-
-
+//機器(冠宇)//row1
 app.get("/machine_list", function (req, res) {
     connection.query("SELECT `machine_list`.`uuid`,`machine_list`.`brand`,`machine_list`.`status`,`machine_list`.`day_availability`,`work_order`.`tar_process_amount`,`work_order`.`real_process_amount` FROM machine_list RIGHT JOIN work_order ON `machine_list`.`uuid`=`work_order`.`machine_uuid`", [],
         function (err, rows) {
-            res.send( JSON.stringify(rows) );
+            res.send(JSON.stringify(rows));
         }
     )
 })
@@ -318,14 +316,14 @@ app.get("/machine_list", function (req, res) {
 app.get("/allWorkO", function (req, res) {
     connection.query("SELECT COUNT(*) as totWo FROM work_order where DATE(process_date) = DATE(NOW());", [],
         function (err, rows) {
-            res.send( JSON.stringify(rows) );
+            res.send(JSON.stringify(rows));
         }
     )
 })
 app.get("/todoWorkO", function (req, res) {
     connection.query("SELECT COUNT(*) AS todoWo FROM work_order where work_order_status =0 and DATE(process_date) = DATE(NOW());", [],
         function (err, rows) {
-            res.send( JSON.stringify(rows) );
+            res.send(JSON.stringify(rows));
         }
     )
 })
@@ -333,14 +331,14 @@ app.get("/todoWorkO", function (req, res) {
 app.get("/allEmp", function (req, res) {
     connection.query("SELECT COUNT(*) as emp FROM `employee`;", [],
         function (err, rows) {
-            res.send( JSON.stringify(rows) );
+            res.send(JSON.stringify(rows));
         }
     )
 })
 app.get("/punchInEmp", function (req, res) {
     connection.query("SELECT COUNT(start_time) as punchinemp FROM attendance where status = 1 and DATE(start_time) = DATE(NOW());", [],
         function (err, rows) {
-            res.send( JSON.stringify(rows) );
+            res.send(JSON.stringify(rows));
         }
     )
 })
@@ -349,14 +347,14 @@ app.get("/punchInEmp", function (req, res) {
 app.get("/allPro", function (req, res) {
     connection.query("SELECT COUNT(*) as proType FROM `product`;", [],
         function (err, rows) {
-            res.send( JSON.stringify(rows) );
+            res.send(JSON.stringify(rows));
         }
     )
 })
 app.get("/proIsSafe", function (req, res) {
     connection.query("SELECT COUNT(*) as proTypeIsSafe FROM `product` where (`product_amount`-`product_safe_amount`>0);", [],
         function (err, rows) {
-            res.send( JSON.stringify(rows) );
+            res.send(JSON.stringify(rows));
         }
     )
 })
@@ -365,39 +363,74 @@ app.get("/proIsSafe", function (req, res) {
 app.get("/allOrder", function (req, res) {
     connection.query("SELECT COUNT(*) as allOrderNum FROM orders;", [],
         function (err, rows) {
-            res.send( JSON.stringify(rows) );
+            res.send(JSON.stringify(rows));
         }
     )
 })
 app.get("/orderFinish", function (req, res) {
     connection.query("SELECT COUNT(*) as orderFinishNum FROM orders WHERE orderstate=3;", [],
         function (err, rows) {
-            res.send( JSON.stringify(rows) );
+            res.send(JSON.stringify(rows));
         }
     )
 })
 
-//首頁(機台狀態)
-app.get("/macNum", function (req, res) {
-    connection.query("SELECT COUNT(*) as machineNum FROM `machine_list`;", [],
-        function (err, rows) {
-            res.send( JSON.stringify(rows) );
-        }
-    )
-})
-app.get("/macWorkingNum", function (req, res) {
-    connection.query("SELECT COUNT(*) as machineWorkingNum FROM `machine_list` where status = 0;", [],
-        function (err, rows) {
-            res.send( JSON.stringify(rows) );
-        }
-    )
-})
 
-//首頁(稼動)
+//首頁(稼動) row2
 app.get("/machineAvgAva", function (req, res) {
     connection.query("SELECT AVG(day_availability) as avg FROM `machine_list`;", [],
         function (err, rows) {
-            res.send( JSON.stringify(rows) );
+            res.send(JSON.stringify(rows));
+        }
+    )
+})
+
+
+//首頁(機台狀態)
+// app.get("/macNum", function (req, res) {
+//     connection.query("SELECT COUNT(*) as machineNum FROM `machine_list`;", [],
+//         function (err, rows) {
+//             res.send(JSON.stringify(rows));
+//         }
+//     )
+// })
+// app.get("/macWorkingNum", function (req, res) {
+//     connection.query("SELECT COUNT(*) as machineWorkingNum FROM `machine_list` where status = 0;", [],
+//         function (err, rows) {
+//             res.send(JSON.stringify(rows));
+//         }
+//     )
+// })
+
+// 首頁(機台整體狀況)todo
+app.get("/macStatus", function (req, res) {
+    connection.query("SELECT COUNT(CASE WHEN status = 0 THEN 1 END) AS runningValue, COUNT(CASE WHEN status = 1 THEN 1 END) AS standbyValue, COUNT(CASE WHEN status = 2 THEN 1 END) AS errorValue FROM machine_list;", [],
+        function (err, rows) {
+            res.send(JSON.stringify(rows));
+        }
+    )
+})
+
+// 首頁(生產良率)
+app.get("/yieldRate", function (req, res) {
+    connection.query("SELECT  ROUND(sum(real_process_amount) / sum(tar_process_amount),2) as yieldRateDB FROM `work_order` WHERE work_order_status=0;", [],
+        function (err, rows) {
+            res.send(JSON.stringify(rows));
+        }
+    )
+})
+
+
+
+
+
+
+
+//首頁(折線圖)
+app.get("/qOrdNum", function (req, res) {
+    connection.query("SELECT QUARTER(orderdate) AS x, COUNT(*) AS y FROM orders WHERE YEAR(orderdate) = YEAR(NOW()) GROUP BY x;", [],
+        function (err, rows) {
+            res.send(JSON.stringify(rows));
         }
     )
 })
