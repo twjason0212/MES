@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, TableCell, TableContainer, TableHead, TableRow, Button, TableBody, Table, Dialog, DialogContent, TextField, } from "@mui/material";
+import { Box, TableCell, TableContainer, TableHead, TableRow, Button, TableBody, Table, Dialog, DialogContent, TextField, useTheme, } from "@mui/material";
 import axios from "axios";
 import withAuth from "../../components/withAuth";
 import Header from "../../components/Header";
@@ -9,6 +9,9 @@ import { tokens } from "../../theme";
 
 
 const WorkOrderList = () => {
+
+    const theme = useTheme();
+    const colors = tokens(theme.palette.mode);
 
     const [workorder, setWorkOrder] = useState([]);
     const [reworkorder, setReWorkOrder] = useState([]);
@@ -38,14 +41,11 @@ const WorkOrderList = () => {
         axios.put('http://127.0.0.1:3702/workorderlist', data)
             .then((response) => {
                 console.log(response.data);
-                axios.get('http://127.0.0.1:3702/workorder')
-                    .then(response => {
-                        setWorkOrder(response.data);
-                        console.log('資料更新成功');
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    });
+                return axios.get('http://127.0.0.1:3702/workorder')
+            })
+            .then(response => {
+                setWorkOrder(response.data);
+                console.log('資料更新成功');
             })
             .catch((error) => {
                 console.log(error);
@@ -60,10 +60,12 @@ const WorkOrderList = () => {
                 color: '#4cceac'
             }
         }}>
-            <Header title="工單管理" />
+            <Header title="派工單管理" subtitle="" />
             <TableContainer m="40px 0 0 0">
-                <Table>
-                    <TableHead>
+                <Table sx={{ backgroundColor: colors.primary[400], mt: 3, }}>
+                    <TableHead sx={{
+                        backgroundColor: colors.blueAccent[700], mt: 2, '& .MuiTableCell-root': { fontSize: '16px', textAlign: "center" }
+                    }}>
                         <TableRow>
                             <TableCell>派工單號</TableCell>
                             <TableCell>產品名稱</TableCell>
@@ -76,10 +78,17 @@ const WorkOrderList = () => {
                     <TableBody>
                         {workorder.map((order) => (
                             <React.Fragment key={order.work_order_id}>
-                                <TableRow>
+                                <TableRow sx={{ '& .MuiTableCell-root': { fontSize: '16px', textAlign: "center" } }}>
                                     <TableCell>{order.work_order_id}</TableCell>
                                     <TableCell>{order.product_name}</TableCell>
-                                    <TableCell>{new Date(order.process_date).toLocaleString()}</TableCell>
+                                    <TableCell>{new Date(order.process_date).toLocaleString('zh-TW', {
+                                        hour12: false,
+                                        year: 'numeric',
+                                        month: '2-digit',
+                                        day: '2-digit',
+                                        hour: '2-digit',
+                                        minute: '2-digit',
+                                    })}</TableCell>
                                     <TableCell>{order.tar_process_amount}</TableCell>
                                     <TableCell>{order.work_order_status_name}</TableCell>
                                     <TableCell>

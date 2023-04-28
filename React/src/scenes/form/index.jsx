@@ -1,4 +1,4 @@
-import { Box, Button, TextField , Autocomplete} from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 import {
   Field,
   FieldProps,
@@ -13,28 +13,12 @@ import Header from "../../components/Header";
 import React, { useState, useEffect, Component } from "react";
 import { map, find, propEq, forEach, isNil } from 'ramda';
 import axios from "axios";
-import chroma from 'chroma-js';
-import withAuth from "../../components/withAuth";
 import Select, { StylesConfig } from 'react-select';
 
 
 const EmployeeForm = (props) => {
-  const isNonMobile = useMediaQuery("(min-width:600px)");
 
-  const handleFormSubmit = (values) => {
-    console.log(values);
-    alert(JSON.stringify(values, null, 2));
-    axios.post('http://localhost:3702/employee/create', values)
-      .then(response => {
-        console.log(response.data);
-        setDepts(response.data)
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  };
-
-
+  const [email, setEmail] = useState([]);
   // const department = () => map((dep) => ({ value: dep.name, label: dep.name }), dept);
   const [dept, setDepts] = useState([]);
   useEffect(() => {
@@ -42,7 +26,7 @@ const EmployeeForm = (props) => {
   }, []);
 
   function getDepts() {
-    axios.get('http://127.0.0.1:3702/dept')
+    axios.get('http://localhost:3702/dept')
       .then(response => {
         console.log(response.data);
         setDepts(response.data)
@@ -53,9 +37,35 @@ const EmployeeForm = (props) => {
 
   }
 
+  const handleFormSubmit = (values, { resetForm }) => {
+    console.log(values);
+    alert(JSON.stringify(values, null, 2));
+    axios.post('http://localhost:3702/employee/create', values)
+      .then(response => {
+        console.log(response.data);
+        // setDepts(response.data)
+      })
+      .catch(error => {
+        console.error(error);
+      });
+
+    getDepts();
+    resetForm();
+  };
+
+
   // 部門
   // const department = () => map((dep) => ({ value: dep.name, label: dep.name }), dept);
-
+  // const withFormik = Formik({
+  //   mapPropsToValues: () => ({ color: "" }),
+  //   handleSubmit: (values, { setSubmitting }) => {
+  //     setTimeout(() => {
+  //       alert(JSON.stringify(values, null, 2));
+  //       setSubmitting(false);
+  //     }, 1000);
+  //   },
+  //   displayName: "BasicForm" // helps with React DevTools
+  // });
 
   return (
     <Box m="20px">
@@ -66,7 +76,7 @@ const EmployeeForm = (props) => {
         initialValues={initialValues}
       // validationSchema={checkoutSchema}
       >
-        {({ setFieldValue,handleBlur, handleSubmit, handleChange, values, errors, touched }) => (
+        {({ handleBlur, handleSubmit, handleChange, handleReset, values, errors, touched }) => (
           <Box component={Form} onSubmit={handleSubmit}>
             <TextField
               fullWidth
@@ -145,34 +155,23 @@ const EmployeeForm = (props) => {
                 選擇部門{" "}
               </option>
               {dept.map((option) => (
-                <option value={option.id} label={option.dept_name}>{option.dept_name}</option>
+                <option value={option.id} label={option.dept_name}>{option.dept_name} key={option.id}</option>
               ))}
             </select>
-            
-            {/* <Autocomplete
-              sx={{ width: '252px' }}
-              options={dept}
-              getOptionLabel={(option) => option.dept_name}
-              filterOptions={(options, { inputValue }) =>
-                options.filter((option) =>
-                  option.dept_name.toLowerCase().includes(inputValue.toLowerCase())
-                )
-              }
-              onChange={(event, value) => setFieldValue("dept_name", value?.dept_name || "")}
-              value={dept.find((c) => c.dept_name === values.dept_name) || null}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="客戶名稱"
-                  name="dept_name"
-                  onBlur={handleBlur}
-                  error={touched.dept_name && Boolean(errors.dept_name)}
-                  helperText={touched.dept_name && errors.dept_name}
-                />
-              )}
+            {/* <Select
+              name="dept"
+              options={dept.map((option) => (
+                <option value={option.id} label={option.dept_name}>{option.dept_name}</option>
+              ))}
+              value={values.color}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              style={{ display: "block" }}
             /> */}
-            
+
+
             <button type="submit">Submit</button>
+
           </Box>
 
         )
@@ -189,22 +188,23 @@ const phoneRegExp =
   /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
 
 const checkoutSchema = yup.object().shape({
-  firstName: yup.string().required("required"),
-  lastName: yup.string().required("required"),
+  name: yup.string().required("required"),
+  account: yup.string().required("required"),
   email: yup.string().email("invalid email").required("required"),
   contact: yup
     .string()
     .matches(phoneRegExp, "Phone number is not valid")
     .required("required"),
-  address1: yup.string().required("required"),
-  address2: yup.string().required("required"),
+  dept: yup.string().required("required"),
+  password: yup.string().required("required"),
 });
 const initialValues = {
   name: "",
   account: "",
   email: "",
+  tel: "",
   password: "",
-  dept: "",
+  dept: "選擇部門",
 };
 
-export default withAuth(EmployeeForm);
+export default EmployeeForm;

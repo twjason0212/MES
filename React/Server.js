@@ -482,8 +482,7 @@ app.put("/product", function (req, res) {
 
 //工單列表
 app.get('/workorder', function (req, res) {
-    connection.query("select * from work_order join work_order_status on work_order.work_order_status = work_order_status.id where work_order_status = 1", function (error, data) {
-
+    connection.query("select * ,work_order.id from work_order join work_order_status on work_order.work_order_status = work_order_status.id where work_order_status = 1", function (error, data) {
         res.send(JSON.stringify(data));
         console.log(data);
     });
@@ -520,7 +519,7 @@ app.post('/workorder', function (req, res) {
 
 //待辦工單(接單人 與 狀態2)
 app.get('/workorder/:id', function (req, res) {
-    connection.query("select * from work_order join work_order_status on work_order.work_order_status = work_order_status.id where work_order_executor = ? and work_order_status = 2 ", [req.params.id], function (error, data) {
+    connection.query("select * , work_order.id from work_order join work_order_status on work_order.work_order_status = work_order_status.id where work_order_executor = ? and work_order_status = 2 ", [req.params.id], function (error, data) {
         if (error) throw error;
         res.send(JSON.stringify(data));
         console.log(data);
@@ -528,15 +527,15 @@ app.get('/workorder/:id', function (req, res) {
 })
 
 //待辦工單(報工)
-app.post('/reportorder' , function (req, res) {
+app.post('/reportorder', function (req, res) {
     const data = req.body;
     const reportdata = {
         work_order_id: data.work_order_id,
-        report_order_creator:data.work_order_executor,
-        machine_uuid:data.machine_uuid,
-        real_process_amount:data.real_process_amount,
-        defect_process_amount:data.defect_process_amount,
-        process_date:data.finish_date
+        report_order_creator: data.work_order_executor,
+        machine_uuid: data.machine_uuid,
+        real_process_amount: data.real_process_amount,
+        defect_process_amount: data.defect_process_amount,
+        process_date: data.finish_date
     }
     connection.query('insert into report_order set ?', [reportdata])
 
@@ -544,7 +543,7 @@ app.post('/reportorder' , function (req, res) {
 })
 
 app.put('/reportorder', function (req, res) {
-    connection.query('update work_order set work_order_status = ?'+ req.body.id, [3])
+    connection.query('update work_order set work_order_status = ? where id =' + req.body.id, [3])
     res.send("狀態更新");
 })
 
@@ -564,36 +563,85 @@ app.get("/todo/machine", function (req, res) {
 
 // 言
 
+//員工所有資料列表
 app.get("/employee", function (req, res) {
-    connection.query("SELECT employee.Id,employee.EmployeeId,employee.Name,department.name as Dept,employeeinfo.Year,employee.Address,employee.Phone,employee.Email FROM employee department ON employeeinfo.Dept = department.dept", function (error, data) {
+    connection.query(`SELECT employee_id, employee.employee_account, employee.employee_name, 
+    department.dept_name, employee.employee_tel, employee.employee_email, role.role_name 
+    FROM employee
+    LEFT JOIN role ON employee.employee_role = role.id 
+    LEFT JOIN department ON employee.department = department.id`, function (error, data) {
         // connection.query("select id,EmployeeName,EmployeeId,DATE_FORMAT(starttime, '%Y-%m-%d %H:%i') as starttime,DATE_FORMAT(endtime, '%Y-%m-%d %H:%i') as endtime,holiday from att", function (error, data) {
         res.send(JSON.stringify(data))
         console.log(data);
     })
 })
-// 新增員工 言
+
+//員工所有資料列表(個人資料修改)
+app.get("/employee/:keyword", function (req, res) {
+    console.log("/employee?keyword=?ok~");
+    let sqlString = `SELECT employee_id, employee.employee_account, employee.employee_name, 
+    department.dept_name, employee.employee_tel, employee.employee_email, role.role_name 
+    FROM employee
+    LEFT JOIN role ON employee.employee_role = role.id 
+    LEFT JOIN department ON employee.department = department.id
+    WHERE employee_name like '` + '%' + req.params.keyword + '%' + `'`
+    connection.query(sqlString, function (error, data) {
+        // connection.query("select id,EmployeeName,EmployeeId,DATE_FORMAT(starttime, '%Y-%m-%d %H:%i') as starttime,DATE_FORMAT(endtime, '%Y-%m-%d %H:%i') as endtime,holiday from att", function (error, data) {
+        res.send(JSON.stringify(data))
+        console.log(req.params.keyword);
+        console.log(sqlString);
+        console.log(data);
+    })
+})
+
+//員工所有資料列表(個人資料刪除)
+app.delete("/employee/del/:id", function (req, res) {
+    console.log("sssssssss", req.params.id, req.body, "~~~~");
+    connection.query(
+        "delete from employee  where employee_id =" + req.params.id,
+        []
+    );
+    res.send("Delete Finish");
+})
+
+// 新增員工 
 app.post("/employee/create", function (req, res) {
     console.log("post start");
     console.log(req.body.EmployeeID);
     const paswod = bcrypt.hashSync(req.body.password, 10)
-    connection.query(`insert into employee (employee_account, employee_pwd, employee_name, employee_tel, employee_email, employee_status, department) 
-                 values (?,?,?,?,?,1,?)`, [req.body.account, paswod, req.body.name, req.body.tel, req.body.email, req.body.dept])
+
+    let setToken = {
+        login: req.body.account,
+        name: req.body.name,
+        email: req.body.email
+    }
+
+    let token = jwt.sign(
+        JSON.parse(JSON.stringify(setToken)),
+        app.get('secret'),
+        { expiresIn: 60 * 60 * 24 }
+    )
+
+    connection.query(`insert into employee (employee_account, employee_pwd, employee_name, employee_tel, employee_email, employee_status, department ,token) 
+                 values (?,?,?,?,?,1,?,?)`, [req.body.account, paswod, req.body.name, req.body.tel, req.body.email, req.body.dept ,token])
 })
 
 
-app.put("/employee", function (req, res) {
-    connection.query(
-        "update att set starttime = ? , endtime = ? , holiday = ? where id =" + req.body.id,
-        [req.body.starttime, req.body.endtime, req.body.holiday]
-    );
-    res.send("Update Finish");
-})
-
-//部門選擇 言
+//新增員工(部門選擇) 言
 app.get("/dept", function (req, res) {
-    connection.query("SELECT * FROM  department ", function (error, data) {
+    connection.query("SELECT id, dept_name FROM  department ", function (error, data) {
         // connection.query("select id,EmployeeName,EmployeeId,DATE_FORMAT(starttime, '%Y-%m-%d %H:%i') as starttime,DATE_FORMAT(endtime, '%Y-%m-%d %H:%i') as endtime,holiday from att", function (error, data) {
         res.send(JSON.stringify(data))
         console.log(data)
+    })
+})
+
+
+//權限表
+app.get("/auth", function (req, res) {
+    connection.query(`SELECT employee_role.role_id, role.role_name,title,url FROM employee_role left join role on employee_role.role_id = role.id`, function (error, data) {
+        // connection.query("select id,EmployeeName,EmployeeId,DATE_FORMAT(starttime, '%Y-%m-%d %H:%i') as starttime,DATE_FORMAT(endtime, '%Y-%m-%d %H:%i') as endtime,holiday from att", function (error, data) {
+        res.send(JSON.stringify(data))
+        console.log(data);
     })
 })

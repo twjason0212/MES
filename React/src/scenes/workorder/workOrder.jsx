@@ -7,23 +7,24 @@ import axios from 'axios';
 import Header from "../../components/Header";
 import { tokens } from "../../theme";
 import withAuth from "../../components/withAuth";
-
+import makeStyles from '@mui/material';
+import { fontSize } from '@mui/system';
 
 const WorkOrder = () => {
-
+    
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const work_creator = window.sessionStorage.getItem('name');
 
     return (
         <Box m="20px">
-            <Header title="派工單" subtitle="新增派工單"/>
+            <Header title="派工單" subtitle="新增派工單" />
             <Box sx={{
                 // backgroundColor: colors.primary[400],
                 "& .green-text": {
                     color: colors.greenAccent[300],
                     fontSize: "22px",
-                    p:3,
+                    p: 3,
                 },
             }} >
                 {/* <div className="green-text">填寫派工單</div> */}
@@ -54,11 +55,18 @@ const WorkOrder = () => {
                     }}
                 >
                     {({ handleSubmit, handleChange, values, errors, touched }) => (
-                        <Box component={Form} onSubmit={handleSubmit} sx={{'& label.Mui-focused': {
-                            color: '#4cceac'}}}>
+                        <Box component={Form} onSubmit={handleSubmit} sx={{
+                            '& label.Mui-focused': {
+                                color: '#4cceac',
+                                fontSize:"22px"
+                            },'& .MuiInputLabel-filled': {
+                                color: '#4cceac',
+                                fontSize:"22px"
+                            }
+                        }}>
                             <Grid container spacing={3} p="20px 12px">
                                 <Grid xs={6}>
-                                    <TextField
+                                    <span style={{fontSize:'24px'}}>a</span><TextField sx={{'& .MuiFilledInput-root':{fontSize:'32px'}}}
                                         variant="filled"
                                         id="work_order_id"
                                         name="work_order_id"
@@ -72,13 +80,13 @@ const WorkOrder = () => {
                                 </Grid>
                                 <Grid xs={6}>
                                     <TextField
-                                    variant="filled"
+                                        variant="filled"
                                         id="work_order_creator"
                                         name="work_order_creator"
                                         label="派工單建立人員"
                                         fullWidth
                                         value={work_creator}
-                                        disabled 
+                                        disabled
                                         onChange={handleChange}
                                         error={touched.work_order_creator && Boolean(errors.work_order_creator)}
                                         helperText={touched.work_order_creator && errors.work_order_creator}
@@ -88,7 +96,7 @@ const WorkOrder = () => {
                             <Grid container spacing={3} p="20px 12px">
                                 <Grid xs={6}>
                                     <TextField
-                                    variant="filled"
+                                        variant="filled"
                                         id="product_name"
                                         name="product_name"
                                         label="產品名稱"
@@ -101,7 +109,7 @@ const WorkOrder = () => {
                                 </Grid>
                                 <Grid xs={6}>
                                     <TextField
-                                    variant="filled"
+                                        variant="filled"
                                         id="process_date"
                                         name="process_date"
                                         label="建立日期"
@@ -122,7 +130,7 @@ const WorkOrder = () => {
                             <Grid container spacing={3} p="20px 12px">
                                 <Grid xs={6}>
                                     <TextField
-                                    variant="filled"
+                                        variant="filled"
                                         id="tar_process_amount"
                                         name="tar_process_amount"
                                         label="預計加工量"

@@ -139,7 +139,7 @@ const OrdersTable = () => {
             </Box>
             <Neworder2 />
             <TableContainer >
-                <Table sx={{ backgroundColor: colors.primary[400], mt: 3, '& .textcen': { fontSize: '16px', textAlign: "center" } }}>
+                <Table sx={{ backgroundColor: colors.primary[400], mt: 3, '& .textcen': { fontSize: '22px', textAlign: "center" } }}>
                     <TableHead sx={{
                         backgroundColor: colors.blueAccent[600], mt: 2,
                     }}>
