@@ -20,7 +20,7 @@ export default function OvertimeFormik() {
         department: Yup.string().required("請輸入申請部門"),
         start_time: Yup.string().required("請輸入開始時間"),
         end_time: Yup.string().required("請輸入結束時間"),
-        total_time: Yup.string().required("請輸入加班總時數"),
+        // total_time: Yup.string().required("請輸入加班總時數"),
         cause: Yup.string().required("請輸入加班事由")
     })
     const initialValues = {
@@ -30,7 +30,7 @@ export default function OvertimeFormik() {
         start_date: "",
         start_time: "",
         end_time: "",
-        total_time: "",
+        // total_time: "",
         cause: ""
 
     }
@@ -40,16 +40,16 @@ export default function OvertimeFormik() {
         // const formData = { employee_account, department, type, start_time, end_time, cause};
         // const formDataJson = JSON.stringify(formData);
         // console.log(formDataJson);
-    
+
         try {
             await axios.post('http://localhost:3702/overtime', values, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
-            alert('Form submitted successfully');
+            alert('新增成功');
             // alert(formDataJson)
-    
+
         } catch (error) {
             console.error(error.data);
             console.log(error.response, '-------')
@@ -109,29 +109,39 @@ export default function OvertimeFormik() {
                                 value={values.employee_account}
                                 error={!!touched.employee_account && !!errors.employee_account}
                                 helperText={touched.employee_account && errors.employee_account}
-                                sx={{ gridColumn: "span 2" }}
+                                sx={{
+                                    gridColumn: "span 2", '& label.Mui-focused': { color: '#4cceac', },
+                                    '& .MuiInputLabel-filled': { color: '#4cceac', fontSize: "22px" },
+                                    '& .MuiFilledInput-root': { fontSize: '22px' }, '& .MuiInputLabel-filled': { color: '#4cceac', fontSize: "22px" }, '& .MuiFilledInput-root': { fontSize: '22px' }
+                                }}
                             />
                             {touched.employee_account && errors.employee_account ? (
                                 <ErrorMessage className="error-text" style={{ color: 'red' }}>{errors.employee_account}</ErrorMessage>
                             ) : null}
 
-                            <Select
+                            <TextField
+                                label="加班部門"
+                                select
                                 fullWidth
                                 variant="filled"
                                 name="department"
-                                label="申請部門"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.department}
                                 error={!!touched.department && !!errors.department}
                                 helperText={touched.department && errors.department}
+                                sx={{
+                                    gridColumn: "span 2", '& label.Mui-focused': { color: '#4cceac', },
+                                    '& .MuiInputLabel-filled': { color: '#4cceac', fontSize: "22px" },
+                                    '& .MuiFilledInput-root': { fontSize: '22px' }, '& .MuiInputLabel-filled': { color: '#4cceac', fontSize: "22px" }, '& .MuiFilledInput-root': { fontSize: '22px' }
+                                }}
 
                             >
                                 <MenuItem value={1}><em>人事部</em></MenuItem>
                                 <MenuItem value={2}>生產部</MenuItem>
                                 <MenuItem value={3}>業務部</MenuItem>
                                 <MenuItem value={4}>管理部</MenuItem>
-                            </Select><p />
+                            </TextField>
 
                             {/* <Select
                                 fullWidth
@@ -165,7 +175,11 @@ export default function OvertimeFormik() {
                                 value={values.start_time}
                                 error={touched.start_time && errors.start_time}
                                 helperText={touched.start_time && errors.start_time}
-                                sx={{ gridColumn: "span 2" }}
+                                sx={{
+                                    gridColumn: "span 2", '& label.Mui-focused': { color: '#4cceac', },
+                                    '& .MuiInputLabel-filled': { color: '#4cceac', fontSize: "22px" },
+                                    '& .MuiFilledInput-root': { fontSize: '22px' }, '& .MuiInputLabel-filled': { color: '#4cceac', fontSize: "22px" }, '& .MuiFilledInput-root': { fontSize: '22px' }
+                                }}
                             />
                             {touched.start_time && errors.start_time ? (
                                 <ErrorMessage className="error-text" style={{ color: 'red' }}>{errors.start_time}</ErrorMessage>
@@ -184,14 +198,18 @@ export default function OvertimeFormik() {
                                 value={values.end_time}
                                 error={touched.end_time && errors.end_time}
                                 helperText={touched.end_time && errors.end_time}
-                                sx={{ gridColumn: "span 2" }}
+                                sx={{
+                                    gridColumn: "span 2", '& label.Mui-focused': { color: '#4cceac', },
+                                    '& .MuiInputLabel-filled': { color: '#4cceac', fontSize: "22px" },
+                                    '& .MuiFilledInput-root': { fontSize: '22px' }, '& .MuiInputLabel-filled': { color: '#4cceac', fontSize: "22px" }, '& .MuiFilledInput-root': { fontSize: '22px' }
+                                }}
                             />
                             {touched.end_time && errors.end_time ? (
                                 <ErrorMessage className="error-text" style={{ color: 'red' }}>{errors.end_time}</ErrorMessage>
                             ) : null}
 
 
-                            <TextField
+                            {/* <TextField
                                 fullWidth
                                 variant="filled"
                                 type="number"
@@ -207,7 +225,7 @@ export default function OvertimeFormik() {
                             {touched.total_time && errors.total_time ? (
                                 <ErrorMessage className="error-text" style={{ color: 'red' }}>{errors.total_time}</ErrorMessage>
                             ) : null}
-                            <p />
+                            <p /> */}
                             <TextField
                                 fullWidth
                                 variant="filled"
@@ -222,7 +240,12 @@ export default function OvertimeFormik() {
                                 value={values.cause}
                                 error={touched.cause && errors.cause}
                                 helperText={touched.cause && errors.cause}
-                                sx={{ gridColumn: "span 2" }}>
+                                sx={{
+                                    gridColumn: "span 2", '& label.Mui-focused': { color: '#4cceac', },
+                                    '& .MuiInputLabel-filled': { color: '#4cceac', fontSize: "22px" },
+                                    '& .MuiFilledInput-root': { fontSize: '22px' }, '& .MuiInputLabel-filled': { color: '#4cceac', fontSize: "22px" }, '& .MuiFilledInput-root': { fontSize: '22px' }
+                                }}
+                            >
                             </TextField>
                             {touched.cause && errors.cause ? (
                                 <ErrorMessage className="error-text" style={{ color: 'red' }}>{errors.cause}</ErrorMessage>
@@ -230,8 +253,8 @@ export default function OvertimeFormik() {
                             <p />
                         </Box>
                         <Box display="flex" justifyContent="end" mt="20px">
-                            <Button type="submit" color="secondary" variant="contained">
-                                Create the form
+                            <Button type="submit" color="secondary" variant="contained" sx={{ fontSize: "22px" }}>
+                               新增加班單
                             </Button>
                         </Box>
                     </form>
