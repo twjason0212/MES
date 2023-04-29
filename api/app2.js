@@ -57,9 +57,10 @@ connection.connect(function (error) {
     }
 })
 
+//獲取員工列表
 app.get("/employee", function (req, res) {
     connection.query(`SELECT employee_id, employee.employee_account, employee.employee_name, 
-    department.dept_name, employee.employee_tel, employee.employee_email, role.role_name 
+    department.dept_name, employee.employee_tel, employee.employee_email, role.role_name, employee.employee_status 
     FROM employee
     LEFT JOIN role ON employee.employee_role = role.id 
     LEFT JOIN department ON employee.department = department.id`, function (error, data) {
@@ -69,9 +70,10 @@ app.get("/employee", function (req, res) {
     })
 })
 
+//獲取單一員工資訊by員工id
 app.get("/employee/:id", function (req, res) {
-    console.log("666", req.params.id);
-    connection.query(`SELECT employee_id, employee.employee_account, employee.employee_name, 
+    console.log("/employee/:id", req.params.id);
+    connection.query(`SELECT employee_id, employee.employee_account, employee.employee_name, employee.pwd,
     department.dept_name, employee.employee_tel, employee.employee_email, role.role_name, startwork_time
     FROM employee
     LEFT JOIN role ON employee.employee_role = role.id 
@@ -83,8 +85,9 @@ app.get("/employee/:id", function (req, res) {
     })
 })
 
-
+//模糊查詢員工資訊
 app.get("/employee/select/:keyword", function (req, res) {
+    console.log("/employee/:keyword", req.params);
     let sqlString = `SELECT employee_id, employee.employee_account, employee.employee_name, 
     department.dept_name, employee.employee_tel, employee.employee_email, role.role_name 
     FROM employee
@@ -94,35 +97,25 @@ app.get("/employee/select/:keyword", function (req, res) {
     connection.query(sqlString, function (error, data) {
         // connection.query("select id,EmployeeName,EmployeeId,DATE_FORMAT(starttime, '%Y-%m-%d %H:%i') as starttime,DATE_FORMAT(endtime, '%Y-%m-%d %H:%i') as endtime,holiday from att", function (error, data) {
         res.send(JSON.stringify(data))
-        console.log(req.params.keyword);
-        console.log(sqlString);
-        console.log(data);
     })
 })
 
+//創建員工資訊
 app.post("/employee/create", function (req, res) {
-    console.log("post start");
-    console.log(req.body.EmployeeID);
     connection.query(`insert into employee (employee_account, employee_pwd, employee_name, employee_tel, employee_email, employee_status, department) 
                  values (?,?,?,?,?,1,?)`, [req.body.account, req.body.password, req.body.name, req.body.tel, req.body.email, req.body.dept])
 })
 
+//修改員工資訊
 app.post("/employee/update", function (req, res) {
     console.log(req.body.EmployeeID);
-    connection.query(`update employee set employee_account = ?, employee_pwd = ?, employee_name = ?, employee_tel = ?, employee_email = ?, startwork_time = ? where employee_id = ` + req.body.employee_id, [req.body.account, req.body.password, req.body.name, req.body.tel, req.body.email, req.body.dept])
+    connection.query(`update employee set employee_account = ?, employee_pwd = ?, employee_name = ?, employee_tel = ?, employee_email = ?, startwork_time = ? where employee_id = ` + req.body.employee_id,
+        [req.body.account, req.body.password, req.body.name, req.body.tel, req.body.email, req.body.startwork_time])
 })
 
-app.delete("/employee/del/:id", function (req, res) {
-    connection.query(
-        "delete from employee  where employee_id =" + req.params.id,
-        []
-    );
-    res.send("Delete Finish");
-})
-
+//查詢部門表
 app.get("/dept", function (req, res) {
     connection.query("SELECT id, dept_name FROM  department ", function (error, data) {
-        // connection.query("select id,EmployeeName,EmployeeId,DATE_FORMAT(starttime, '%Y-%m-%d %H:%i') as starttime,DATE_FORMAT(endtime, '%Y-%m-%d %H:%i') as endtime,holiday from att", function (error, data) {
         res.send(JSON.stringify(data))
         console.log(data)
     })

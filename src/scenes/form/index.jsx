@@ -16,7 +16,7 @@ import axios from "axios";
 import Select, { StylesConfig } from 'react-select';
 
 
-const EmployeeForm = (props) => {
+const EmployeeForm = () => {
 
   const [email, setEmail] = useState([]);
   const [dept, setDepts] = useState([]);
@@ -93,19 +93,19 @@ const EmployeeForm = (props) => {
   );
 
   return (
-    <Box m="20px">
-      <Header title="人資表" subtitle="基本資料" />
+    <Box m="40px">
+      <Header title="建立人資表" subtitle="基本資料" />
 
       <Formik
         onSubmit={handleFormSubmit}
         initialValues={iniValues}
-       validationSchema={checkoutSchema}
+        validationSchema={checkoutSchema}
       >
         {({ handleBlur, handleSubmit, handleChange, handleReset, values, errors, touched }) => (
           <Box component={Form} onSubmit={handleSubmit}>
             <TextField
-              fullWidth
-              variant="filled"
+              // fullWidth
+              // variant="filled"
               type="text"
               label="姓名"
               onBlur={handleBlur}
@@ -114,11 +114,18 @@ const EmployeeForm = (props) => {
               name="name"
               error={!!touched.name && !!errors.name}
               helperText={touched.name && errors.name}
-              sx={{ '& label.Mui-focused': { color: '#4cceac' }, gridColumn: "span 2" }}
+              sx={{
+                width: '100%',
+                m: 1,
+                '& label.Mui-focused': { color: '#4cceac', },
+                '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
+                '& .MuiOutlinedInput-root': { fontSize: '22px' },
+                gridColumn: "span 2",
+              }}
             />
             <TextField
-              fullWidth
-              variant="filled"
+              // fullWidth
+              // variant="filled"
               type="text"
               label="帳號"
               onBlur={handleBlur}
@@ -127,12 +134,19 @@ const EmployeeForm = (props) => {
               name="account"
               error={!!touched.account && !!errors.account}
               helperText={touched.account && errors.account}
-              sx={{ '& label.Mui-focused': { color: '#4cceac' }, gridColumn: "span 2" }}
+              sx={{
+                width: '100%',
+                m: 1,
+                '& label.Mui-focused': { color: '#4cceac', },
+                '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
+                '& .MuiOutlinedInput-root': { fontSize: '22px' },
+                gridColumn: "span 2",
+              }}
             />
             <TextField
-              fullWidth
-              variant="filled"
-              type="text"
+              // fullWidth
+              // variant="filled"
+              type="password"
               label="密碼"
               onBlur={handleBlur}
               onChange={handleChange}
@@ -140,12 +154,19 @@ const EmployeeForm = (props) => {
               name="password"
               error={!!touched.password && !!errors.password}
               helperText={touched.password && errors.password}
-              sx={{ '& label.Mui-focused': { color: '#4cceac' }, gridColumn: "span 2" }}
+              sx={{
+                width: '100%',
+                m: 1,
+                '& label.Mui-focused': { color: '#4cceac', },
+                '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
+                '& .MuiOutlinedInput-root': { fontSize: '22px' },
+                gridColumn: "span 2",
+              }}
             />
 
             <TextField
-              fullWidth
-              variant="filled"
+              // fullWidth
+              // variant="filled"
               type="text"
               label="電話"
               onBlur={handleBlur}
@@ -154,11 +175,18 @@ const EmployeeForm = (props) => {
               name="tel"
               error={!!touched.tel && !!errors.tel}
               helperText={touched.tel && errors.tel}
-              sx={{ '& label.Mui-focused': { color: '#4cceac' }, gridColumn: "span 2" }}
+              sx={{
+                width: '100%',
+                m: 1,
+                '& label.Mui-focused': { color: '#4cceac', },
+                '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
+                '& .MuiOutlinedInput-root': { fontSize: '22px' },
+                gridColumn: "span 2",
+              }}
             />
             <TextField
-              fullWidth
-              variant="filled"
+              // fullWidth
+              // variant="filled"
               type="text"
               label="電子信箱"
               onBlur={handleBlur}
@@ -167,7 +195,14 @@ const EmployeeForm = (props) => {
               name="email"
               error={!!touched.email && !!errors.email}
               helperText={touched.email && errors.email}
-              sx={{ '& label.Mui-focused': { color: '#4cceac' }, gridColumn: "span 2" }}
+              sx={{
+                width: '100%',
+                m: 1,
+                '& label.Mui-focused': { color: '#4cceac', },
+                '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
+                '& .MuiOutlinedInput-root': { fontSize: '22px' },
+                gridColumn: "span 2",
+              }}
             />
             {/* <select
               name="dept"
@@ -185,16 +220,21 @@ const EmployeeForm = (props) => {
             </select> */}
             <Select
               name="dept"
-              // options={dept.map((option) => (
-              //   <option value={option.id} label={option.dept_name}>{option.dept_name}</option>
-              // ))}
               options={department()}
               defaultValue="選擇部門"
               formatGroupLabel={formatGroupLabel}
+              sx={{
+                width: '100%',
+                m: 1,
+                '& label.Mui-focused': { color: '#4cceac', },
+                '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
+                '& .MuiOutlinedInput-root': { fontSize: '22px' },
+                gridColumn: "span 2",
+              }}
             />
 
 
-            <button type="submit" onClick={handleReset}>Submit</button>
+            <button type="submit" onClick={handleReset} >建立</button>
 
           </Box>
 

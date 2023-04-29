@@ -150,7 +150,7 @@ const Sidebar = () => {
             </Typography>
             <Item
               title="Machine Overview"
-              to="/factory"
+              to="/team/myCard"
               icon={<FactoryIcon />}
               selected={selected}
               setSelected={setSelected}
