@@ -99,7 +99,7 @@ const EmployeeForm = () => {
       <Formik
         onSubmit={handleFormSubmit}
         initialValues={iniValues}
-        validationSchema={checkoutSchema}
+      //validationSchema={checkoutSchema}
       >
         {({ handleBlur, handleSubmit, handleChange, handleReset, values, errors, touched }) => (
           <Box component={Form} onSubmit={handleSubmit}>
