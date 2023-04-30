@@ -122,7 +122,7 @@ const Newcust = () => {
                 </Grid>
                 <Table sx={{ backgroundColor: colors.primary[400], mt: 3, }}>
                     <TableHead sx={{
-                        backgroundColor: colors.blueAccent[700], mt: 2, '& .MuiTableCell-root': { fontSize: '16px', textAlign: "center" }
+                        backgroundColor: colors.blueAccent[700], mt: 2, '& .MuiTableCell-root': { fontSize: '22px', textAlign: "center" }
                     }}>
                         <TableRow>
                             <TableCell>ID</TableCell>
@@ -138,7 +138,7 @@ const Newcust = () => {
                         {filtercustomer.map((customer) => (
                             <React.Fragment key={customer.customerid}>
                                 <TableRow onClick={() => handleCollClick(customer.customerid)}
-                                    sx={{ '& .MuiTableCell-root': { fontSize: '16px', textAlign: "center" } }}>
+                                    sx={{ '& .MuiTableCell-root': { fontSize: '20px', textAlign: "center" } }}>
                                     <TableCell >{customer.customerid}</TableCell>
                                     <TableCell>{customer.customername}</TableCell>
                                     <TableCell>{customer.customerphone}</TableCell>
@@ -146,7 +146,7 @@ const Newcust = () => {
                                     {/* <TableCell>{customer.customeraddress}</TableCell>
                             <TableCell>{customer.customerfax}</TableCell> */}
                                     <TableCell>
-                                        <Button variant="contained" size='large' color="secondary" sx={{ fontSize: '16px', textAlign: "center" }}
+                                        <Button variant="contained"  color="secondary" sx={{ fontSize: '20px', textAlign: "center" }}
                                             onClick={() => handleClick(customer)}>
                                             編輯
                                         </Button>
@@ -156,11 +156,11 @@ const Newcust = () => {
                                     <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={5}>
                                         <Collapse in={collopen.includes(customer.customerid)} timeout="auto" unmountOnExit>
                                             <AccordionSummary aria-controls="panel1c-content" id="panel1c-header">
-                                                <Typography variant="h5" sx={{ mt: 1, p: 1, backgroundColor: colors.blueAccent[700] }}>客戶資料</Typography>
+                                                <Typography variant="h4" sx={{ mt: 1, p: 1, backgroundColor: colors.blueAccent[700] }}>客戶資料</Typography>
                                             </AccordionSummary>
                                             <AccordionDetails sx={{ ml: 3 }}>
-                                                <Typography variant="h5" sx={{ mb: 1 }}>客戶地址:{customer.customeraddress}</Typography>
-                                                <Typography variant="h5">客戶傳真:{customer.customerfax}</Typography>
+                                                <Typography variant="h4" sx={{ mb: 1 }}>客戶地址:{customer.customeraddress}</Typography>
+                                                <Typography variant="h4">客戶傳真:{customer.customerfax}</Typography>
                                             </AccordionDetails>
                                         </Collapse>
                                     </TableCell>
@@ -172,33 +172,32 @@ const Newcust = () => {
 
 
                 {ncustomers && (
-                    <Dialog open={open} onClose={handleClose} sx={{ '& .MuiTextField-root': { mt: 2,fontSize:'16px'}, 
-                          '& label.Mui-focused': {color: '#4cceac'} 
+                    <Dialog open={open} onClose={handleClose} sx={{ 
+                        '& .MuiTextField-root': { mt: 2},
+                        '& label.Mui-focused': {color: '#4cceac'}, 
+                        '& .MuiInputLabel-outlined': {color: '#4cceac',fontSize: "22px"}, 
+                        '& .MuiOutlinedInput-root': {fontSize: '22px'}, 
+                        '& .MuiButton-root': {fontSize: '22px'},
                     }} >
                         <DialogTitle variant="h4" sx={{color:colors.greenAccent[500]}}>編輯客戶資料</DialogTitle>
                         <DialogContent sx={{ml:2}}>
                             <TextField 
                                 label="客戶ID"
-                                
                                 value={ncustomers.customerid}
                                 fullWidth
                                 disabled
-                                InputLabelProps={{ style: { fontSize: '1.2rem' } }}
-                               
                             />
                             <TextField
                                 label="客戶名稱"
                                 value={ncustomers.customername}
                                 fullWidth
                                 disabled
-                                InputLabelProps={{ style: { fontSize: '1.2rem' } }}
                             />
                             <TextField
                                 label="客戶電話"
                                 type="tel"
                                 value={ncustomers.customerphone}
                                 fullWidth
-                                InputLabelProps={{ style: { fontSize: '1.2rem'} }}
                                 onChange={(event) =>
                                     setNcustomers({
                                         ...ncustomers,
@@ -211,7 +210,6 @@ const Newcust = () => {
                                 type="e-mail"
                                 value={ncustomers.customeremail}
                                 fullWidth
-                                InputLabelProps={{ style: { fontSize: '1.2rem' } }}
                                 onChange={(event) =>
                                     setNcustomers({
                                         ...ncustomers,
@@ -223,7 +221,6 @@ const Newcust = () => {
                                 label="客戶地址"
                                 value={ncustomers.customeraddress}
                                 fullWidth
-                                InputLabelProps={{ style: { fontSize: '1.2rem' } }}
                                 onChange={(event) =>
                                     setNcustomers({
                                         ...ncustomers,
@@ -236,7 +233,6 @@ const Newcust = () => {
                                 type="tel"
                                 value={ncustomers.customerfax}
                                 fullWidth
-                                InputLabelProps={{ style: { fontSize: '1.2rem' } }}
                                 onChange={(event) =>
                                     setNcustomers({
                                         ...ncustomers,

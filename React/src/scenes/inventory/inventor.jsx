@@ -1,5 +1,5 @@
 import {
-    useTheme, Box, Grid, Typography, CardMedia,
+    useTheme, Box, Typography, CardMedia,
     CardContent, Card, Button, Dialog, DialogTitle, DialogContent, TextField, DialogActions
 } from '@mui/material';
 import React, { useState, useEffect } from 'react';
@@ -8,12 +8,12 @@ import Newproduct from './newproduct';
 import Header from "../../components/Header";
 import { tokens } from "../../theme";
 import withAuth from "../../components/withAuth";
+import Grid from '@mui/material/Unstable_Grid2';
 
 
 
 
-
-const  GridCard = () => {
+const GridCard = () => {
     const [cardData, setCardData] = useState([]);
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
@@ -89,60 +89,79 @@ const  GridCard = () => {
                 </Box>
                 <Newproduct />
             </Box>
-            <Box sx={{ml:3}}> 
+            <Box sx={{ ml: 3 }}>
                 <Grid container spacing={2} >
                     {filteredCard.map((card) => (
-                        <Grid item xs={6} md={3} key={card.product_id} >
-                            <Card sx={{ display: 'flex' }}>
-                                <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                                    <CardContent sx={{ flex: '1 0 auto' }}>
-                                        <Typography component="div" variant="h6">
-                                            {card.product_name}
-                                        </Typography>
-                                        <Typography variant="產品編號" color="text.secondary" component="div" mt="20px">
-                                            {card.product_id}
-                                        </Typography>
-                                        <Typography variant="庫存數量" color="text.secondary" component="div" mt="20px">
-                                            數量:{card.product_amount}
-                                        </Typography>
-                                    </CardContent>
-                                    <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
-                                        <Button variant="contained" size='large' color="secondary" onClick={() => handleClickOpen(card)}>
-                                            編輯
-                                        </Button>
-                                    </Box>
-                                </Box>
-                                <CardMedia
-                                    component="img"
-                                    sx={{ width: 151, height: 245 }}
-                                    image={`${process.env.PUBLIC_URL}/media/${card.photo_url}`}
-                                    // image={require(`${card.productphoto}`).default}
+                        <Grid  md={3} key={card.product_id} >
+                            <Card sx={{  height: 245 ,'& .MuiButton-root': {
+                        fontSize: '20px'
+                    },}}>
+                                <Grid container spacing={2}>
+                                    <Grid xs={5}>
+                                        <CardContent>
+                                            <Typography component="div" variant="h4">
+                                                {card.product_name}
+                                            </Typography>
+                                            <Typography  color="text.secondary" component="div" mt="30px" variant="h4">
+                                                編號:{card.product_id}
+                                            </Typography>
+                                            <Typography  color="text.secondary" component="div" mt="30px" variant="h4">
+                                                數量:{card.product_amount}
+                                            </Typography>
+                                        </CardContent>
 
-                                    alt="Prod"
-                                />
+                                        <Box sx={{  ml: 2 ,mt:1}}>
+                                            <Button variant="contained" color="secondary" fullWidth onClick={() => handleClickOpen(card)}>
+                                                編輯
+                                            </Button>
+                                        </Box>
+                                    </Grid>
+                                    <Grid xs={7}>
+                                        <CardMedia
+                                            component="img"
+                                            sx={{  height: 245 }}
+                                            image={`${process.env.PUBLIC_URL}/media/${card.photo_url}`}
+                                            // image={require(`${card.productphoto}`).default}
+
+                                            alt="Prod"
+                                        />
+                                    </Grid>
+                                </Grid>
                             </Card>
                         </Grid>
                     ))}
                     {datas && (
-                        <Dialog open={open} onClose={handleClose} >
-                            <DialogTitle sx={{color: colors.greenAccent[500],
-                    fontSize: "22px"}}>修改產品資訊</DialogTitle>
+                        <Dialog open={open} onClose={handleClose} sx={{'& .MuiTextField-root': { mt: 2 },
+                        '& label.Mui-focused': {
+                            color: '#4cceac',
+                        }, '& .MuiInputLabel-outlined': {
+                            color: '#4cceac',
+                            fontSize: "22px"
+                        }, '& .MuiOutlinedInput-root': {
+                            fontSize: '22px'
+                        }, '& .MuiButton-root': {
+                            fontSize: '22px',mb:1
+                        },}}>
+                            <DialogTitle sx={{
+                                color: colors.greenAccent[500],
+                                fontSize: "22px"
+                            }}>修改產品資訊</DialogTitle>
                             <DialogContent>
-                                <TextField sx={{ mt: 2 }}
+                                <TextField 
                                     label="產品名稱"
                                     value={datas.product_name}
                                     fullWidth
 
                                     disabled
                                 />
-                                <TextField sx={{ mt: 3 }}
+                                <TextField 
                                     label="產品編號"
                                     value={datas.product_id}
                                     fullWidth
 
                                     disabled
                                 />
-                                <TextField sx={{ mt: 3 }}
+                                <TextField 
                                     label="庫存數量"
                                     value={datas.product_amount}
                                     fullWidth
@@ -154,7 +173,7 @@ const  GridCard = () => {
 
                                 />
                             </DialogContent>
-                            <DialogActions sx={{mr:1, mb:1}}>
+                            <DialogActions sx={{ mr: 2,}}>
                                 <Button onClick={handleClose} variant="contained" color="error">取消</Button>
                                 <Button onClick={() => handleSave(datas)} variant="contained" type="submit" color="info">儲存</Button>
                             </DialogActions>

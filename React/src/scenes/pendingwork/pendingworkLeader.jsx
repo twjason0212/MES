@@ -11,7 +11,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 
-const PendingWork = () => {
+const PendingWorkLeader = () => {
 
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
@@ -22,7 +22,7 @@ const PendingWork = () => {
 
     const id = window.sessionStorage.getItem('name');
     useEffect(() => {
-        axios.get(`http://127.0.0.1:3702/workorder/${id}`)
+        axios.get(`http://127.0.0.1:3702/workorderl/${id}`)
             .then(response => {
                 const updatedData = response.data.map(item => ({
                     ...item,
@@ -47,29 +47,22 @@ const PendingWork = () => {
     }
 
     const handleSave = (data) => {
-        axios.post('http://127.0.0.1:3702/reportorder', data)
+        axios.put('http://127.0.0.1:3702/reportorderl', data)
             .then((response) => {
                 console.log(response.data);
-                axios.put('http://127.0.0.1:3702/reportorder', data)
-                    .then((response) => {
-                        console.log(response.data)
-                        axios.get(`http://127.0.0.1:3702/workorder/${id}`)
-                            .then(response => {
-                                const updatedData = response.data.map(item => ({
-                                    ...item,
-                                    real_process_amount: '',
-                                    defect_process_amount: '',
-                                    finish_date: ''
-                                }));
-                                setPendingwork(updatedData);
-                            })
-                            .catch(error => {
-                                console.log(error);
-                            });
+                axios.get(`http://127.0.0.1:3702/workorderl/${id}`)
+                    .then(response => {
+                        const updatedData = response.data.map(item => ({
+                            ...item,
+                            real_process_amount: '',
+                            defect_process_amount: '',
+                            finish_date: ''
+                        }));
+                        setPendingwork(updatedData);
                     })
-                    .catch((error) => {
-                        console.log(error)
-                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
             })
             .catch((error) => {
                 console.log(error);
@@ -119,7 +112,7 @@ const PendingWork = () => {
                                     <TableCell>
                                         <Button variant="contained" color="secondary" sx={{ fontSize: '20px', textAlign: "center" }}
                                             onClick={() => handlePeClick(order)}>
-                                            報工
+                                            審核
                                         </Button>
                                     </TableCell>
                                 </TableRow>
@@ -144,20 +137,19 @@ const PendingWork = () => {
                             fontSize: '22px', mt: 4
                         },
                     }} >
-                        <DialogTitle className="titlegreen-text">填寫報工單</DialogTitle>
+                        <DialogTitle className="titlegreen-text">審核報工單</DialogTitle>
                         <DialogContent>
                             <Formik
                                 initialValues={{
-                                    id:rependingwork.id,
+                                    id: rependingwork.id,
                                     work_order_id: rependingwork.work_order_id,
                                     process_date: rependingwork.process_date,
                                     product_name: rependingwork.product_name,
                                     tar_process_amount: rependingwork.tar_process_amount,
-                                    machine_uuid:rependingwork.machine_uuid,
+                                    machine_uuid: rependingwork.machine_uuid,
                                     work_order_executor: rependingwork.work_order_executor,
-                                    real_process_amount: '',
-                                    defect_process_amount: '',
-                                    finish_date: ''
+                                    real_process_amount: rependingwork.real_process_amount,
+                                    defect_process_amount: rependingwork.defect_process_amount,
                                 }}
                                 validationSchema={Yup.object({
                                     work_order_id: Yup.string().required('必填'),
@@ -168,7 +160,6 @@ const PendingWork = () => {
                                     work_order_executor: Yup.string().required('必填'),
                                     real_process_amount: Yup.number().typeError('必須為數字').min(1, '數量不能為0或負數').required('必填'),
                                     defect_process_amount: Yup.number().typeError('必須為數字').min(0, '數量不能為負數').required('必填'),
-                                    finish_date: Yup.date().required('必填'),
                                 })}
                                 onSubmit={(values) => {
                                     handleSave(values);
@@ -251,7 +242,7 @@ const PendingWork = () => {
                                                     fullWidth
                                                     onChange={(e) => {
                                                         setFieldValue("real_process_amount", e.target.value);
-                                                      }}
+                                                    }}
                                                     error={touched.real_process_amount && Boolean(errors.real_process_amount)}
                                                     helperText={touched.real_process_amount && errors.real_process_amount}
                                                 />
@@ -263,23 +254,9 @@ const PendingWork = () => {
                                                     fullWidth
                                                     onChange={(e) => {
                                                         setFieldValue("defect_process_amount", e.target.value);
-                                                      }}
+                                                    }}
                                                     error={touched.defect_process_amount && Boolean(errors.defect_process_amount)}
                                                     helperText={touched.defect_process_amount && errors.defect_process_amount}
-                                                />
-                                            </Grid>
-                                            <Grid xs={12}>
-                                                <TextField
-                                                    label="完成時間"
-                                                    value={values.finish_date}
-                                                    fullWidth
-                                                    type="datetime-local"
-                                                    InputLabelProps={{ shrink: true }}
-                                                    onChange={(e) => {
-                                                        setFieldValue("finish_date", e.target.value);
-                                                      }}
-                                                    error={touched.finish_date && Boolean(errors.finish_date)}
-                                                    helperText={touched.finish_date && errors.finish_date}
                                                 />
                                             </Grid>
                                         </Grid>
@@ -298,4 +275,4 @@ const PendingWork = () => {
 
 }
 
-export default withAuth(PendingWork);
+export default withAuth(PendingWorkLeader);

@@ -66,24 +66,36 @@ export default function NewOrder() {
 
     return (
         <Box>
-            <Box style={{ display: 'flex', justifyContent: 'right' }} sx={{'& .MuiButton-root':{fontSize:'18px',mr:4}}}>
-                <Button variant="contained" size='large' color="secondary" onClick={handleClickOpen} >
+            <Box style={{ display: 'flex', justifyContent: 'right' }} sx={{ '& .MuiButton-root': { fontSize: '22px', mr: 4 } }}>
+                <Button variant="contained"  color="secondary" onClick={handleClickOpen} >
                     新增訂單
                 </Button>
             </Box>
             <Dialog open={open}
                 onClose={handleClose}
-                sx={{ '& .MuiTextField-root': { m: 1, mt: 2 },
-                '& .MuiTableCell-root':{"borderBottom": "1px solid #696969;"},
-                "& .green-text": {
-                    color: colors.greenAccent[200],
-                    fontSize: "16px",
-                },
-                "& .titlegreen-text": {
-                    color: colors.greenAccent[500],
-                    fontSize: "22px",
-                },
-            }}
+                sx={{
+                    '& .MuiTextField-root': { m: 1, mt: 2 },
+                    '& .MuiTableCell-root': { "borderBottom": "1px solid #696969;" },
+                    "& .green-text": {
+                        color: colors.greenAccent[200],
+                        fontSize: "22px",
+                    },
+                    "& .titlegreen-text": {
+                        color: colors.greenAccent[500],
+                        fontSize: "22px",
+                    },
+                    '& label.Mui-focused': {
+                        color: '#4cceac'
+                    }, '& .MuiInputLabel-outlined': {
+                        color: '#4cceac',
+                        fontSize: "22px"
+                    }, '& .MuiOutlinedInput-root': {
+                        fontSize: '22px'
+                    }, '& .MuiButton-root': {
+                        fontSize: '22px'
+                    },
+
+                }}
                 fullWidth
                 aria-labelledby="dialog-title"
                 aria-describedby="dialog-description"
@@ -106,13 +118,10 @@ export default function NewOrder() {
                             handleClose();
                         }}>
                         {({ values, errors, touched, setFieldValue, handleChange, handleBlur, handleSubmit }) => (
-                            <Box component={Form} onSubmit={handleSubmit} sx={{'& label.Mui-focused': {
-                                color: '#4cceac'}}}
-                            >
+                            <Box component={Form} onSubmit={handleSubmit}>
                                 <Grid container spacing={2}>
                                     <Grid item xs display="flex" justifyContent="center" alignItems="center">
                                         <TextField
-                                        
                                             label="訂單編號:"
                                             name="orderid"
                                             fullWidth
@@ -234,7 +243,7 @@ export default function NewOrder() {
                                                 ))}
                                                 <TableRow>
                                                     <TableCell colSpan={5}>
-                                                        <Button fullWidth type="button" onClick={() => push({ productname: '', quty: '', price: '' })} variant="contained" size='large' color="secondary">
+                                                        <Button fullWidth type="button" onClick={() => push({ productname: '', quty: '', price: '' })} variant="contained" color="secondary">
                                                             新增
                                                         </Button>
                                                     </TableCell>
@@ -244,7 +253,7 @@ export default function NewOrder() {
                                     )}
                                 </FieldArray>
 
-                                <DialogActions sx={{mt:2}}>
+                                <DialogActions sx={{ mt: 2 }}>
                                     <Button variant="contained" onClick={handleClose} color="error">取消</Button>
                                     <Button variant="contained" type="submit" color="info">儲存</Button>
                                 </DialogActions>

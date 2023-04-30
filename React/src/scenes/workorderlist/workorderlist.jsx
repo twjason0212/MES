@@ -43,7 +43,7 @@ const WorkOrderList = () => {
                 console.log(response.data);
                 return axios.get('http://127.0.0.1:3702/workorder')
             })
-            .then(response => {
+            .then((response) => {
                 setWorkOrder(response.data);
                 console.log('資料更新成功');
             })
@@ -64,7 +64,7 @@ const WorkOrderList = () => {
             <TableContainer m="40px 0 0 0">
                 <Table sx={{ backgroundColor: colors.primary[400], mt: 3, }}>
                     <TableHead sx={{
-                        backgroundColor: colors.blueAccent[700], mt: 2, '& .MuiTableCell-root': { fontSize: '16px', textAlign: "center" }
+                        backgroundColor: colors.blueAccent[700], mt: 2, '& .MuiTableCell-root': { fontSize: '22px', textAlign: "center" }
                     }}>
                         <TableRow>
                             <TableCell>派工單號</TableCell>
@@ -78,7 +78,7 @@ const WorkOrderList = () => {
                     <TableBody>
                         {workorder.map((order) => (
                             <React.Fragment key={order.work_order_id}>
-                                <TableRow sx={{ '& .MuiTableCell-root': { fontSize: '16px', textAlign: "center" } }}>
+                                <TableRow sx={{ '& .MuiTableCell-root': { fontSize: '20px', textAlign: "center" } }}>
                                     <TableCell>{order.work_order_id}</TableCell>
                                     <TableCell>{order.product_name}</TableCell>
                                     <TableCell>{new Date(order.process_date).toLocaleString('zh-TW', {
@@ -92,7 +92,7 @@ const WorkOrderList = () => {
                                     <TableCell>{order.tar_process_amount}</TableCell>
                                     <TableCell>{order.work_order_status_name}</TableCell>
                                     <TableCell>
-                                        <Button variant="contained" color="secondary" sx={{ fontSize: '16px', textAlign: "center" }}
+                                        <Button variant="contained" color="secondary" sx={{ fontSize: '20px', textAlign: "center" }}
                                             onClick={() => handleReClick(order)}>
                                             接單
                                         </Button>
@@ -105,8 +105,17 @@ const WorkOrderList = () => {
 
                 {reworkorder && (
                     <Dialog open={open} onClose={handleClose} sx={{
-                        '& .MuiTextField-root': { mt: 2, fontSize: '16px' },
-                        '& label.Mui-focused': { color: '#4cceac' }
+                        '& .MuiTextField-root': { mt: 2 },
+                        '& label.Mui-focused': {
+                            color: '#4cceac',
+                        }, '& .MuiInputLabel-outlined': {
+                            color: '#4cceac',
+                            fontSize: "22px"
+                        }, '& .MuiOutlinedInput-root': {
+                            fontSize: '22px'
+                        }, '& .MuiButton-root': { 
+                            fontSize: '22px',mt:4
+                        },
                     }} >
                         <DialogContent sx={{ ml: 2 }}>
                             <TextField
@@ -114,36 +123,30 @@ const WorkOrderList = () => {
                                 value={reworkorder.work_order_id}
                                 fullWidth
                                 disabled
-                                InputLabelProps={{ style: { fontSize: '1.2rem' } }}
-
                             />
                             <TextField
                                 label="建立日期"
                                 value={new Date(reworkorder.process_date).toLocaleString()}
                                 fullWidth
                                 disabled
-                                InputLabelProps={{ style: { fontSize: '1.2rem' } }}
+                                
                             />
                             <TextField
                                 label="產品名稱"
                                 value={reworkorder.product_name}
                                 fullWidth
-                                InputLabelProps={{ style: { fontSize: '1.2rem' } }}
                                 disabled
                             />
                             <TextField
                                 label="預計加工量"
                                 value={reworkorder.tar_process_amount}
                                 fullWidth
-                                InputLabelProps={{ style: { fontSize: '1.2rem' } }}
                                 disabled
                             />
                             <TextField
                                 label="機器編號"
-
                                 value={reworkorder.machine_uuid}
                                 fullWidth
-                                InputLabelProps={{ style: { fontSize: '1.2rem' } }}
                                 onChange={(event) =>
                                     setReWorkOrder({
                                         ...reworkorder,
@@ -153,10 +156,8 @@ const WorkOrderList = () => {
                             />
                             <TextField
                                 label="製作人員"
-
                                 value={reworkorder.work_order_executor}
                                 fullWidth
-                                InputLabelProps={{ style: { fontSize: '1.2rem' } }}
                                 onChange={(event) =>
                                     setReWorkOrder({
                                         ...reworkorder,
@@ -164,7 +165,7 @@ const WorkOrderList = () => {
                                     })
                                 }
                             />
-                            <Button fullWidth sx={{ mt: 2 }} variant="contained" type="submit" color="info" onClick={() => handleSave(reworkorder)}>
+                            <Button fullWidth  variant="contained" type="submit" color="info" onClick={() => handleSave(reworkorder)}>
                                 儲存
                             </Button>
                         </DialogContent>

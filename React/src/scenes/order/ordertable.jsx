@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { TablePagination, useTheme, Box, Button, Dialog, DialogContent, DialogTitle, DialogActions, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, AccordionSummary, AccordionDetails, Collapse, Typography, TableFooter } from '@mui/material';
+import { TablePagination, Select, MenuItem, useTheme, Box, Button, Dialog, DialogContent, DialogTitle, DialogActions, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, AccordionSummary, AccordionDetails, Collapse, Typography, TableFooter } from '@mui/material';
 import axios from 'axios';
 import { tokens } from "../../theme";
 import Neworder2 from './neworder2.jsx';
@@ -21,7 +21,7 @@ const OrdersTable = () => {
         axios.get('http://127.0.0.1:3702/order')
             .then(response => {
                 setOrders(response.data)
-
+console.log(response.data)
             })
             .catch(error => {
                 console.error(error);
@@ -53,6 +53,7 @@ const OrdersTable = () => {
 
     const handleRowClick = (order) => {
         setOrderData(order);
+        console.log(order);
         setclickOpen(true);
     };
 
@@ -65,15 +66,20 @@ const OrdersTable = () => {
         axios.put("http://127.0.0.1:3702/order/edit", data)
             .then((response) => {
                 console.log(response.data);
+                return axios.get('http://127.0.0.1:3702/order')
+            })
+            .then((response) => {
+                setOrders(response.data)
+                console.log('修改成功');
             })
             .catch((error) => {
                 console.log(error);
             });
-        const updatedRows = orders.map(row =>
-            row.orderid === orderdata.orderid ? orderdata : row
-        );
+        // const updatedRows = orders.map(row =>
+        //     row.orderid === orderdata.orderid ? orderdata : row
+        // );
 
-        setOrders(updatedRows);
+        // setOrders(updatedRows);
         setclickOpen(false);
     };
 
@@ -88,19 +94,6 @@ const OrdersTable = () => {
         }
     };
 
-    //換頁
-    const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(5);
-
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-    };
-
-    const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
-    };
-
     return (
         <Box sx={{ mt: 2 }}>
             <Box style={{ backgroundColor: colors.primary[400], marginBottom: '20px' }} sx={{
@@ -110,11 +103,22 @@ const OrdersTable = () => {
             }}>
                 <Typography sx={{
                     color: colors.greenAccent[300],
-                    fontSize: "22px", px: "30px", py: '20px'
+                    fontSize: "24px", px: "30px", py: '20px'
                 }}>
                     搜索欄
                 </Typography>
-                <div style={{ display: 'flex', justifyContent: 'Space-evenly', paddingBottom: '20px' }}>
+                <Box sx={{
+                    display: 'flex', justifyContent: 'Space-evenly', pb: '20px',
+                    '& label.Mui-focused': {
+                        color: '#4cceac'
+                    }, '& .MuiInputLabel-outlined': {
+                        color: '#4cceac',
+                        fontSize: "22px",
+                        pl: 2
+                    }, '& .MuiOutlinedInput-root': {
+                        fontSize: '22px'
+                    },
+                }}>
                     <TextField sx={{ width: '100%', m: 1 }}
                         name="orderid"
                         label="訂單編號"
@@ -135,7 +139,7 @@ const OrdersTable = () => {
                         value={filter.customername}
                         onChange={handleChange}
                     />
-                </div>
+                </Box>
             </Box>
             <Neworder2 />
             <TableContainer >
@@ -163,7 +167,7 @@ const OrdersTable = () => {
                                     {/* <TableCell>{order.productName}</TableCell> */}
                                     <TableCell className='textcen'>{order.orderdate}</TableCell>
                                     <TableCell className='textcen'>{order.deliverydate}</TableCell>
-                                    <TableCell className='textcen'>{order.orderstate}</TableCell>
+                                    <TableCell className='textcen'>{order.orderstate_name}</TableCell>
                                     <TableCell className='textcen'>{getDaysDiff(new Date(), new Date(order.deliverydate))}天</TableCell>
                                     <TableCell className='textcen'>
                                         <Button variant="contained" size='large' className='textcen' color="secondary" onClick={() => handleRowClick(order)}>
@@ -179,22 +183,22 @@ const OrdersTable = () => {
                                                 <Typography variant="h4" sx={{ mt: 1, p: 1, backgroundColor: colors.blueAccent[700] }}>客戶資料</Typography>
                                             </AccordionSummary>
                                             <AccordionDetails>
-                                                <Grid container spacing={3} sx={{ml:3}}>
+                                                <Grid container spacing={3} sx={{ ml: 3 }}>
                                                     <Grid xs={6}>
-                                                        <Typography variant='h5'>客戶名稱:{order.customername}</Typography>
+                                                        <Typography variant='h4'>客戶名稱:{order.customername}</Typography>
                                                     </Grid>
                                                     <Grid xs={6}>
-                                                        <Typography variant='h5'>客戶電話:{order.customerphone}</Typography>
+                                                        <Typography variant='h4'>客戶電話:{order.customerphone}</Typography>
                                                     </Grid>
                                                     <Grid xs={6}>
-                                                        <Typography variant='h5'>客戶e-mail: {order.customeremail}</Typography>
+                                                        <Typography variant='h4'>客戶e-mail: {order.customeremail}</Typography>
                                                     </Grid>
                                                     <Grid xs={6}>
 
-                                                        <Typography variant='h5'>客戶傳真:{order.customerfax}</Typography>
+                                                        <Typography variant='h4'>客戶傳真:{order.customerfax}</Typography>
                                                     </Grid>
                                                     <Grid xs={6}>
-                                                        <Typography variant='h5'>客戶地址:{order.customeraddress}</Typography>
+                                                        <Typography variant='h4'>客戶地址:{order.customeraddress}</Typography>
                                                     </Grid>
                                                 </Grid>
                                             </AccordionDetails>
@@ -203,8 +207,8 @@ const OrdersTable = () => {
                                             </AccordionSummary>
                                             <AccordionDetails>
                                                 <Table sx={{
-                                                    '& .MuiTableCell-body': { fontSize: '16px' },
-                                                    '& .MuiTableCell-head': { fontSize: '16px' }
+                                                    '& .MuiTableCell-body': { fontSize: '20px' },
+                                                    '& .MuiTableCell-head': { fontSize: '20px' }
                                                 }}>
                                                     <TableHead sx={{ backgroundColor: colors.blueAccent[700] }}>
                                                         <TableRow>
@@ -258,12 +262,16 @@ const OrdersTable = () => {
 
                 {/* 編輯資料 */}
                 {orderdata && (
-                    <Dialog open={clickOpen} onClose={handleClose} sx={{ '& .MuiTextField-root': { mt: 2,fontSize:'16px'},
-                    '& label.Mui-focused': {color: '#4cceac'}  }}
-                        maxWidth='lg'
+                    <Dialog open={clickOpen} onClose={handleClose} sx={{
+                        '& .MuiTextField-root': { mt: 2 },
+                        '& label.Mui-focused': { color: '#4cceac' },
+                        '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
+                        '& .MuiOutlinedInput-root': { fontSize: '22px' },
+                        '& .MuiButton-root': { fontSize: '22px' },
+                    }}
                     >
-                        <DialogTitle variant="h4" sx={{color:colors.greenAccent[500]}}>編輯訂單</DialogTitle>
-                        <DialogContent sx={{ml:2}}>
+                        <DialogTitle variant="h3" sx={{ color: colors.greenAccent[500] }}>編輯訂單</DialogTitle>
+                        <DialogContent >
                             <TextField
                                 label="訂單編號"
                                 value={orderdata.orderid}
@@ -285,7 +293,7 @@ const OrdersTable = () => {
                                 onChange={(event) =>
                                     setOrderData({
                                         ...orderdata,
-                                        deliverydate: event.target.value,
+                                        changdate: event.target.value,
                                     })
                                 }
                             />
@@ -302,7 +310,7 @@ const OrdersTable = () => {
                                     })
                                 }
                             />
-                            <TextField
+                            {/* <TextField
                                 label="目前狀況"
                                 value={orderdata.orderstate}
                                 fullWidth
@@ -312,10 +320,43 @@ const OrdersTable = () => {
                                         orderstate: event.target.value,
                                     })
                                 }
-                            />
-                            <DialogActions sx={{mt:2}}>
-                                <Button sx={{width:'50%'}} variant="contained" onClick={handleClose} color="error">取消</Button>
-                                <Button sx={{width:'50%'}} variant="contained" type="submit" color="info" onClick={() => handleSaveClick(orderdata)}>
+                            /> */}
+
+                            <TextField
+                                id='orderstate'
+                                label="目前狀況"
+                                
+                                value={orderdata.orderstate}
+                                select
+                                fullWidth
+                                onChange={(event) =>
+                                    setOrderData({
+                                        ...orderdata,
+                                        orderstate: event.target.value,
+                                    })
+                                }
+                            >
+                                <MenuItem value={1}>已接單</MenuItem>
+                                <MenuItem value={2}>生產完成</MenuItem>
+                                <MenuItem value={3}>已結單</MenuItem>
+                            </TextField>
+                            {/* <Select
+                                label="目前狀況"
+                                value={orderdata.orderstate}
+                                fullWidth
+                                onChange={(event) =>
+                                    setOrderData({
+                                        ...orderdata,
+                                        orderstate: event.target.value,
+                                    })}
+                            >
+                                <MenuItem value={1}>已接單</MenuItem>
+                                <MenuItem value={2}>生產完成</MenuItem>
+                                <MenuItem value={3}>已結單</MenuItem>
+                            </Select> */}
+                            <DialogActions sx={{ mt: 2 }}>
+                                <Button variant="contained" onClick={handleClose} color="error">取消</Button>
+                                <Button variant="contained" type="submit" color="info" onClick={() => handleSaveClick(orderdata)}>
                                     儲存
                                 </Button>
                             </DialogActions>

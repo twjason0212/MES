@@ -292,7 +292,6 @@ app.get("/coustomername", function (req, res) {
 //新增訂單
 app.post("/order/create", function (req, res) {
     const order = req.body;
-
     // start a MySQL transaction
     pool.getConnection((err, connection) => {
         if (err) throw err;
@@ -305,7 +304,8 @@ app.post("/order/create", function (req, res) {
                 orderid: order.orderid,
                 customername: order.customername,
                 orderdate: order.orderdate,
-                deliverydate: order.deliverydate
+                deliverydate: order.deliverydate,
+                orderstate: 1
             };
 
             connection.query('insert into orders set ?', orderData, (err, result) => {
@@ -352,18 +352,14 @@ app.post("/order/create", function (req, res) {
 
 //取得訂單資料
 app.get("/order", function (req, res) {
-    connection.query("select o.orderid, o.orderdate, o.deliverydate, o.orderstate, o.changdate, c.customername, oi.productname, oi.quty, oi.price , c.customerphone, c.customeremail, c.customeraddress, c.customerfax from orders o join orderitems oi on o.id = oi.id join customers c on o.customername = c.customername", function (error, data) {
-        // const formatDate = (dateString) => {
-        //     const date = new Date(dateString);
-        //     const year = date.getFullYear();
-        //     const month = String(date.getMonth() + 1).padStart(2, '0');
-        //     const day = String(date.getDate()).padStart(2, '0');
-        //     return `${year}-${month}-${day}`;
-        // };
+    connection.query("select o.orderid, o.orderdate, o.deliverydate,o.orderstate, os.orderstate_name, o.changdate, c.customername, oi.productname, oi.quty, oi.price , c.customerphone, c.customeremail, c.customeraddress, c.customerfax from orders o join orderitems oi on o.id = oi.id join customers c on o.customername = c.customername join orderstate os on os.id = o.orderstate", function (error, data) {
 
         const formatDate = (dateString) => {
             const date = new Date(dateString);
-            const formattedDate = date.toISOString().split('T')[0];
+            const year = date.toLocaleDateString("zh-TW").split("/")[0];
+            const month = date.toLocaleDateString("zh-TW").split("/")[1].padStart(2, "0");
+            const day = date.toLocaleDateString("zh-TW").split("/")[2].padStart(2, "0");
+            const formattedDate = `${year}-${month}-${day}`;
             return formattedDate;
         };
 
@@ -381,8 +377,9 @@ app.get("/order", function (req, res) {
                     orderid: curr.orderid,
                     orderdate: formatDate(curr.orderdate),
                     deliverydate: formatDate(curr.deliverydate),
-                    changdate: curr.changdate,
+                    changdate: formatDate(curr.changdate),
                     orderstate: curr.orderstate,
+                    orderstate_name: curr.orderstate_name,
                     customername: curr.customername,
                     customerphone: curr.customerphone,
                     customeremail: curr.customeremail,
@@ -407,7 +404,7 @@ app.get("/order", function (req, res) {
 
 //修改訂單資料
 app.put("/order/edit", function (req, res) {
-    connection.query("update orders set deliverydate = ? ,orderstate = ? ,changdate = ? where orderid = " + req.body.orderid,
+    connection.query("update orders set deliverydate = ? , orderstate = ? ,changdate = ? where orderid = " + req.body.orderid,
         [req.body.deliverydate, req.body.orderstate, req.body.changdate])
     res.send("修改成功")
 })
@@ -526,7 +523,16 @@ app.get('/workorder/:id', function (req, res) {
     });
 })
 
-//待辦工單(報工)
+//待辦工單(建單人 與 狀態3)
+app.get('/workorderl/:id', function (req, res) {
+    connection.query("select * , work_order.id from work_order join work_order_status on work_order.work_order_status = work_order_status.id where work_order_executor = ? and work_order_status = 3 ", [req.params.id], function (error, data) {
+        if (error) throw error;
+        res.send(JSON.stringify(data));
+        console.log(data);
+    });
+})
+
+//待辦工單(更新報工單) 
 app.post('/reportorder', function (req, res) {
     const data = req.body;
     const reportdata = {
@@ -541,13 +547,18 @@ app.post('/reportorder', function (req, res) {
 
     res.send('報工完成')
 })
-
+//待辦工單(更新派工單狀態) 
 app.put('/reportorder', function (req, res) {
+    console.log(req.body)
     connection.query('update work_order set work_order_status = ? where id =' + req.body.id, [3])
     res.send("狀態更新");
 })
-
-
+//待辦工單(更新報工單狀態) 
+app.put('/reportorderl', function (req, res) {
+    connection.query('update report_order ,work_order set report_order.real_process_amount = ? , report_order.defect_process_amount = ?, work_order.work_order_status = ? where work_order.id = ? join work_order on work_order.work_order_id = report_order.work_order_id' + req.body.id,
+    [req.body.real_process_amount, req.body.defect_process_amount,4, req.body.id])
+    res.send("審核通過");
+})
 
 
 //機器(冠宇)
@@ -623,7 +634,7 @@ app.post("/employee/create", function (req, res) {
     )
 
     connection.query(`insert into employee (employee_account, employee_pwd, employee_name, employee_tel, employee_email, employee_status, department ,token) 
-                 values (?,?,?,?,?,1,?,?)`, [req.body.account, paswod, req.body.name, req.body.tel, req.body.email, req.body.dept ,token])
+                 values (?,?,?,?,?,1,?,?)`, [req.body.account, paswod, req.body.name, req.body.tel, req.body.email, req.body.dept, token])
 })
 
 

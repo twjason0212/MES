@@ -58,7 +58,7 @@ const CheckIn = () => {
             <Box style={{ width: '100%', 'textAlign': 'center' }}>
                 <Box style={{ 'textAlign': 'center', 'fontSize': '25px', 'color': '#fff', 'fontWeight': '700', 'margin': '10px', paddingTop: '20vh' }}>
                     <Typography sx={{ 'fontSize': '48px', 'color': '#fff', 'fontWeight': '700', 'margin': '30px' }}  >{year}年{month}月{day}日</Typography>
-                    <Typography sx={{'fontSize': '36px', 'color': '#fff', 'fontWeight': '700', 'margin': '30px'}}>{time}</Typography>
+                    <Typography sx={{'fontSize': '48px', 'color': '#fff', 'fontWeight': '700', 'margin': '30px'}}>{time}</Typography>
                     <Box>
                         <button type="submit" onClick={() => handleDateSelect('up')}
                             style={{ 'fontSize': '36px', color: '#fff', 'fontWeight': 700, margin: '30px', 'backgroundColor': 'orange' , width:'200px' ,height:'100px'}}

@@ -40,7 +40,7 @@ const Pie = () => {
             <ResponsivePie
                 theme={{
                     //調圓餅中與延伸的字
-                    "fontSize": 18,
+                    "fontSize": 22,
                     axis: {
                         domain: {
                             line: {

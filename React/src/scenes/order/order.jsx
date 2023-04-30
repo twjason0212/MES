@@ -21,7 +21,7 @@ const Order = () => {
                     sx={{
                         "& .green-text": {
                             color: colors.greenAccent[300],
-                            fontSize: "22px",
+                            fontSize: "24px",
                         },
                         "& .bgColor": {
                             backgroundColor: colors.primary[400]

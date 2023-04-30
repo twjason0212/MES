@@ -49,7 +49,7 @@ console.log(data)
     return (
         <Box m="20px">
             <Header title="出缺勤紀錄" />
-            <Box className="container">
+            <Box className="container" sx={{fontSize:'22px'}}>
                 <FullCalendar
                     plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
                     initialView="dayGridMonth"
