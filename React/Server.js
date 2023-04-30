@@ -190,7 +190,7 @@ app.post("/attendance/checkin", function (req, res) {
         console.log("Error occurred: " + error.message);
         res.status(500).send("Error occurred: " + error.message);
       } else if (results.length > 0) {
-        // 已经有上班记录了
+        // 已有上班紀錄了
         res.status(400).send("You have already checked in");
       } else {
         connection.query("INSERT INTO attendance SET employee_account = ?, starttime = ?, status = ?", [req.body.employee_account, req.body.starttime, 1], function (error, results, fields) {
@@ -581,9 +581,9 @@ app.get("/qOrdNum", function (req, res) {
     }
   );
 });
-connection.query("select * from products", function (error, data) {
-  res.send(JSON.stringify(data))
-})
+// connection.query("select * from products", function (error, data) {
+//   res.send(JSON.stringify(data))
+// })
 
 
 //新增產品(庫存)
