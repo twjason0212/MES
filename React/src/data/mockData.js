@@ -57,9 +57,72 @@ export const mockDataTeam = [
 
 export const mockBarData = [
   {
-    country: "Branch1",
+    country: "倉庫一",
     "A-001": 137,
-    "A-001Color": "hsl(229, 70%, 50%)",
+    "A-002": 96,
+    "B-001": 72,
+    "B-002": 150,
+  },
+  {
+    country: "倉庫二",
+    "A-001": 55,
+    "A-002": 100,
+    "B-001": 120,
+    "B-002": 29,
+  },
+  {
+    country: "倉庫三",
+    "A-001": 109,
+    "A-002": 23,
+    "B-001": 34,
+    "B-002": 152,
+  },
+  {
+    country: "倉庫四",
+    "A-001": 133,
+    "A-002": 52,
+    "B-001": 120,
+    "B-002": 83,
+  },
+  // {
+  //   country: "AI",
+  //   "hot dog": 81,
+  //   "hot dogColor": "hsl(190, 70%, 50%)",
+  //   burger: 80,
+  //   burgerColor: "hsl(325, 70%, 50%)",
+  //   kebab: 112,
+  //   kebabColor: "hsl(54, 70%, 50%)",
+  //   donut: 35,
+  //   donutColor: "hsl(285, 70%, 50%)",
+  // },
+  // {
+  //   country: "AL",
+  //   "hot dog": 66,
+  //   "hot dogColor": "hsl(208, 70%, 50%)",
+  //   burger: 111,
+  //   burgerColor: "hsl(334, 70%, 50%)",
+  //   kebab: 167,
+  //   kebabColor: "hsl(182, 70%, 50%)",
+  //   donut: 18,
+  //   donutColor: "hsl(76, 70%, 50%)",
+  // },
+  // {
+  //   country: "AM",
+  //   "hot dog": 80,
+  //   "hot dogColor": "hsl(87, 70%, 50%)",
+  //   burger: 47,
+  //   burgerColor: "hsl(141, 70%, 50%)",
+  //   kebab: 158,
+  //   kebabColor: "hsl(224, 70%, 50%)",
+  //   donut: 49,
+  //   donutColor: "hsl(274, 70%, 50%)",
+  // },
+];
+export const mockBarDatabk = [
+  {
+    country: "倉庫一",
+    "A-001": 137,
+    "A-001 Color": "hsl(229, 70%, 50%)",
     "A-002": 96,
     burgerColor: "hsl(296, 70%, 50%)",
     "B-001": 72,
@@ -68,9 +131,9 @@ export const mockBarData = [
     donutColor: "hsl(340, 70%, 50%)",
   },
   {
-    country: "Branch2",
+    country: "倉庫二",
     "A-001": 55,
-    "A-001Color": "hsl(307, 70%, 50%)",
+    "A-001 Color": "hsl(307, 70%, 50%)",
     "A-002": 28,
     burgerColor: "hsl(111, 70%, 50%)",
     "B-001": 58,
@@ -79,9 +142,9 @@ export const mockBarData = [
     donutColor: "hsl(275, 70%, 50%)",
   },
   {
-    country: "Branch3",
+    country: "倉庫三",
     "A-001": 109,
-    "A-001Color": "hsl(72, 70%, 50%)",
+    "A-001 Color": "hsl(72, 70%, 50%)",
     "A-002": 23,
     burgerColor: "hsl(96, 70%, 50%)",
     "B-001": 34,
@@ -90,9 +153,9 @@ export const mockBarData = [
     donutColor: "hsl(256, 70%, 50%)",
   },
   {
-    country: "Branch4",
+    country: "倉庫四",
     "A-001": 133,
-    "A-001Color": "hsl(257, 70%, 50%)",
+    "A-001 Color": "hsl(257, 70%, 50%)",
     "A-002": 52,
     burgerColor: "hsl(326, 70%, 50%)",
     "B-001": 43,
@@ -135,37 +198,39 @@ export const mockBarData = [
   // },
 ];
 
+
 export const mockPieData = [
   {
-    id: "A",
-    label: "A-100",
-    value: 239,
-    color: "hsl(104, 70%, 50%)",
+    id: "運作中",
+    label: "運作中",
+    value: 5,
+    color: "hsl(41, 70%, 50%)",
+
   },
   {
-    id: "B",
-    label: "B",
-    value: 170,
-    color: "hsl(162, 70%, 50%)",
+    id: "待機中",
+    label: "待機中",
+    value: 2,
+    color: "hsl(41, 70%, 50%)",
   },
   {
-    id: "C",
-    label: "C",
-    value: 322,
-    color: "hsl(291, 70%, 50%)",
+    id: "警告",
+    label: "警告",
+    value: 0,
+    color: "hsl(0, 100%, 50%)",
   },
-  {
-    id: "D",
-    label: "D",
-    value: 503,
-    color: "hsl(229, 70%, 50%)",
-  },
-  {
-    id: "E",
-    label: "E",
-    value: 584,
-    color: "hsl(344, 70%, 50%)",
-  },
+  // {
+  //   id: "D",
+  //   label: "D",
+  //   value: 503,
+  //   color: "hsl(229, 70%, 50%)",
+  // },
+  // {
+  //   id: "E",
+  //   label: "E",
+  //   value: 584,
+  //   color: "hsl(344, 70%, 50%)",
+  // },
 ];
 
 export const mockDataFactory = [
@@ -239,3 +304,53 @@ export const mockInventoryData = [
     updateTime: "2023/02/20",
   },
 ];
+
+export const mockLineData = [
+  {
+    "id": "訂單數",
+    "color": "hsl(249, 70%, 50%)",
+    "data": [
+      {
+        "x": "Q1",
+        "y": 4
+      },
+      {
+        "x": "Q2",
+        "y": 8
+      },
+      {
+        "x": "Q3",
+        "y": 14
+      },
+      {
+        "x": "Q4",
+        "y": 10
+      },
+
+    ]
+  },
+  // {
+  //   "id": "france",
+  //   "color": "hsl(104, 70%, 50%)",
+  //   "data": [
+  //     {
+  //       "x": "plane",
+  //       "y": 263
+  //     },
+  //     {
+  //       "x": "helicopter",
+  //       "y": 264
+  //     },
+  //     {
+  //       "x": "boat",
+  //       "y": 108
+  //     },
+  //     {
+  //       "x": "train",
+  //       "y": 1
+  //     },
+
+  //   ]
+  // },
+
+]

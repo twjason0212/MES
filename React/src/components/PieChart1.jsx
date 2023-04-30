@@ -1,23 +1,25 @@
 import { ResponsivePie } from "@nivo/pie";
 import { tokens } from "../theme";
 import { useTheme } from "@mui/material";
-// import { mockPieData as data } from "../data/mockData";
+import { mockPieData as data } from "../data/mockData";
+import React, { useState, useEffect } from "react";
 
 const PieChart = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
+  const [runStatus, setRunStatus] = useState([]);
   const mockPieData = [
     {
       id: "運作中",
       label: "運作中",
-      value: 7,
+      value: 5,
       color: "hsl(41, 70%, 50%)",
     },
     {
       id: "待機中",
       label: "待機中",
-      value: 4,
+      value: 2,
       color: "hsl(41, 70%, 50%)",
     },
     {
@@ -27,13 +29,29 @@ const PieChart = () => {
       color: "hsl(0, 100%, 50%)",
     },
   ];
+
+  useEffect(() => {
+    fetch("http://localhost:3702/macStatus")
+      .then((res) => res.json())
+      .then((data) => {
+        const macStatusData = [
+          {
+            id: "訂單數",
+            color: "hsl(249, 70%, 50%)",
+            data: data.map((d) => ({ x: "Q" + d.x, y: d.y })),
+          },
+        ];
+        setRunStatus(macStatusData);
+      });
+  }, []);
+
   return (
     <ResponsivePie
-      data={mockPieData}
       colors={["#4caf50", "#ff9800", "#ef5350"]}
       colorBy="index"
+      data={data}
       theme={{
-        fontSize: 24, //字體大小
+        fontSize: 20, //字體大小
         axis: {
           domain: {
             line: {
@@ -120,7 +138,7 @@ const PieChart = () => {
             {
               on: "hover",
               style: {
-                itemTextColor: "#fff",
+                itemTextColor: "#000",
               },
             },
           ],
