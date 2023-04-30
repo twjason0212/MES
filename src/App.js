@@ -9,6 +9,7 @@ import Factory from "./scenes/factory";
 import Inventory from "./scenes/inventory";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
+import MyCard from "./scenes/employee";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -26,6 +27,7 @@ function App() {
               <Route path="/" element={<Dashboard />} />
               <Route path="/team" element={<Team />} />
               <Route path="/form" element={<Form />} />
+              <Route path="/employee" element={<MyCard />} />
               <Route path="/factory" element={<Factory />} />
               <Route path="/inventory" element={<Inventory />} />
             </Routes>
