@@ -73,7 +73,7 @@ app.get("/employee", function (req, res) {
 //獲取單一員工資訊by員工id
 app.get("/employee/:id", function (req, res) {
     console.log("/employee/:id", req.params.id);
-    connection.query(`SELECT employee_id, employee.employee_account, employee.employee_name, employee.pwd,
+    connection.query(`SELECT employee_id, employee.employee_account, employee.employee_name, employee_pwd,
     department.dept_name, employee.employee_tel, employee.employee_email, role.role_name, startwork_time
     FROM employee
     LEFT JOIN role ON employee.employee_role = role.id 
@@ -102,15 +102,36 @@ app.get("/employee/select/:keyword", function (req, res) {
 
 //創建員工資訊
 app.post("/employee/create", function (req, res) {
-    connection.query(`insert into employee (employee_account, employee_pwd, employee_name, employee_tel, employee_email, employee_status, department) 
+    console.log("req:", req.body.account)
+    let sqlString = `SELECT COUNT(1) AS count FROM employee
+    WHERE employee_account =? `
+    connection.query(sqlString, [req.body.account], function (error, data) {
+        // res.send(JSON.stringify(data))
+        console.log("data:", JSON.stringify(data))
+        console.log("data count:", data[0].count)
+        if (data[0].count === 0) {
+            connection.query(`insert into employee (employee_account, employee_pwd, employee_name, employee_tel, employee_email, employee_status, department) 
                  values (?,?,?,?,?,1,?)`, [req.body.account, req.body.password, req.body.name, req.body.tel, req.body.email, req.body.dept])
+            res.send("新增成功");
+            console.log("ans:", "a")
+        }
+        else {
+            res.send("新增失敗,已有重複帳號");
+            console.log("ans:", "b")
+        }
+        console.log("ans:", "c")
+    })
+
 })
 
+
 //修改員工資訊
-app.post("/employee/update", function (req, res) {
-    console.log(req.body.EmployeeID);
-    connection.query(`update employee set employee_account = ?, employee_pwd = ?, employee_name = ?, employee_tel = ?, employee_email = ?, startwork_time = ? where employee_id = ` + req.body.employee_id,
-        [req.body.account, req.body.password, req.body.name, req.body.tel, req.body.email, req.body.startwork_time])
+app.put("/employee/update", function (req, res) {
+    console.log("/employee/update");
+    console.log(req.body.employee_id);
+    console.log(req.body);
+    connection.query(`update employee set employee_account = ?, employee_name = ?, employee_tel = ?, employee_email = ?, startwork_time = ? where employee_id = ` + req.body.employee_id,
+        [req.body.employee_account, req.body.employee_name, req.body.employee_tel, req.body.employee_email, req.body.startwork_time])
 })
 
 //查詢部門表
@@ -142,16 +163,4 @@ app.get("/coustomer", function (req, res) {
     })
 })
 
-app.put("/coustomer", function (req, res) {
-    connection.query(
-        "update customers set customerphone = ? , customeremail = ? , customeraddress = ? ,customerfax = ? where customerid =" + req.body.customerid,
-        [req.body.customerphone, req.body.customeremail, req.body.customeraddress, req.body.customerfax]
-    );
-    res.send("Update Finish");
-})
 
-app.post("/coustomer/create", function (req, res) {
-    connection.query("insert into customers set customername = ?, customerphone = ? , customeremail = ?, customeraddress = ?, customerfax = ?",
-        [req.body.customername, req.body.customerphone, req.body.customeremail, req.body.customeraddress, req.body.customerfax]);
-    res.send("新增成功")
-})
