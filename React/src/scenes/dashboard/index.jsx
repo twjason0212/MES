@@ -252,7 +252,7 @@ const Dashboard = () => {
           >
             機台整體狀況
           </Typography>
-          <Box height="250px" mt="-20px">
+          <Box height="250px" mt="10px">
             <PieChart isDashboard={true} />
           </Box>
         </Box>
