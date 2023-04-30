@@ -811,13 +811,13 @@ const Sidebar = () => {
             {
               department.includes("業務部") && (
                 <>
-                  <Typography
+                  {/* <Typography
                     variant="h3"
                     color={colors.greenAccent[300]}
                     sx={{ m: "15px 0 5px 20px" }}
                   >
                     業務
-                  </Typography>
+                  </Typography> */}
                   <ListItemButton onClick={BusinessPersonalhandleClick}>
                     <ListItemText
                       variant="h6"
