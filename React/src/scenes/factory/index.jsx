@@ -32,6 +32,8 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@mui/material/";
+import withAuth from "../../components/withAuth";
+
 
 const Factory = () => {
   const [machines, setMachines] = useState([]);
@@ -178,4 +180,4 @@ const Factory = () => {
   );
 };
 
-export default Factory;
+export default withAuth(Factory);

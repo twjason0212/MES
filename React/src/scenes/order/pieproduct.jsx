@@ -40,7 +40,7 @@ const Pie = () => {
             <ResponsivePie
                 theme={{
                     //調圓餅中與延伸的字
-                    "fontSize": 18,
+                    "fontSize": 22,
                     axis: {
                         domain: {
                             line: {
@@ -97,7 +97,7 @@ const Pie = () => {
                     ]
                 }}
                 arcLinkLabelsSkipAngle={10}
-                arcLinkLabelsTextColor="#333333"
+                arcLinkLabelsTextColor="#ffffff"
                 arcLinkLabelsThickness={2}
                 arcLinkLabelsColor={{ from: 'color' }}
                 arcLabelsSkipAngle={10}

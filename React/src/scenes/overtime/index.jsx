@@ -9,9 +9,9 @@ import { Box, Button } from '@mui/material';
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import axios from 'axios';
+import withAuth from "../../components/withAuth";
 
-
-export default function OvertimeFormik() {
+const OvertimeFormik = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
 
 
@@ -265,3 +265,4 @@ export default function OvertimeFormik() {
         </Box>
     );
 }
+export default withAuth(OvertimeFormik);

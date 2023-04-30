@@ -15,10 +15,11 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import { Box } from '@mui/material';
 import axios from 'axios';
+import withAuth from "../../components/withAuth";
 
 
 
-export default function LeaveFormik() {
+const LeaveFormik = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
     // // state = {}
     // const [overtime_type, setType] = React.useState('');
@@ -267,3 +268,4 @@ export default function LeaveFormik() {
     );
 
 }
+export default withAuth(LeaveFormik);

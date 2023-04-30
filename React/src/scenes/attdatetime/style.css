@@ -1,0 +1,8 @@
+.container{
+    width: 1000px;
+    height: 650px;
+    position: absolute;
+    top: 43%;
+    left:56%;
+    transform: translate(-50%, -50%);
+}

@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import {
     Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Box, Autocomplete, Grid,
-    Table, TableBody, TableCell, TableHead, TableRow,
+    Table, TableBody, TableCell, TableHead, TableRow, useTheme
 } from '@mui/material';
 import { Formik, Form, FieldArray } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
+import { tokens } from "../../theme";
+
+
 
 
 const initialValues = {
@@ -33,9 +36,10 @@ const validationSchema = Yup.object().shape({
 
 
 
-export default function NewOrder() {
+function NewOrder({ setShouldUpdate }) {
     const [open, setopen] = useState(false);
-
+    const theme = useTheme();
+    const colors = tokens(theme.palette.mode);
     //客戶名稱
     const [customer, setCustomer] = useState([]);
 
@@ -58,37 +62,46 @@ export default function NewOrder() {
         setopen(false);
     };
 
-    //onClick sumbit 發送資料
-    // const handleSubmit = (values, { setSubmitting }, { resetForm }) => {
-    //     // TODO: 使用axios将formData发送到后端API
-    //     setSubmitting(false);
-    //     console.log(values);
-    //     resetForm();
-    //     handleClose();
-    // };
-
-
-
-
-
-
 
 
     return (
         <Box>
-            <Box style={{ display: 'flex', justifyContent: 'right' }}>
-                <Button variant="contained" color="primary" onClick={handleClickOpen}>
+            <Box style={{ display: 'flex', justifyContent: 'right' }} sx={{ '& .MuiButton-root': { fontSize: '22px', mr: 4 } }}>
+                <Button variant="contained" color="secondary" onClick={handleClickOpen} >
                     新增訂單
                 </Button>
             </Box>
             <Dialog open={open}
                 onClose={handleClose}
-                sx={{ '& .MuiTextField-root': { m: 1, mt: 2 }, }}
-                maxWidth='lg'
+                sx={{
+                    '& .MuiTextField-root': { m: 1, mt: 2 },
+                    '& .MuiTableCell-root': { "borderBottom": "1px solid #696969;" },
+                    "& .green-text": {
+                        color: colors.greenAccent[200],
+                        fontSize: "22px",
+                    },
+                    "& .titlegreen-text": {
+                        color: colors.greenAccent[500],
+                        fontSize: "22px",
+                    },
+                    '& label.Mui-focused': {
+                        color: '#4cceac'
+                    }, '& .MuiInputLabel-outlined': {
+                        color: '#4cceac',
+                        fontSize: "22px"
+                    }, '& .MuiOutlinedInput-root': {
+                        fontSize: '22px'
+                    }, '& .MuiButton-root': {
+                        fontSize: '22px'
+                    },
 
+                }}
+                fullWidth
+                aria-labelledby="dialog-title"
+                aria-describedby="dialog-description"
             >
-                <DialogTitle>新增/修改訂單</DialogTitle>
-                <DialogContent>
+                <DialogTitle id="dialog-title" className="titlegreen-text">新增/修改訂單</DialogTitle>
+                <DialogContent id="dialog-description">
                     <Formik initialValues={initialValues}
                         validationSchema={validationSchema}
                         onSubmit={(values, { setSubmitting, resetForm }) => {
@@ -101,11 +114,12 @@ export default function NewOrder() {
                                 });
                             console.log(values);
                             setSubmitting(false);
+                            setShouldUpdate(true);
                             resetForm();
                             handleClose();
                         }}>
                         {({ values, errors, touched, setFieldValue, handleChange, handleBlur, handleSubmit }) => (
-                            <Box component={Form} onSubmit={handleSubmit} >
+                            <Box component={Form} onSubmit={handleSubmit}>
                                 <Grid container spacing={2}>
                                     <Grid item xs display="flex" justifyContent="center" alignItems="center">
                                         <TextField
@@ -137,7 +151,7 @@ export default function NewOrder() {
                                 <Grid container spacing={2}>
                                     <Grid item xs display="flex" justifyContent="start" alignItems="center">
                                         <Autocomplete
-                                            sx={{ width: '243.5px' }}
+                                            sx={{ width: '252px' }}
                                             options={customer}
                                             getOptionLabel={(option) => option.customername}
                                             filterOptions={(options, { inputValue }) =>
@@ -180,18 +194,19 @@ export default function NewOrder() {
                                         <Table>
                                             <TableHead>
                                                 <TableRow>
-                                                    <TableCell align="center">產品品名</TableCell>
+                                                    <TableCell align="center" className="green-text">產品品名</TableCell>
                                                     {/* <TableCell align="center">規格</TableCell> */}
-                                                    <TableCell align="center" sx={{ width: "100px" }}>數量</TableCell>
-                                                    <TableCell align="center" sx={{ width: "100px" }}>單價</TableCell>
+                                                    <TableCell align="center" className="green-text" sx={{ width: "150px" }}>數量</TableCell>
+                                                    <TableCell align="center" className="green-text" sx={{ width: "150px" }}>單價</TableCell>
                                                 </TableRow>
                                             </TableHead>
                                             <TableBody>
                                                 {values.products.map((row, index) => (
                                                     <TableRow key={index}>
-                                                        <TableCell>
+                                                        <TableCell align="center">
                                                             <TextField
                                                                 name={`'productname'${index}`}
+                                                                fullWidth
                                                                 value={row.productname}
                                                                 onChange={(e) => {
                                                                     const { value } = e.target;
@@ -201,7 +216,7 @@ export default function NewOrder() {
                                                                 helperText={errors.products?.[index]?.productname}
                                                             />
                                                         </TableCell>
-                                                        <TableCell>
+                                                        <TableCell align="center">
                                                             <TextField
                                                                 name={`'quty'${index}`}
                                                                 value={row.quty}
@@ -213,7 +228,7 @@ export default function NewOrder() {
                                                                 helperText={errors.products?.[index]?.quty}
                                                             />
                                                         </TableCell>
-                                                        <TableCell>
+                                                        <TableCell align="center">
                                                             <TextField
                                                                 name={`'price'${index}`}
                                                                 value={row.price}
@@ -229,7 +244,7 @@ export default function NewOrder() {
                                                 ))}
                                                 <TableRow>
                                                     <TableCell colSpan={5}>
-                                                        <Button type="button" onClick={() => push({ productname: '', quty: '', price: '' })} color="primary">
+                                                        <Button fullWidth type="button" onClick={() => push({ productname: '', quty: '', price: '' })} variant="contained" color="secondary">
                                                             新增
                                                         </Button>
                                                     </TableCell>
@@ -239,9 +254,9 @@ export default function NewOrder() {
                                     )}
                                 </FieldArray>
 
-                                <DialogActions>
-                                    <Button onClick={handleClose} color="primary">取消</Button>
-                                    <Button type="submit" color="primary">儲存</Button>
+                                <DialogActions sx={{ mt: 2 }}>
+                                    <Button variant="contained" onClick={handleClose} color="error">取消</Button>
+                                    <Button variant="contained" type="submit" color="info">儲存</Button>
                                 </DialogActions>
                             </Box>
                         )}
@@ -251,3 +266,4 @@ export default function NewOrder() {
         </Box >
     )
 }
+export default NewOrder;

@@ -1,40 +1,62 @@
 import React, { Component } from 'react';
 import Grid from '@mui/material/Unstable_Grid2';
-import Container from '@mui/material/Container';
+
+import { Box, useTheme } from '@mui/material';
 import Ordertable from './ordertable.jsx';
 import Pie from './pieproduct';
 import Pie2 from './piecustomer';
-import Neworder2 from './neworder2.jsx';
-class Order extends Component {
-    state = {}
-    render() {
+import withAuth from "../../components/withAuth";
+import Header from "../../components/Header";
+import { tokens } from "../../theme";
+const Order = () => {
+    const theme = useTheme();
+    const colors = tokens(theme.palette.mode);
 
-        return (
-            <React.Fragment>
-                <Container>
-                    <Grid container spacing={2}>
-                        <Grid xs={12}>
-                            <div>訂單總覽</div>
-                        </Grid>
-                        <Grid xs={6} height="250px">
-                            <div>訂單分布</div>
+    return (
+        <React.Fragment>
+            <Box m="20px">
+                <Header title="訂單總覽" />
+                <Box m="40px 0 0 0"
+                    sx={{
+                        "& .green-text": {
+                            color: colors.greenAccent[300],
+                            fontSize: "24px",
+                        },
+                        "& .bgColor": {
+                            backgroundColor: colors.primary[400]
+                        }
+                    }}>
+                    <Box
+                        display="grid"
+                        gridTemplateColumns="repeat(12, 1fr)"
+                        gridAutoRows="140px"
+                        gap="20px"
+                    >
+                        <Box gridColumn="span 6"
+                            gridRow="span 2"
+                            backgroundColor={colors.primary[400]}
+                            p="30px" className="bgColor">
+                            <div className="green-text">訂單分布</div>
                             <Pie2 />
-                        </Grid>
-                        <Grid xs={6} height="250px">
-                            <div>產品分布</div>
+                        </Box>
+                        <Box gridColumn="span 6"
+                            gridRow="span 2"
+                            backgroundColor={colors.primary[400]}
+                            p="30px" className="bgColor">
+                            <div className="green-text">產品分布</div>
                             <Pie />
-                        </Grid>
-                        <Grid xs={12}>
-                            <Neworder2 />
-                        </Grid>
+                        </Box>
+                    </Box>
+                    <Grid container spacing={2}>
                         <Grid xs={12}>
                             <Ordertable />
                         </Grid>
                     </Grid>
-                </Container>
-            </React.Fragment>
-        );
-    }
+                </Box>
+            </Box>
+        </React.Fragment>
+    );
+
 }
 
-export default Order;
+export default withAuth(Order);

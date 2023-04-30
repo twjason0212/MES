@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { ResponsivePie } from '@nivo/pie'
-
-import { useTheme } from '@mui/material';
+// import { useTheme } from '@mui/material';
 import axios from 'axios';
+// import { tokens } from "../../theme";
+
 // make sure parent container have a defined height when using
 // responsive component, otherwise height will be 0 and
 // no chart will be rendered.
@@ -13,9 +14,8 @@ import axios from 'axios';
 const Pie = () => {
 
     const [piedata, setPiedata] = useState();
-
-
-
+    // const theme = useTheme();
+    // const colors = tokens(theme.palette.mode);
     useEffect(() => {
         axios.get('http://127.0.0.1:3702/order/customerpie')
             .then(response => {
@@ -32,15 +32,19 @@ const Pie = () => {
     const fillColors = piedata?.map(item => ({
         match: { id: item.id },
         id: 'dots'
-      }))
-      
+    }))
+
 
     if (piedata) {
         return (
+
             <ResponsivePie
+                colors={['#4caf50', '#ff9800', '#ef5350']}
+                colorBy="index"
                 theme={{
                     //調圓餅中與延伸的字
-                    "fontSize": 18,
+                    "fontSize": 22,
+                    textColor: "#ffffff",
                     axis: {
                         domain: {
                             line: {
@@ -50,7 +54,7 @@ const Pie = () => {
                         legend: {
                             text: {
                                 "fontSize": 72,
-                                fill: "#777777"
+                                fill: "#ffffff"
                             }
                         },
                         ticks: {
@@ -84,7 +88,7 @@ const Pie = () => {
                 padAngle={0.7}
                 cornerRadius={3}
                 activeOuterRadiusOffset={8}
-                colors={{ scheme: 'nivo' }}
+                // colors={{ scheme: 'nivo' }}
                 borderWidth={1}
                 fontSize={36}
                 borderColor={{
@@ -97,7 +101,7 @@ const Pie = () => {
                     ]
                 }}
                 arcLinkLabelsSkipAngle={10}
-                arcLinkLabelsTextColor="#333333"
+                arcLinkLabelsTextColor="#ffffff"
                 arcLinkLabelsThickness={2}
                 arcLinkLabelsColor={{ from: 'color' }}
                 arcLabelsSkipAngle={10}
@@ -131,35 +135,37 @@ const Pie = () => {
                     }
                 ]}
                 fill={fillColors}
-                // legends={[
-                //     {
-                //         anchor: 'bottom',
-                //         fontSize: 36,
-                //         direction: 'row',
-                //         justify: false,
-                //         translateX: 0,
-                //         translateY: 56,
-                //         itemsSpacing: 0,
-                //         itemWidth: 100,
-                //         itemHeight: 18,
-                //         itemTextColor: '#999',
-                //         itemDirection: 'left-to-right',
-                //         itemOpacity: 1,
-                //         symbolSize: 18,
-                //         symbolShape: 'circle',
-                //         effects: [
-                //             {
-                //                 on: 'hover',
-                //                 style: {
-                //                     itemTextColor: '#000',
+            // legends={[
+            //     {
+            //         anchor: 'bottom',
+            //         fontSize: 36,
+            //         direction: 'row',
+            //         justify: false,
+            //         translateX: 0,
+            //         translateY: 56,
+            //         itemsSpacing: 0,
+            //         itemWidth: 100,
+            //         itemHeight: 18,
+            //         itemTextColor: '#999',
+            //         itemDirection: 'left-to-right',
+            //         itemOpacity: 1,
+            //         symbolSize: 18,
+            //         symbolShape: 'circle',
+            //         effects: [
+            //             {
+            //                 on: 'hover',
+            //                 style: {
+            //                     itemTextColor: '#000',
 
-                //                 }
-                //             }
-                //         ]
-                //     }
-                // ]}
+            //                 }
+            //             }
+            //         ]
+            //     }
+            // ]}
             />
+
         )
+
     } else {
         return <div>Loading...</div>;
     }

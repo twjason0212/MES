@@ -11,8 +11,9 @@ import StatBox from "../../components/StatBox";
 import PersonPin from "@mui/icons-material/PersonPin";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import ListAltIcon from "@mui/icons-material/ListAlt";
-import TaskIcon from "@mui/icons-material/Task";
 import React, { useState, useEffect } from "react";
+import TaskIcon from "@mui/icons-material/Task";
+import withAuth from "../../components/withAuth";
 
 const Dashboard = () => {
   const theme = useTheme();
@@ -340,4 +341,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default withAuth(Dashboard);
