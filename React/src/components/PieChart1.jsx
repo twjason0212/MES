@@ -4,7 +4,6 @@ import { useTheme } from "@mui/material";
 import { mockPieData as data } from "../data/mockData";
 import React, { useState, useEffect } from "react";
 
-
 const PieChart = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -26,10 +25,10 @@ const PieChart = () => {
     {
       id: "警告",
       label: "警告",
-      value: 0,
+      value: 1,
       color: "hsl(0, 100%, 50%)",
     },
-  ]
+  ];
 
   useEffect(() => {
     fetch("http://localhost:3702/macStatus")
@@ -48,7 +47,7 @@ const PieChart = () => {
 
   return (
     <ResponsivePie
-      colors={['#4caf50', '#ff9800', '#ef5350']}
+      colors={["#4caf50", "#ff9800", "#ef5350"]}
       colorBy="index"
       data={data}
       theme={{

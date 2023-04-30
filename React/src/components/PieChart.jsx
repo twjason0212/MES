@@ -7,32 +7,33 @@ const PieChart = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  const mockPieData = [{
-    id: "運作中",
-    label: "運作中",
-    value: 5,
-    color: "hsl(41, 70%, 50%)",
-  },
-  {
-    id: "待機中",
-    label: "待機中",
-    value: 2,
-    color: "hsl(41, 70%, 50%)",
-  },
-  {
-    id: "警告",
-    label: "警告",
-    value: 0,
-    color: "hsl(0, 100%, 50%)",
-  }
-  ]
+  const mockPieData = [
+    {
+      id: "運作中",
+      label: "運作中",
+      value: 7,
+      color: "hsl(41, 70%, 50%)",
+    },
+    {
+      id: "待機中",
+      label: "待機中",
+      value: 4,
+      color: "hsl(41, 70%, 50%)",
+    },
+    {
+      id: "警告",
+      label: "警告",
+      value: 1,
+      color: "hsl(0, 100%, 50%)",
+    },
+  ];
   return (
     <ResponsivePie
       data={mockPieData}
-      colors={['#4caf50', '#ff9800', '#ef5350']}
+      colors={["#4caf50", "#ff9800", "#ef5350"]}
       colorBy="index"
       theme={{
-        fontSize: 20, //字體大小
+        fontSize: 24, //字體大小
         axis: {
           domain: {
             line: {

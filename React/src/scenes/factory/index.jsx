@@ -58,12 +58,12 @@ const Factory = () => {
   return (
     <Box m="20px">
       <Header title="MACHINE OVERVIEW" subtitle="Machine Status" />
-      <Box m="40px 0 0 0" height="75vh">
+      <Box m="20px 0 0 0" height="75vh">
         <Box
           display="grid"
           gridTemplateColumns="repeat(12, 1fr)"
           gridAutoRows="140px"
-          gap="20px"
+          gap="2px"
         >
           {machines.map((machine, index) => (
             <Box gridColumn="span 3" gridRow="span 2" p="10px" key={index}>
@@ -143,21 +143,26 @@ const Factory = () => {
                             待機時間：{dialog.brand}
                           </Typography>
                           <br /> */}
-                          <Typography variant="h3" mt={2}>
-                            目標完工件數：{dialog.tar_process_amount+"個"}
+                          <Typography variant="h2" mt={2}>
+                            目標完工件數：{dialog.tar_process_amount + "個"}
                           </Typography>
                           <br />
-                          <Typography variant="h3" mt={2}>
-                            實際完工件數：{dialog.real_process_amount+"個"}
+                          <Typography variant="h2" mt={2}>
+                            實際完工件數：{dialog.real_process_amount + "個"}
                           </Typography>
                           <br />
-                          <Typography variant="h3" mt={2}>
-                            當日稼動率：{dialog.day_availability+"%"}
+                          <Typography variant="h2" mt={2}>
+                            當日稼動率：{dialog.day_availability + "%"}
                           </Typography>
                         </DialogContentText>
                       </DialogContent>
                       <DialogActions>
-                        <Button variant="contained" color="secondary" autoFocus onClick={() => setOpen(false)}>
+                        <Button
+                          variant="contained"
+                          color="secondary"
+                          autoFocus
+                          onClick={() => setOpen(false)}
+                        >
                           <Typography variant="h4">Cancel</Typography>
                         </Button>
                       </DialogActions>
