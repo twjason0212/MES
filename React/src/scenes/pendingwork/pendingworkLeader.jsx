@@ -24,13 +24,7 @@ const PendingWorkLeader = () => {
     useEffect(() => {
         axios.get(`http://127.0.0.1:3702/workorderl/${id}`)
             .then(response => {
-                const updatedData = response.data.map(item => ({
-                    ...item,
-                    real_process_amount: '',
-                    defect_process_amount: '',
-                    finish_date: ''
-                }));
-                setPendingwork(updatedData);
+                setPendingwork(response.data);
             })
             .catch(error => {
                 console.log(error);
@@ -52,13 +46,7 @@ const PendingWorkLeader = () => {
                 console.log(response.data);
                 axios.get(`http://127.0.0.1:3702/workorderl/${id}`)
                     .then(response => {
-                        const updatedData = response.data.map(item => ({
-                            ...item,
-                            real_process_amount: '',
-                            defect_process_amount: '',
-                            finish_date: ''
-                        }));
-                        setPendingwork(updatedData);
+                        setPendingwork(response.data);
                     })
                     .catch(error => {
                         console.log(error);

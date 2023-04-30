@@ -16,17 +16,20 @@ const OrdersTable = () => {
     ]);
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-
+    const [shouldUpdate, setShouldUpdate] = useState(true);
     useEffect(() => {
+        if (shouldUpdate) {
         axios.get('http://127.0.0.1:3702/order')
             .then(response => {
                 setOrders(response.data)
-console.log(response.data)
+                console.log(response.data)
             })
             .catch(error => {
                 console.error(error);
             });
-    }, []);
+            setShouldUpdate(false);
+        }
+    }, [shouldUpdate]);
 
     const [filter, setFilter] = useState({
         orderid: '',
@@ -46,6 +49,7 @@ console.log(response.data)
             order.customername?.toLowerCase().includes(customername.toLowerCase())
         );
     });
+    console.log(filteredOrders)
 
     //edit
     const [clickOpen, setclickOpen] = useState(false);
@@ -53,12 +57,10 @@ console.log(response.data)
 
     const handleRowClick = (order) => {
         setOrderData(order);
-        console.log(order);
         setclickOpen(true);
     };
 
     const handleClose = () => {
-
         setclickOpen(false);
     };
 
@@ -141,7 +143,7 @@ console.log(response.data)
                     />
                 </Box>
             </Box>
-            <Neworder2 />
+            <Neworder2 setShouldUpdate={setShouldUpdate}/>
             <TableContainer >
                 <Table sx={{ backgroundColor: colors.primary[400], mt: 3, '& .textcen': { fontSize: '22px', textAlign: "center" } }}>
                     <TableHead sx={{
@@ -160,7 +162,7 @@ console.log(response.data)
                     </TableHead>
                     <TableBody>
                         {filteredOrders.map((order) => (
-                            <React.Fragment key={order.orderid}>
+                            <React.Fragment key={order.id}>
                                 <TableRow >
                                     <TableCell className='textcen' onClick={() => handleCollClick(order.orderid)}>{order.orderid}</TableCell>
                                     <TableCell className='textcen'>{order.customername}</TableCell>
@@ -168,7 +170,7 @@ console.log(response.data)
                                     <TableCell className='textcen'>{order.orderdate}</TableCell>
                                     <TableCell className='textcen'>{order.deliverydate}</TableCell>
                                     <TableCell className='textcen'>{order.orderstate_name}</TableCell>
-                                    <TableCell className='textcen'>{getDaysDiff(new Date(), new Date(order.deliverydate))}天</TableCell>
+                                    <TableCell className='textcen'>{getDaysDiff(new Date(), new Date(order.deliverydate)) < 0 ? '-' : getDaysDiff(new Date(), new Date(order.deliverydate))}天</TableCell>
                                     <TableCell className='textcen'>
                                         <Button variant="contained" size='large' className='textcen' color="secondary" onClick={() => handleRowClick(order)}>
                                             編輯
@@ -325,7 +327,7 @@ console.log(response.data)
                             <TextField
                                 id='orderstate'
                                 label="目前狀況"
-                                
+
                                 value={orderdata.orderstate}
                                 select
                                 fullWidth

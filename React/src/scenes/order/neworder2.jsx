@@ -36,7 +36,7 @@ const validationSchema = Yup.object().shape({
 
 
 
-export default function NewOrder() {
+ function NewOrder({setShouldUpdate }) {
     const [open, setopen] = useState(false);
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
@@ -114,6 +114,7 @@ export default function NewOrder() {
                                 });
                             console.log(values);
                             setSubmitting(false);
+                            setShouldUpdate(true);
                             resetForm();
                             handleClose();
                         }}>
@@ -265,3 +266,4 @@ export default function NewOrder() {
         </Box >
     )
 }
+export default NewOrder;

@@ -147,7 +147,7 @@ const Sidebar = () => {
                 justifyContent="space-between"
                 alignItems="center"
                 ml="15px"
-                sx={{'& .MuiButton-root': { fontSize: '18px' }}}
+                sx={{ '& .MuiButton-root': { fontSize: '18px' } }}
               >
                 <Typography variant="h3" color={colors.grey[100]}>
                   Dashboard
@@ -187,7 +187,7 @@ const Sidebar = () => {
             />
             {/* 全部測試*/}
 
-            {/* {department.includes("生產2部") && ( */}
+            {department.includes("生產2部") && (
               <>
 
                 言
@@ -385,7 +385,7 @@ const Sidebar = () => {
                 </>
 
               </>
-             {/* )} */}
+            )}
 
 
             {/* 員工 */}
@@ -393,7 +393,7 @@ const Sidebar = () => {
             {department.includes("生產部") && (
               <>
                 <ListItemButton onClick={EmployeePersonalhandleClick}>
-                  <ListItemText  color={colors.grey[300]} sx={{ m: "15px 0 5px 20px" }} >
+                  <ListItemText color={colors.grey[300]} sx={{ m: "15px 0 5px 20px" }} >
                     個人系統
                   </ListItemText>
                   {/* 折疊menu */}
@@ -407,10 +407,10 @@ const Sidebar = () => {
                       </ListItemIcon>
                       <ListItemText
                         primary="基本資料" />
-                      <Link to="team"></Link>
+                      <Link to="/form"></Link>
                     </ListItemButton>
                   </List>
-                  <List component="div" disablePadding>
+                  {/* <List component="div" disablePadding>
                     <ListItemButton sx={{ pl: 4 }}>
                       <ListItemIcon>
                         <FeedRoundedIcon />
@@ -427,7 +427,7 @@ const Sidebar = () => {
                       <ListItemText primary="加班單申請" />
                       <Link to="/overtime"></Link>
                     </ListItemButton>
-                  </List>
+                  </List> */}
                   {/* <List component="div" disablePadding>
                   <ListItemButton sx={{ pl: 4 }}>
                     <ListItemIcon>
@@ -444,13 +444,24 @@ const Sidebar = () => {
                     <ListItemText primary="加班單查詢" />
                   </ListItemButton>
                 </List> */}
+
+                  <List component="div" disablePadding>
+                    <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemIcon>
+                        <ChecklistIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="打卡" />
+                      <Link to="/checkin"></Link>
+                    </ListItemButton>
+                  </List>
+
                   <List component="div" disablePadding>
                     <ListItemButton sx={{ pl: 4 }}>
                       <ListItemIcon>
                         <ChecklistIcon />
                       </ListItemIcon>
                       <ListItemText primary="出缺勤狀況" />
-                      <Link to="/total_leave"></Link>
+                      <Link to="/attdatetime"></Link>
                     </ListItemButton>
                   </List>
                 </Collapse>
@@ -468,24 +479,78 @@ const Sidebar = () => {
                   {EmployeeManageopen ? <ExpandLess /> : <ExpandMore />}
                 </ListItemButton>
                 <Collapse in={EmployeeManageopen} timeout="auto" unmountOnExit>
-                  <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
-                      <ListItemIcon>
-                        <FeedRoundedIcon />
-                      </ListItemIcon>
-                      <ListItemText primary="報工" />
-                      <Link to="/workorder"></Link>
-                    </ListItemButton>
-                  </List>
-                  <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
-                      <ListItemIcon>
-                        <FactoryIcon />
-                      </ListItemIcon>
-                      <ListItemText primary="機台資訊" />
-                      <Link to="/factory"></Link>
-                    </ListItemButton>
-                  </List>
+
+                  {department === "生產部主管" && (
+                    <List component="div" disablePadding>
+                      <ListItemButton sx={{ pl: 4 }}>
+                        <ListItemIcon>
+                          <FeedRoundedIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="新增派工單" />
+                        <Link to="/workorder"></Link>
+                      </ListItemButton>
+                    </List>
+                  )}
+
+                  {department === "生產部員工" && (
+                    <List component="div" disablePadding>
+                      <ListItemButton sx={{ pl: 4 }}>
+                        <ListItemIcon>
+                          <FeedRoundedIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="派工單" />
+                        <Link to="/workorderlist"></Link>
+                      </ListItemButton>
+                    </List>
+                  )}
+
+                  {department === "生產部員工" && (
+                    <List component="div" disablePadding>
+                      <ListItemButton sx={{ pl: 4 }}>
+                        <ListItemIcon>
+                          <FeedRoundedIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="待辦工單" />
+                        <Link to="/pendingwork"></Link>
+                      </ListItemButton>
+                    </List>
+                  )}
+
+                  {department === "生產部主管" && (
+                    <List component="div" disablePadding>
+                      <ListItemButton sx={{ pl: 4 }}>
+                        <ListItemIcon>
+                          <FeedRoundedIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="待辦工單" />
+                        <Link to="/pendingworkLeader"></Link>
+                      </ListItemButton>
+                    </List>
+                  )}
+
+                  {department === "生產部主管" && (
+                    <List component="div" disablePadding>
+                      <ListItemButton sx={{ pl: 4 }}>
+                        <ListItemIcon>
+                          <FeedRoundedIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="已完成工單列表" />
+                        <Link to="/worlorderall"></Link>
+                      </ListItemButton>
+                    </List>
+                  )}
+
+                  {department === "生產部主管" && (
+                    <List component="div" disablePadding>
+                      <ListItemButton sx={{ pl: 4 }}>
+                        <ListItemIcon>
+                          <FactoryIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="機台資訊" />
+                        <Link to="/factory"></Link>
+                      </ListItemButton>
+                    </List>
+                  )}
                   {/* <List component="div" disablePadding>
                   <ListItemButton sx={{ pl: 4 }}>
                     <ListItemIcon>
@@ -510,13 +575,13 @@ const Sidebar = () => {
                 </Typography> */}
                 <ListItemButton onClick={HRPersonalhandleClick} >
                   <ListItemText
-                    
+
                     color={colors.grey[300]}
-                    sx={{ m: "15px 0 5px 20px"}}
+                    sx={{ m: "15px 0 5px 20px" }}
                     primaryTypographyProps={{
                       fontSize: 22,
                       fontWeight: 'medium',
-                      color:'#4cceac'
+                      color: '#4cceac'
                     }}
                   >
                     個人系統
@@ -525,36 +590,42 @@ const Sidebar = () => {
                   {HRPersonalopen ? <ExpandLess /> : <ExpandMore />}
                 </ListItemButton>
                 <Collapse in={HRPersonalopen} timeout="auto" unmountOnExit>
+
                   <List component="div" disablePadding >
                     <ListItemButton sx={{ pl: 4 }}>
                       <ListItemIcon>
                         <PeopleOutlinedIcon />
                       </ListItemIcon>
                       <ListItemText
-                      primaryTypographyProps={{
-                        fontSize: 20,
-                        fontWeight: 'medium',
-                      }}
+                        primaryTypographyProps={{
+                          fontSize: 20,
+                          fontWeight: 'medium',
+                        }}
                         primary="基本資料" />
-                      <Link to="team"></Link>
+                      <Link to="/form"></Link>
                     </ListItemButton>
                   </List>
+
                   {/* <List component="div" disablePadding>
-                  <ListItemButton sx={{ pl: 4 }}>
-                    <ListItemIcon>
-                      <FeedRoundedIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="請假單申請" />
-                  </ListItemButton>
-                </List>
-                <List component="div" disablePadding>
-                  <ListItemButton sx={{ pl: 4 }}>
-                    <ListItemIcon>
-                      <FeedRoundedIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="加班單申請" />
-                  </ListItemButton>
-                </List> */}
+                    <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemIcon>
+                        <FeedRoundedIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="請假單申請" />
+                      <Link to="/leave"></Link>
+                    </ListItemButton>
+                  </List>
+
+                  <List component="div" disablePadding>
+                    <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemIcon>
+                        <FeedRoundedIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="加班單申請" />
+                      <Link to="/overtime"></Link>
+                    </ListItemButton>
+                  </List> */}
+
                   {/* <List component="div" disablePadding>
                   <ListItemButton sx={{ pl: 4 }}>
                     <ListItemIcon>
@@ -571,14 +642,26 @@ const Sidebar = () => {
                     <ListItemText primary="加班單查詢" />
                   </ListItemButton>
                 </List> */}
-                  {/* <List component="div" disablePadding>
-                  <ListItemButton sx={{ pl: 4 }}>
-                    <ListItemIcon>
-                      <ChecklistIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="出缺勤狀況" />
-                  </ListItemButton>
-                </List> */}
+
+                  <List component="div" disablePadding>
+                    <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemIcon>
+                        <ChecklistIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="打卡" />
+                      <Link to="/checkin"></Link>
+                    </ListItemButton>
+                  </List>
+
+                  <List component="div" disablePadding>
+                    <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemIcon>
+                        <ChecklistIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="出缺勤狀況" />
+                      <Link to="/attdatetime"></Link>
+                    </ListItemButton>
+                  </List>
                 </Collapse>
                 <ListItemButton onClick={HRManagehandleClick}>
                   <ListItemText
@@ -593,48 +676,57 @@ const Sidebar = () => {
                   {HRManageopen ? <ExpandLess /> : <ExpandMore />}
                 </ListItemButton>
                 <Collapse in={HRManageopen} timeout="auto" unmountOnExit>
-                  <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
-                      <ListItemIcon>
-                        <FeedRoundedIcon />
-                      </ListItemIcon>
-                      <ListItemText primary="員工出缺勤資料" />
-                      <Link to='attendance'></Link>
-                    </ListItemButton>
-                  </List>
-                  <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
-                      <ListItemIcon>
-                        <PersonAddIcon />
-                      </ListItemIcon>
-                      <ListItemText primary="員工資料管理" />
-                    </ListItemButton>
-                  </List>
+
                   <List component="div" disablePadding>
                     <ListItemButton sx={{ pl: 4 }}>
                       <ListItemIcon>
                         <PersonAddIcon />
                       </ListItemIcon>
                       <ListItemText primary="新增員工資料" />
-                      <Link to='form'></Link>
+                      <Link to='/form'></Link>
                     </ListItemButton>
                   </List>
+
+                  <List component="div" disablePadding>
+                    <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemIcon>
+                        <PersonAddIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="員工資料管理" />
+                      <Link to='/team'></Link>
+                    </ListItemButton>
+                  </List>
+
+                  <List component="div" disablePadding>
+                    <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemIcon>
+                        <FeedRoundedIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="員工出缺勤資料" />
+                      <Link to='/attendance'></Link>
+                    </ListItemButton>
+                  </List>
+
                   <List component="div" disablePadding>
                     <ListItemButton sx={{ pl: 4 }}>
                       <ListItemIcon>
                         <FeedRoundedIcon />
                       </ListItemIcon>
                       <ListItemText primary="請假單申請" />
+                      <Link to="/leave"></Link>
                     </ListItemButton>
                   </List>
+
                   <List component="div" disablePadding>
                     <ListItemButton sx={{ pl: 4 }}>
                       <ListItemIcon>
                         <FeedRoundedIcon />
                       </ListItemIcon>
                       <ListItemText primary="加班單申請" />
+                      <Link to="/overtime"></Link>
                     </ListItemButton>
                   </List>
+
                 </Collapse>
               </>
             )}
@@ -661,14 +753,39 @@ const Sidebar = () => {
                   {BusinessPersonalopen ? <ExpandLess /> : <ExpandMore />}
                 </ListItemButton>
                 <Collapse in={BusinessPersonalopen} timeout="auto" unmountOnExit>
-                  <List component="div" disablePadding>
+
+                  <List component="div" disablePadding >
                     <ListItemButton sx={{ pl: 4 }}>
                       <ListItemIcon>
                         <PeopleOutlinedIcon />
                       </ListItemIcon>
                       <ListItemText
+                        primaryTypographyProps={{
+                          fontSize: 20,
+                          fontWeight: 'medium',
+                        }}
                         primary="基本資料" />
-                      <Link to="team"></Link>
+                      <Link to="/form"></Link>
+                    </ListItemButton>
+                  </List>
+
+                  <List component="div" disablePadding>
+                    <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemIcon>
+                        <ChecklistIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="打卡" />
+                      <Link to="/checkin"></Link>
+                    </ListItemButton>
+                  </List>
+
+                  <List component="div" disablePadding>
+                    <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemIcon>
+                        <ChecklistIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="出缺勤狀況" />
+                      <Link to="/attdatetime"></Link>
                     </ListItemButton>
                   </List>
                   {/* <List component="div" disablePadding>
@@ -703,14 +820,7 @@ const Sidebar = () => {
                     <ListItemText primary="加班單查詢" />
                   </ListItemButton>
                 </List> */}
-                  <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
-                      <ListItemIcon>
-                        <ChecklistIcon />
-                      </ListItemIcon>
-                      <ListItemText primary="出缺勤狀況" />
-                    </ListItemButton>
-                  </List>
+
                 </Collapse>
                 <ListItemButton onClick={BusinessManagehandleClick}>
                   <ListItemText
@@ -731,7 +841,7 @@ const Sidebar = () => {
                         <FeedRoundedIcon />
                       </ListItemIcon>
                       <ListItemText primary="客戶管理" />
-                      <Link to="customers"></Link>
+                      <Link to="/customers"></Link>
                     </ListItemButton>
                   </List>
                   <List component="div" disablePadding>
@@ -740,7 +850,7 @@ const Sidebar = () => {
                         <FeedRoundedIcon />
                       </ListItemIcon>
                       <ListItemText primary="訂單總攬" />
-                      <Link to="order"></Link>
+                      <Link to="/order"></Link>
                     </ListItemButton>
                   </List>
                   <List component="div" disablePadding>
@@ -748,8 +858,8 @@ const Sidebar = () => {
                       <ListItemIcon>
                         <FactoryIcon />
                       </ListItemIcon>
-                      <ListItemText primary="庫存總攬" />
-                      <Link to="inventory"></Link>
+                      <ListItemText primary="產品管理" />
+                      <Link to="/inventory"></Link>
                     </ListItemButton>
                   </List>
                 </Collapse>
@@ -777,7 +887,7 @@ const Sidebar = () => {
               </>
             )}
             {/* 管理者 */}
-            {department.includes("管理者") && (
+            {department.includes("管理部") && (
               <>
                 <Typography
                   variant="h3"
@@ -799,14 +909,39 @@ const Sidebar = () => {
                   {ManagerPersonalopen ? <ExpandLess /> : <ExpandMore />}
                 </ListItemButton>
                 <Collapse in={ManagerPersonalopen} timeout="auto" unmountOnExit>
-                  <List component="div" disablePadding>
+
+                  <List component="div" disablePadding >
                     <ListItemButton sx={{ pl: 4 }}>
                       <ListItemIcon>
                         <PeopleOutlinedIcon />
                       </ListItemIcon>
                       <ListItemText
+                        primaryTypographyProps={{
+                          fontSize: 20,
+                          fontWeight: 'medium',
+                        }}
                         primary="基本資料" />
-                      <Link to="team"></Link>
+                      <Link to="/form"></Link>
+                    </ListItemButton>
+                  </List>
+
+                  <List component="div" disablePadding>
+                    <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemIcon>
+                        <ChecklistIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="打卡" />
+                      <Link to="/checkin"></Link>
+                    </ListItemButton>
+                  </List>
+
+                  <List component="div" disablePadding>
+                    <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemIcon>
+                        <ChecklistIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="出缺勤狀況" />
+                      <Link to="/attdatetime"></Link>
                     </ListItemButton>
                   </List>
                   {/* <List component="div" disablePadding>
@@ -841,14 +976,7 @@ const Sidebar = () => {
                   <ListItemText primary="加班單查詢" />
                 </ListItemButton>
               </List> */}
-                  <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
-                      <ListItemIcon>
-                        <ChecklistIcon />
-                      </ListItemIcon>
-                      <ListItemText primary="出缺勤狀況" />
-                    </ListItemButton>
-                  </List>
+
                 </Collapse>
                 <ListItemButton onClick={CompanyhandleClick}>
                   <ListItemText
@@ -863,15 +991,97 @@ const Sidebar = () => {
                   {Companyopen ? <ExpandLess /> : <ExpandMore />}
                 </ListItemButton>
                 <Collapse in={Companyopen} timeout="auto" unmountOnExit>
+
                   <List component="div" disablePadding>
                     <ListItemButton sx={{ pl: 4 }}>
                       <ListItemIcon>
                         <FeedRoundedIcon />
                       </ListItemIcon>
                       <ListItemText primary="數據面板" />
-                      <Link to="/"></Link>
+                      <Link to="/dashboard"></Link>
                     </ListItemButton>
                   </List>
+
+                  <List component="div" disablePadding>
+                    <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemIcon>
+                        <FeedRoundedIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="客戶管理" />
+                      <Link to="/customers"></Link>
+                    </ListItemButton>
+                  </List>
+
+                  <List component="div" disablePadding>
+                    <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemIcon>
+                        <FeedRoundedIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="訂單總攬" />
+                      <Link to="/order"></Link>
+                    </ListItemButton>
+                  </List>
+
+                  <List component="div" disablePadding>
+                    <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemIcon>
+                        <FactoryIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="產品管理" />
+                      <Link to="/inventory"></Link>
+                    </ListItemButton>
+                  </List>
+
+                  <List component="div" disablePadding>
+                    <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemIcon>
+                        <PersonAddIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="新增員工資料" />
+                      <Link to='/form'></Link>
+                    </ListItemButton>
+                  </List>
+
+                  <List component="div" disablePadding>
+                    <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemIcon>
+                        <PersonAddIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="員工資料管理" />
+                      <Link to='/team'></Link>
+                    </ListItemButton>
+                  </List>
+
+                  <List component="div" disablePadding>
+                    <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemIcon>
+                        <FeedRoundedIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="員工出缺勤資料" />
+                      <Link to='/attendance'></Link>
+                    </ListItemButton>
+                  </List>
+
+                  <List component="div" disablePadding>
+                    <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemIcon>
+                        <FeedRoundedIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="請假單申請" />
+                      <Link to="/leave"></Link>
+                    </ListItemButton>
+                  </List>
+
+                  <List component="div" disablePadding>
+                    <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemIcon>
+                        <FeedRoundedIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="加班單申請" />
+                      <Link to="/overtime"></Link>
+                    </ListItemButton>
+                  </List>
+
                 </Collapse>
               </>
             )}

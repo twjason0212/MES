@@ -35,7 +35,7 @@ const WorkOrder = () => {
                         process_date: Yup.date().max(new Date(), '日期不能晚於今天').required('請輸入建立日期'),
                         tar_process_amount: Yup.number().typeError('必須為數字').min(1, '數量不能為0或負數').required('必填'),
                     })}
-                    onSubmit={(values) => {
+                    onSubmit={(values,{resetForm}) => {
                         axios.post('http://127.0.0.1:3702/workorder', values)
                             .then((response) => {
                                 console.log(response.data);
@@ -43,7 +43,9 @@ const WorkOrder = () => {
                             .catch((error) => {
                                 console.log(error);
                             });
-                        // console.log(values);
+                        alert('新增成功')
+                        resetForm();
+                        
                     }}
                 >
                     {({ handleSubmit, handleChange, values, errors, touched }) => (

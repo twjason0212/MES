@@ -25,7 +25,7 @@ import Attdatetime from "./scenes/attdatetime/attdatetime";
 import Checkin from "./scenes/checkin/checkin";
 import PendingWork from "./scenes/pendingwork/pendingwork";
 import PendingWorkLeader from "./scenes/pendingwork/pendingworkLeader";
-
+import WorlOrderAll from "./scenes/workorder/worlorderall";
 
 
 import { CssBaseline, ThemeProvider } from "@mui/material";
@@ -63,7 +63,7 @@ function App() {
           <main className="content" style={{ marginLeft: "19em" }}>
             {props.children}
             {!isLoggedIn && <Login />}
-            <Navigate to="/Dashboard" />;
+            <Navigate to="/checkin" />;
           </main>
         </>
       );
@@ -103,6 +103,7 @@ function App() {
             <Route path='/workorderlist' element={<Layout><WorkOrderList /></Layout>} />-
             <Route path='/pendingwork' element={<Layout><PendingWork /></Layout>} />-
             <Route path='/pendingworkLeader' element={<Layout><PendingWorkLeader /></Layout>} />-
+            <Route path='/worlorderall' element={<Layout><WorlOrderAll /></Layout>} />-
 
             {/* <Route path="/attendance" element={<Attendance />} /> */}
             <Route path="/total_leave" element={<Layout><TotalLeave /></Layout>} />

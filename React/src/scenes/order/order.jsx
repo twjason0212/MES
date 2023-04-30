@@ -12,7 +12,6 @@ const Order = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
-
     return (
         <React.Fragment>
             <Box m="20px">

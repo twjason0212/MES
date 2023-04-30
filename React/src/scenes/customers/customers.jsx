@@ -105,7 +105,10 @@ const Newcust = () => {
 
             <TableContainer m="40px 0 0 0">
 
-                <Grid container alignItems="center">
+                <Grid container alignItems="center" sx={{'& .MuiTextField-root': { mt: 2},
+                        '& label.Mui-focused': {color: '#4cceac'}, 
+                        '& .MuiInputLabel-outlined': {color: '#4cceac',fontSize: "22px"}, 
+                        '& .MuiOutlinedInput-root': {fontSize: '22px'}, }}>
                     <Grid item xs={6}>
                         <TextField sx={{ m: 1, mr: 2 }}
                             name="customername"

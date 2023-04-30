@@ -352,7 +352,7 @@ app.post("/order/create", function (req, res) {
 
 //取得訂單資料
 app.get("/order", function (req, res) {
-    connection.query("select o.orderid, o.orderdate, o.deliverydate,o.orderstate, os.orderstate_name, o.changdate, c.customername, oi.productname, oi.quty, oi.price , c.customerphone, c.customeremail, c.customeraddress, c.customerfax from orders o join orderitems oi on o.id = oi.id join customers c on o.customername = c.customername join orderstate os on os.id = o.orderstate", function (error, data) {
+    connection.query("select o.id ,o.orderid, o.orderdate, o.deliverydate,o.orderstate, os.orderstate_name, o.changdate, c.customername, oi.productname, oi.quty, oi.price , c.customerphone, c.customeremail, c.customeraddress, c.customerfax from orders o join orderitems oi on o.id = oi.id join customers c on o.customername = c.customername join orderstate os on os.id = o.orderstate", function (error, data) {
 
         const formatDate = (dateString) => {
             const date = new Date(dateString);
@@ -374,6 +374,7 @@ app.get("/order", function (req, res) {
                 });
             } else { // 否則建立一個新的物件並加入到 acc 中
                 acc[curr.orderid] = {
+                    id: curr.id,
                     orderid: curr.orderid,
                     orderdate: formatDate(curr.orderdate),
                     deliverydate: formatDate(curr.deliverydate),
@@ -525,7 +526,7 @@ app.get('/workorder/:id', function (req, res) {
 
 //待辦工單(建單人 與 狀態3)
 app.get('/workorderl/:id', function (req, res) {
-    connection.query("select * , work_order.id from work_order join work_order_status on work_order.work_order_status = work_order_status.id where work_order_executor = ? and work_order_status = 3 ", [req.params.id], function (error, data) {
+    connection.query("select * , work_order.id ,report_order.process_date from work_order join work_order_status on work_order.work_order_status = work_order_status.id join report_order on report_order.work_order_id = work_order.work_order_id where work_order_creator = ? and work_order_status = 3 ", [req.params.id], function (error, data) {
         if (error) throw error;
         res.send(JSON.stringify(data));
         console.log(data);
@@ -553,12 +554,22 @@ app.put('/reportorder', function (req, res) {
     connection.query('update work_order set work_order_status = ? where id =' + req.body.id, [3])
     res.send("狀態更新");
 })
-//待辦工單(更新報工單狀態) 
+//待辦工單(更新報工單狀態-主管) 
 app.put('/reportorderl', function (req, res) {
-    connection.query('update report_order ,work_order set report_order.real_process_amount = ? , report_order.defect_process_amount = ?, work_order.work_order_status = ? where work_order.id = ? join work_order on work_order.work_order_id = report_order.work_order_id' + req.body.id,
-    [req.body.real_process_amount, req.body.defect_process_amount,4, req.body.id])
+    connection.query('update report_order join work_order on work_order.work_order_id = report_order.work_order_id set report_order.real_process_amount = ? , report_order.defect_process_amount = ?, work_order.work_order_status = ?  where work_order.id = ?',
+        [req.body.real_process_amount, req.body.defect_process_amount, 4, req.body.id])
     res.send("審核通過");
 })
+
+//工單管理
+app.get('/workorderall', function (req, res) {
+    connection.query('select *, work_order.work_order_id , ro.real_process_amount, ro.process_date from work_order join report_order ro on ro.work_order_id = work_order.work_order_id join work_order_status on work_order.work_order_status = work_order_status.id', function (error, data) {
+        if (error) throw error;
+        res.send(data)
+        console.log(data)
+    })
+})
+
 
 
 //機器(冠宇)

@@ -79,7 +79,11 @@ const GridCard = () => {
         <Box m="20px">
             <Header title="產品總覽" />
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Box sx={{ width: '30%', backgroundColor: colors.primary[400], ml: 3, mb: 3 }}>
+                <Box sx={{ width: '30%', backgroundColor: colors.primary[400], ml: 3, mb: 3 
+            ,'& .MuiTextField-root': { mt: 2},
+            '& label.Mui-focused': {color: '#4cceac'}, 
+            '& .MuiInputLabel-outlined': {color: '#4cceac',fontSize: "22px"}, 
+            '& .MuiOutlinedInput-root': {fontSize: '22px'}, }}>
                     <TextField sx={{ width: '92%', m: 2 }}
                         name="product_name"
                         label="產品名稱"
