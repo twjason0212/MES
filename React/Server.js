@@ -84,8 +84,8 @@ app.get("/attdance", function (req, res) {
 })
 app.put("/attdance", function (req, res) {
     connection.query(
-        "update attendance set starttime = ? , endtime = ? , status = ? where id =" + req.body.id,
-        [req.body.starttime, req.body.endtime, req.body.att_status_name]
+        "update attendance set starttime = ? , endtime = ? where id =" + req.body.id,
+        [req.body.starttime, req.body.endtime]
     );
     res.send("Update Finish");
 })

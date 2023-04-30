@@ -66,7 +66,7 @@ const Attenddance = () => {
 
     const handleSaveClick = (newData) => {
         // 在這裡將修改後的數據保存到資料庫
-
+        console.log(newData)
         axios.put(`http://127.0.0.1:3702/attdance/`, newData)
             .then(response => {
                 console.log(response);
@@ -124,7 +124,7 @@ const Attenddance = () => {
                                 '& .MuiInputLabel-filled': { color: '#4cceac', fontSize: "22px" },
                                 '& .MuiFilledInput-root': { fontSize: '22px' },
                             }}
-                            
+
                             name="att_status_name"
                             label="類別"
                             variant="filled"
@@ -134,7 +134,11 @@ const Attenddance = () => {
                     </div>
                 </div>
                 <Table sx={{ backgroundColor: colors.primary[400] }}>
-                    <TableHead sx={{ backgroundColor: colors.blueAccent[700], '& .MuiTableCell-root': { fontSize: '16px', textAlign: "center" } }}>
+                    <TableHead
+                        sx={{
+                            backgroundColor: colors.blueAccent[700],
+                            '& .MuiTableCell-root': { fontSize: '22px', textAlign: "center" },
+                        }}>
                         <TableRow >
                             {/* <TableCell sx={{ textAlign: 'center' }}>編號</TableCell> */}
                             <TableCell>員工工號</TableCell>
@@ -147,7 +151,7 @@ const Attenddance = () => {
                     </TableHead>
                     <TableBody>
                         {filteredAtt.map((att) => (
-                            <TableRow key={att.id} sx={{ '& .MuiTableCell-root': { fontSize: '16px', textAlign: "center" } }}>
+                            <TableRow key={att.id} sx={{ '& .MuiTableCell-root': { fontSize: '22px', textAlign: "center" } }}>
                                 {/* <TableCell sx={{ textAlign: 'center' }}>{att.id}</TableCell> */}
                                 <TableCell >{att.employee_account}</TableCell>
                                 <TableCell >{att.employee_name}</TableCell>
@@ -169,7 +173,7 @@ const Attenddance = () => {
                                 })}</TableCell>
                                 <TableCell >{att.att_status_name}</TableCell>
                                 <TableCell>
-                                    <Button variant="contained" color="primary" onClick={() => handleClick(att)}>
+                                    <Button variant="contained" sx={{ fontSize: "22px" }} color="primary" onClick={() => handleClick(att)}>
                                         修改
                                     </Button>
 
@@ -180,13 +184,22 @@ const Attenddance = () => {
                 </Table>
                 {chattdata && (
                     <Dialog open={clickOpen} onClose={handleClose}>
-                        <DialogTitle>修改資料</DialogTitle>
+                        <DialogTitle sx={{ fontSize: "22px" }}>修改資料</DialogTitle>
                         <DialogContent>
                             <TextField
                                 label="員工姓名"
                                 value={chattdata.employee_name}
                                 fullWidth
                                 disabled
+                                variant='filled'
+
+                                sx={{
+                                    '& label.Mui-focused': {color: '#4cceac',}, 
+                                    '& .MuiInputLabel-filled': { color: '#4cceac', fontSize: "22px"},
+                                    '& .MuiFilledInput-root': {fontSize: '22px'}, 
+                                    m:1
+                                  }}
+
                             />
 
                             <TextField
@@ -194,6 +207,13 @@ const Attenddance = () => {
                                 type="datetime-local"
                                 value={chattdata.starttime}
                                 fullWidth
+                                variant='filled'
+                                sx={{
+                                    '& label.Mui-focused': {color: '#4cceac',}, 
+                                    '& .MuiInputLabel-filled': { color: '#4cceac', fontSize: "22px"},
+                                    '& .MuiFilledInput-root': {fontSize: '22px'}, 
+                                    m:1
+                                  }}
                                 onChange={(event) =>
                                     setChattData({
                                         ...chattdata,
@@ -207,6 +227,13 @@ const Attenddance = () => {
                                 type="datetime-local"
                                 value={chattdata.endtime}
                                 fullWidth
+                                variant="filled"
+                                sx={{
+                                    '& label.Mui-focused': {color: '#4cceac',}, 
+                                    '& .MuiInputLabel-filled': { color: '#4cceac', fontSize: "22px"},
+                                    '& .MuiFilledInput-root': {fontSize: '22px'}, 
+                                    m:1
+                                  }}
                                 onChange={(event) =>
                                     setChattData({
                                         ...chattdata,
@@ -215,7 +242,7 @@ const Attenddance = () => {
                                 }
 
                             />
-                            <TextField
+                            {/* <TextField
                                 label="假別"
                                 //value為null的話，會導致React無法正確管理元件的狀態
                                 value={chattdata.att_status_name !== null ? chattdata.att_status_name : ''}
@@ -226,8 +253,8 @@ const Attenddance = () => {
                                         att_status_name: event.target.value,
                                     })
                                 }
-                            />
-                            <Button variant="contained" onClick={() => handleSaveClick(chattdata)}>
+                            /> */}
+                            <Button variant="contained" onClick={() => handleSaveClick(chattdata)} sx={{ fontSize: "22px", m:1 }} color='secondary' >
                                 儲存
                             </Button>
                         </DialogContent>

@@ -117,7 +117,8 @@ const Sidebar = () => {
         <Menu iconShape="square">
           {/* LOGO AND MENU ICON */}
           <MenuItem
-            onClick={() => setIsCollapsed(!isCollapsed)}
+            hidden
+            onClick={() => setIsCollapsed(isCollapsed)}
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
             style={{
               margin: "10px 0 20px 0",
@@ -169,27 +170,54 @@ const Sidebar = () => {
           )}
 
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
-            <Item
+          <List component="div" disablePadding >
+                  <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemIcon>
+                      <HomeOutlinedIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary="Home"
+                      primaryTypographyProps={{ fontSize: '22px' }}
+                    />
+                    <Link to="/"></Link>
+                  </ListItemButton>
+                </List>
+            {/* <ListItemButton>
+            <ListItemIcon>
+                      <HomeOutlinedIcon />
+                    </ListItemIcon>
+              <ListItemText
+                primaryTypographyProps={{ fontSize: '22px' }}
+                color={colors.grey[300]}
+                sx={{ m: "15px 0 5px 20px" }}
+
+              >
+                Home
+              </ListItemText>
+              <Link to="/"></Link>
+            </ListItemButton> */}
+            {/* <Item
               title="Home"
               to="/"
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+
+            /> */}
             {/* 員工 */}
             <>
-              <Typography
+              {/* <Typography
                 variant="h3"
                 color={colors.greenAccent[300]}
                 sx={{ m: "15px 0 5px 20px" }}
               >
                 員工
-              </Typography>
+              </Typography> */}
 
 
               <ListItemButton onClick={EmployeePersonalhandleClick}>
                 <ListItemText
-                  variant="h6"
+                  primaryTypographyProps={{ fontSize: '22px' }}
                   color={colors.grey[300]}
                   sx={{ m: "15px 0 5px 20px" }}
 
@@ -206,7 +234,10 @@ const Sidebar = () => {
                       <PeopleOutlinedIcon />
                     </ListItemIcon>
                     <ListItemText
-                      primary="基本資料" />
+                      // sx={{fontSize:"22px"}}
+                      primary="基本資料"
+                      primaryTypographyProps={{ fontSize: '22px' }}
+                    />
                     <Link to="team"></Link>
                   </ListItemButton>
                 </List>
@@ -215,7 +246,10 @@ const Sidebar = () => {
                     <ListItemIcon>
                       <FeedRoundedIcon />
                     </ListItemIcon>
-                    <ListItemText primary="請假單申請" />
+                    <ListItemText
+                      primary="請假單申請"
+                      primaryTypographyProps={{ fontSize: '22px' }}
+                    />
                     <Link to="/leave"></Link>
                   </ListItemButton>
                 </List>
@@ -224,7 +258,10 @@ const Sidebar = () => {
                     <ListItemIcon>
                       <FeedRoundedIcon />
                     </ListItemIcon>
-                    <ListItemText primary="加班單申請" />
+                    <ListItemText
+                      primary="加班單申請"
+                      primaryTypographyProps={{ fontSize: '22px' }}
+                    />
                     <Link to="/overtime"></Link>
                   </ListItemButton>
                 </List>
@@ -233,7 +270,10 @@ const Sidebar = () => {
                     <ListItemIcon>
                       <FeedRoundedIcon />
                     </ListItemIcon>
-                    <ListItemText primary="請假單查詢" />
+                    <ListItemText
+                      primary="請假單查詢"
+                      primaryTypographyProps={{ fontSize: '22px' }}
+                    />
                   </ListItemButton>
                 </List>
                 <List component="div" disablePadding>
@@ -241,7 +281,10 @@ const Sidebar = () => {
                     <ListItemIcon>
                       <FeedRoundedIcon />
                     </ListItemIcon>
-                    <ListItemText primary="加班單查詢" />
+                    <ListItemText
+                      primary="加班單查詢"
+                      primaryTypographyProps={{ fontSize: '22px' }}
+                    />
                   </ListItemButton>
                 </List>
                 <List component="div" disablePadding>
@@ -249,7 +292,10 @@ const Sidebar = () => {
                     <ListItemIcon>
                       <ChecklistIcon />
                     </ListItemIcon>
-                    <ListItemText primary="出缺勤狀況" />
+                    <ListItemText
+                      primary="出缺勤狀況"
+                      primaryTypographyProps={{ fontSize: '22px' }}
+                    />
                     <Link to="/total_leave"></Link>
                   </ListItemButton>
                 </List>
@@ -258,7 +304,7 @@ const Sidebar = () => {
 
               <ListItemButton onClick={EmployeeManagehandleClick}>
                 <ListItemText
-                  variant="h6"
+                  primaryTypographyProps={{ fontSize: '22px' }}
                   color={colors.grey[300]}
                   sx={{ m: "15px 0 5px 20px" }}
 
@@ -274,7 +320,10 @@ const Sidebar = () => {
                     <ListItemIcon>
                       <FeedRoundedIcon />
                     </ListItemIcon>
-                    <ListItemText primary="報工" />
+                    <ListItemText
+                      primary="報工"
+                      primaryTypographyProps={{ fontSize: '22px' }}
+                    />
                   </ListItemButton>
                 </List>
                 <List component="div" disablePadding>
@@ -282,7 +331,10 @@ const Sidebar = () => {
                     <ListItemIcon>
                       <FactoryIcon />
                     </ListItemIcon>
-                    <ListItemText primary="機台資訊" />
+                    <ListItemText
+                      primary="機台資訊"
+                      primaryTypographyProps={{ fontSize: '22px' }}
+                    />
                     <Link to="/factory"></Link>
                   </ListItemButton>
                 </List>
@@ -299,16 +351,16 @@ const Sidebar = () => {
             {/* 人事 */}
             <>
 
-              <Typography
+              {/* <Typography
                 variant="h3"
                 color={colors.greenAccent[300]}
                 sx={{ m: "15px 0 5px 20px" }}
               >
                 人事
-              </Typography>
+              </Typography> */}
               <ListItemButton onClick={HRPersonalhandleClick}>
                 <ListItemText
-                  variant="h6"
+                  primaryTypographyProps={{ fontSize: '22px' }}
                   color={colors.grey[300]}
                   sx={{ m: "15px 0 5px 20px" }}
 
@@ -318,14 +370,16 @@ const Sidebar = () => {
                 {/* 折疊menu */}
                 {HRPersonalopen ? <ExpandLess /> : <ExpandMore />}
               </ListItemButton>
-              <Collapse in={HRPersonalopen} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
+              <Collapse in={HRPersonalopen} timeout="auto" unmountOnExit >
+                <List component="div" disablePadding >
                   <ListItemButton sx={{ pl: 4 }}>
                     <ListItemIcon>
                       <PeopleOutlinedIcon />
                     </ListItemIcon>
                     <ListItemText
-                      primary="基本資料" />
+                      primary="基本資料"
+                      primaryTypographyProps={{ fontSize: '22px' }}
+                    />
                     <Link to="team"></Link>
                   </ListItemButton>
                 </List>
@@ -366,13 +420,16 @@ const Sidebar = () => {
                     <ListItemIcon>
                       <ChecklistIcon />
                     </ListItemIcon>
-                    <ListItemText primary="出缺勤狀況" />
+                    <ListItemText
+                      primary="出缺勤狀況"
+                      primaryTypographyProps={{ fontSize: '22px' }}
+                    />
                   </ListItemButton>
                 </List>
               </Collapse>
               <ListItemButton onClick={HRManagehandleClick}>
                 <ListItemText
-                  variant="h6"
+                  primaryTypographyProps={{ fontSize: '22px' }}
                   color={colors.grey[300]}
                   sx={{ m: "15px 0 5px 20px" }}
 
@@ -388,7 +445,10 @@ const Sidebar = () => {
                     <ListItemIcon>
                       <FeedRoundedIcon />
                     </ListItemIcon>
-                    <ListItemText primary="員工出缺勤資料" />
+                    <ListItemText
+                      primary="員工出缺勤資料"
+                      primaryTypographyProps={{ fontSize: '22px' }}
+                    />
                     <Link to='attendance'></Link>
                   </ListItemButton>
                 </List>
@@ -397,7 +457,10 @@ const Sidebar = () => {
                     <ListItemIcon>
                       <FeedRoundedIcon />
                     </ListItemIcon>
-                    <ListItemText primary="新增員工資料" />
+                    <ListItemText
+                      primary="新增員工資料"
+                      primaryTypographyProps={{ fontSize: '22px' }}
+                    />
                     <Link to='form'></Link>
                   </ListItemButton>
                 </List>
@@ -406,7 +469,9 @@ const Sidebar = () => {
                     <ListItemIcon>
                       <PersonAddIcon />
                     </ListItemIcon>
-                    <ListItemText primary="員工資料管理" />
+                    <ListItemText
+                      primary="員工資料管理"
+                      primaryTypographyProps={{ fontSize: '22px' }} />
                   </ListItemButton>
                 </List>
                 <List component="div" disablePadding>
@@ -414,7 +479,10 @@ const Sidebar = () => {
                     <ListItemIcon>
                       <FeedRoundedIcon />
                     </ListItemIcon>
-                    <ListItemText primary="請假單申請" />
+                    <ListItemText
+                      primary="請假單申請"
+                      primaryTypographyProps={{ fontSize: '22px' }}
+                    />
                   </ListItemButton>
                 </List>
                 <List component="div" disablePadding>
@@ -422,23 +490,26 @@ const Sidebar = () => {
                     <ListItemIcon>
                       <FeedRoundedIcon />
                     </ListItemIcon>
-                    <ListItemText primary="加班單申請" />
+                    <ListItemText
+                      primary="加班單申請"
+                      primaryTypographyProps={{ fontSize: '22px' }}
+                    />
                   </ListItemButton>
                 </List>
               </Collapse>
             </>
             {/* 業務 */}
             <>
-              <Typography
+              {/* <Typography
                 variant="h3"
                 color={colors.greenAccent[300]}
                 sx={{ m: "15px 0 5px 20px" }}
               >
                 業務
-              </Typography>
+              </Typography> */}
               <ListItemButton onClick={BusinessPersonalhandleClick}>
                 <ListItemText
-                  variant="h6"
+                  primaryTypographyProps={{ fontSize: '22px' }}
                   color={colors.grey[300]}
                   sx={{ m: "15px 0 5px 20px" }}
 
@@ -455,7 +526,9 @@ const Sidebar = () => {
                       <PeopleOutlinedIcon />
                     </ListItemIcon>
                     <ListItemText
-                      primary="基本資料" />
+                      primary="基本資料"
+                      primaryTypographyProps={{ fontSize: '22px' }}
+                    />
                     <Link to="team"></Link>
                   </ListItemButton>
                 </List>
@@ -496,13 +569,16 @@ const Sidebar = () => {
                     <ListItemIcon>
                       <ChecklistIcon />
                     </ListItemIcon>
-                    <ListItemText primary="出缺勤狀況" />
+                    <ListItemText
+                      primary="出缺勤狀況"
+                      primaryTypographyProps={{ fontSize: '22px' }}
+                    />
                   </ListItemButton>
                 </List>
               </Collapse>
               <ListItemButton onClick={BusinessManagehandleClick}>
                 <ListItemText
-                  variant="h6"
+                  primaryTypographyProps={{ fontSize: '22px' }}
                   color={colors.grey[300]}
                   sx={{ m: "15px 0 5px 20px" }}
 
@@ -513,12 +589,15 @@ const Sidebar = () => {
                 {BusinessManageopen ? <ExpandLess /> : <ExpandMore />}
               </ListItemButton>
               <Collapse in={BusinessManageopen} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
+                <List component="div" disablePadding>
                   <ListItemButton sx={{ pl: 4 }}>
                     <ListItemIcon>
                       <FeedRoundedIcon />
                     </ListItemIcon>
-                    <ListItemText primary="客戶管理" />
+                    <ListItemText
+                      primary="客戶管理"
+                      primaryTypographyProps={{ fontSize: '22px' }}
+                    />
                     <Link to="customers"></Link>
                   </ListItemButton>
                 </List>
@@ -527,7 +606,10 @@ const Sidebar = () => {
                     <ListItemIcon>
                       <FeedRoundedIcon />
                     </ListItemIcon>
-                    <ListItemText primary="訂單總攬" />
+                    <ListItemText
+                      primary="訂單總攬"
+                      primaryTypographyProps={{ fontSize: '22px' }}
+                    />
                     <Link to="order"></Link>
                   </ListItemButton>
                 </List>
@@ -536,7 +618,10 @@ const Sidebar = () => {
                     <ListItemIcon>
                       <FactoryIcon />
                     </ListItemIcon>
-                    <ListItemText primary="庫存總攬" />
+                    <ListItemText
+                      primary="庫存總攬"
+                      primaryTypographyProps={{ fontSize: '22px' }}
+                    />
                     <Link to="team"></Link>
                   </ListItemButton>
                 </List>
@@ -565,37 +650,39 @@ const Sidebar = () => {
             </>
             {/* 管理者 */}
             <>
-            <Typography
-              variant="h3"
-              color={colors.greenAccent[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              管理者
-            </Typography>
-            <ListItemButton onClick={ManagerPersonalhandleClick}>
-              <ListItemText
-                variant="h6"
-                color={colors.grey[300]}
+              {/* <Typography
+                variant="h3"
+                color={colors.greenAccent[300]}
                 sx={{ m: "15px 0 5px 20px" }}
-
               >
-                個人系統
-              </ListItemText>
-              {/* 折疊menu */}
-              {ManagerPersonalopen ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            <Collapse in={ManagerPersonalopen} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <PeopleOutlinedIcon />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary="基本資料" />
-                  <Link to="team"></Link>
-                </ListItemButton>
-              </List>
-              {/* <List component="div" disablePadding>
+                管理者
+              </Typography> */}
+              <ListItemButton onClick={ManagerPersonalhandleClick}>
+                <ListItemText
+                  primaryTypographyProps={{ fontSize: '22px' }}
+                  color={colors.grey[300]}
+                  sx={{ m: "15px 0 5px 20px" }}
+
+                >
+                  個人系統
+                </ListItemText>
+                {/* 折疊menu */}
+                {ManagerPersonalopen ? <ExpandLess /> : <ExpandMore />}
+              </ListItemButton>
+              <Collapse in={ManagerPersonalopen} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                  <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemIcon>
+                      <PeopleOutlinedIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary="基本資料"
+                      primaryTypographyProps={{ fontSize: '22px' }}
+                    />
+                    <Link to="team"></Link>
+                  </ListItemButton>
+                </List>
+                {/* <List component="div" disablePadding>
                 <ListItemButton sx={{ pl: 4 }}>
                   <ListItemIcon>
                     <FeedRoundedIcon />
@@ -627,38 +714,44 @@ const Sidebar = () => {
                   <ListItemText primary="加班單查詢" />
                 </ListItemButton>
               </List> */}
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <ChecklistIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="出缺勤狀況" />
-                </ListItemButton>
-              </List>
-            </Collapse>
-            <ListItemButton onClick={CompanyhandleClick}>
-              <ListItemText
-                variant="h6"
-                color={colors.grey[300]}
-                sx={{ m: "15px 0 5px 20px" }}
+                <List component="div" disablePadding>
+                  <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemIcon>
+                      <ChecklistIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary="出缺勤狀況"
+                      primaryTypographyProps={{ fontSize: '22px' }}
+                    />
+                  </ListItemButton>
+                </List>
+              </Collapse>
+              <ListItemButton onClick={CompanyhandleClick}>
+                <ListItemText
+                  primaryTypographyProps={{ fontSize: '22px' }}
+                  color={colors.grey[300]}
+                  sx={{ m: "15px 0 5px 20px" }}
 
-              >
-                公司管理
-              </ListItemText>
-              {/* 折疊menu */}
-              {Companyopen ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            <Collapse in={Companyopen} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <FeedRoundedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="數據面板" />
-                  <Link to="/"></Link>
-                </ListItemButton>
-              </List>
-            </Collapse>
+                >
+                  公司管理
+                </ListItemText>
+                {/* 折疊menu */}
+                {Companyopen ? <ExpandLess /> : <ExpandMore />}
+              </ListItemButton>
+              <Collapse in={Companyopen} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                  <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemIcon>
+                      <FeedRoundedIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary="數據面板"
+                      primaryTypographyProps={{ fontSize: '22px' }}
+                    />
+                    <Link to="/"></Link>
+                  </ListItemButton>
+                </List>
+              </Collapse>
             </>
           </Box>
         </Menu>
