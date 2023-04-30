@@ -13,17 +13,20 @@ import Header from "../../components/Header";
 import React, { useState, useEffect, Component } from "react";
 import { map, find, propEq, forEach, isNil } from 'ramda';
 import axios from "axios";
-import Select, { StylesConfig } from 'react-select';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import withAuth from "../../components/withAuth";
 
+const EmployeeForm = () => {
 
-const EmployeeForm = (props) => {
+  const [depts, setDepts] = useState([]);
 
-  const [email, setEmail] = useState([]);
-  // const department = () => map((dep) => ({ value: dep.name, label: dep.name }), dept);
-  const [dept, setDepts] = useState([]);
   useEffect(() => {
     getDepts();
   }, []);
+
 
   function getDepts() {
     axios.get('http://localhost:3702/dept')
@@ -38,49 +41,48 @@ const EmployeeForm = (props) => {
   }
 
   const handleFormSubmit = (values, { resetForm }) => {
-    console.log(values);
-    alert(JSON.stringify(values, null, 2));
+    console.log("CLICK", values);
+    // const result = "失敗"
     axios.post('http://localhost:3702/employee/create', values)
       .then(response => {
-        console.log(response.data);
+        // result = response.data;
+        console.log("resp", response.data);
+        alert(response.data);
         // setDepts(response.data)
       })
       .catch(error => {
         console.error(error);
       });
-
+    // console.log("alert", res.data);
+    // alert(result);
     getDepts();
     resetForm();
   };
 
 
-  // 部門
-  // const department = () => map((dep) => ({ value: dep.name, label: dep.name }), dept);
-  // const withFormik = Formik({
-  //   mapPropsToValues: () => ({ color: "" }),
-  //   handleSubmit: (values, { setSubmitting }) => {
-  //     setTimeout(() => {
-  //       alert(JSON.stringify(values, null, 2));
-  //       setSubmitting(false);
-  //     }, 1000);
-  //   },
-  //   displayName: "BasicForm" // helps with React DevTools
-  // });
+
 
   return (
-    <Box m="20px">
-      <Header title="人資表" subtitle="基本資料" />
+    <Box m="40px">
+      <Header title="建立人資表" subtitle="基本資料" />
 
       <Formik
         onSubmit={handleFormSubmit}
-        initialValues={initialValues}
-      // validationSchema={checkoutSchema}
+        initialValues={iniValues}
+        validationSchema={yup.object({
+          name: yup.string().required('必填'),
+          account: yup.string().max(15).required('必填'),
+          email: yup.string().email('請輸入正確的電子郵件格式'),
+          password: yup.string().required('必填'),
+          tel: yup.string().max(15),
+          dept: yup.string().required('必填')
+        })}
       >
         {({ handleBlur, handleSubmit, handleChange, handleReset, values, errors, touched }) => (
           <Box component={Form} onSubmit={handleSubmit}>
             <TextField
-              fullWidth
-              variant="filled"
+              // fullWidth
+              // variant="filled"
               type="text"
               label="姓名"
               onBlur={handleBlur}
@@ -89,11 +91,18 @@ const EmployeeForm = (props) => {
               name="name"
               error={!!touched.name && !!errors.name}
               helperText={touched.name && errors.name}
-              sx={{ '& label.Mui-focused': { color: '#4cceac' }, gridColumn: "span 2" }}
+              sx={{
+                width: '100%',
+                m: 1,
+                '& label.Mui-focused': { color: '#4cceac', },
+                '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
+                '& .MuiOutlinedInput-root': { fontSize: '22px' },
+                gridColumn: "span 2",
+              }}
             />
             <TextField
-              fullWidth
-              variant="filled"
+              // fullWidth
+              // variant="filled"
               type="text"
               label="帳號"
               onBlur={handleBlur}
@@ -102,12 +111,19 @@ const EmployeeForm = (props) => {
               name="account"
               error={!!touched.account && !!errors.account}
               helperText={touched.account && errors.account}
-              sx={{ '& label.Mui-focused': { color: '#4cceac' }, gridColumn: "span 2" }}
+              sx={{
+                width: '100%',
+                m: 1,
+                '& label.Mui-focused': { color: '#4cceac', },
+                '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
+                '& .MuiOutlinedInput-root': { fontSize: '22px' },
+                gridColumn: "span 2",
+              }}
             />
             <TextField
-              fullWidth
-              variant="filled"
-              type="text"
+              // fullWidth
+              // variant="filled"
+              type="password"
               label="密碼"
               onBlur={handleBlur}
               onChange={handleChange}
@@ -115,12 +131,19 @@ const EmployeeForm = (props) => {
               name="password"
               error={!!touched.password && !!errors.password}
               helperText={touched.password && errors.password}
-              sx={{ '& label.Mui-focused': { color: '#4cceac' }, gridColumn: "span 2" }}
+              sx={{
+                width: '100%',
+                m: 1,
+                '& label.Mui-focused': { color: '#4cceac', },
+                '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
+                '& .MuiOutlinedInput-root': { fontSize: '22px' },
+                gridColumn: "span 2",
+              }}
             />
 
             <TextField
-              fullWidth
-              variant="filled"
+              // fullWidth
+              // variant="filled"
               type="text"
               label="電話"
               onBlur={handleBlur}
@@ -129,11 +152,18 @@ const EmployeeForm = (props) => {
               name="tel"
               error={!!touched.tel && !!errors.tel}
               helperText={touched.tel && errors.tel}
-              sx={{ '& label.Mui-focused': { color: '#4cceac' }, gridColumn: "span 2" }}
+              sx={{
+                width: '100%',
+                m: 1,
+                '& label.Mui-focused': { color: '#4cceac', },
+                '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
+                '& .MuiOutlinedInput-root': { fontSize: '22px' },
+                gridColumn: "span 2",
+              }}
             />
             <TextField
-              fullWidth
-              variant="filled"
+              // fullWidth
+              // variant="filled"
               type="text"
               label="電子信箱"
               onBlur={handleBlur}
@@ -142,41 +172,61 @@ const EmployeeForm = (props) => {
               name="email"
               error={!!touched.email && !!errors.email}
               helperText={touched.email && errors.email}
-              sx={{ '& label.Mui-focused': { color: '#4cceac' }, gridColumn: "span 2" }}
+              sx={{
+                width: '100%',
+                m: 1,
+                '& label.Mui-focused': { color: '#4cceac', },
+                '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
+                '& .MuiOutlinedInput-root': { fontSize: '22px' },
+                gridColumn: "span 2",
+              }}
             />
-            <select
-              name="dept"
-              value={values.color}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              style={{ display: "block" }}
-            >
-              <option value="" label="選擇部門">
-                選擇部門{" "}
-              </option>
-              {dept.map((option) => (
-                <option value={option.id} label={option.dept_name}>{option.dept_name} key={option.id}</option>
-              ))}
-            </select>
-            {/* <Select
-              name="dept"
-              options={dept.map((option) => (
-                <option value={option.id} label={option.dept_name}>{option.dept_name}</option>
-              ))}
-              value={values.color}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              style={{ display: "block" }}
-            /> */}
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">選擇部門</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={values.dept}
+                label="選擇部門"
+                name="dept"
+                onChange={handleChange}
+                sx={{
+                  width: '100%',
+                  m: 1,
+                  '& .MuiInputBase-input': { fontSize: 22, },
+                  '& .MuiInputBase-outlined': { color: '#00FFD5', fontSize: "22px" },
+                  '& .MuiInputBase-root': { fontSize: '22px' },
+                  gridColumn: "span 2",
+                }}
+              >
+                {depts.map((dep, index) => (
+                  <MenuItem key={index} value={dep.id}>
+                    {dep.dept_name}
+                  </MenuItem>
+                ))}
 
+              </Select>
+            </FormControl>
 
-            <button type="submit">Submit</button>
-
+            {/* <Button type="submit" onClick={handleReset} >建立</Button> */}
+            <Button variant='contained' type="submit" color='primary'
+              style={{ fontSize: '22px', backgroundColor: "#21b6ae" }}
+              sx={{
+                width: '100%',
+                m: 1,
+                '& label.Mui-focused': { color: '#4cceac', },
+                '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
+                '& .MuiOutlinedInput-root': { fontSize: '22px' },
+                gridColumn: "span 2",
+              }}>
+              新增資料
+            </Button>
           </Box>
 
         )
         }
       </Formik >
+
     </Box >
   );
 };
@@ -198,7 +248,7 @@ const checkoutSchema = yup.object().shape({
   dept: yup.string().required("required"),
   password: yup.string().required("required"),
 });
-const initialValues = {
+const iniValues = {
   name: "",
   account: "",
   email: "",
@@ -206,5 +256,5 @@ const initialValues = {
   password: "",
   dept: "選擇部門",
 };
-
 export default EmployeeForm;
+// export default withAuth(EmployeeForm);

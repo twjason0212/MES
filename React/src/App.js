@@ -50,7 +50,7 @@ function App() {
 
   const LoginLayout = (props) => {
     const isLoggedIn = window.sessionStorage.getItem('res');
-    
+
     if (!isLoggedIn) {
 
       return (
@@ -107,7 +107,7 @@ function App() {
 
             {/* <Route path="/attendance" element={<Attendance />} /> */}
             <Route path="/total_leave" element={<Layout><TotalLeave /></Layout>} />
-            <Route path="/*" element={<LoginLayout></LoginLayout>}  />
+            <Route path="/*" element={<LoginLayout></LoginLayout>} />
           </Routes>
           {/* </main> */}
         </div>
