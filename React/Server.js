@@ -252,6 +252,122 @@ app.post("/attendance/checkin", function (req, res) {
   }
 });
 
+//獲取員工列表
+app.get("/employee", function (req, res) {
+  connection.query(
+    `SELECT employee_id, employee.employee_account, employee.employee_name, 
+    department.dept_name, employee.employee_tel, employee.employee_email, role.role_name, employee.employee_status 
+    FROM employee
+    LEFT JOIN role ON employee.employee_role = role.id 
+    LEFT JOIN department ON employee.department = department.id`,
+    function (error, data) {
+      // connection.query("select id,EmployeeName,EmployeeId,DATE_FORMAT(starttime, '%Y-%m-%d %H:%i') as starttime,DATE_FORMAT(endtime, '%Y-%m-%d %H:%i') as endtime,holiday from att", function (error, data) {
+      res.send(JSON.stringify(data));
+      console.log(data);
+    }
+  );
+});
+
+//獲取單一員工資訊by員工id
+app.get("/employee/:id", function (req, res) {
+  console.log("/employee/:id", req.params.id);
+  connection.query(
+    `SELECT employee_id, employee.employee_account, employee.employee_name, employee_pwd,
+    department.dept_name, employee.employee_tel, employee.employee_email, role.role_name, startwork_time
+    FROM employee
+    LEFT JOIN role ON employee.employee_role = role.id 
+    LEFT JOIN department ON employee.department = department.id
+      WHERE employee_id = ` + req.params.id,
+    function (error, data) {
+      // connection.query("select id,EmployeeName,EmployeeId,DATE_FORMAT(starttime, '%Y-%m-%d %H:%i') as starttime,DATE_FORMAT(endtime, '%Y-%m-%d %H:%i') as endtime,holiday from att", function (error, data) {
+      res.send(JSON.stringify(data));
+      console.log(data);
+    }
+  );
+});
+
+//模糊查詢員工資訊
+app.get("/employee/select/:keyword", function (req, res) {
+  console.log("/employee/:keyword", req.params);
+  let sqlString =
+    `SELECT employee_id, employee.employee_account, employee.employee_name, 
+    department.dept_name, employee.employee_tel, employee.employee_email, role.role_name 
+    FROM employee
+    LEFT JOIN role ON employee.employee_role = role.id 
+    LEFT JOIN department ON employee.department = department.id
+    WHERE employee_name like '` +
+    "%" +
+    req.params.keyword +
+    "%" +
+    `'`;
+  connection.query(sqlString, function (error, data) {
+    // connection.query("select id,EmployeeName,EmployeeId,DATE_FORMAT(starttime, '%Y-%m-%d %H:%i') as starttime,DATE_FORMAT(endtime, '%Y-%m-%d %H:%i') as endtime,holiday from att", function (error, data) {
+    res.send(JSON.stringify(data));
+  });
+});
+
+//創建員工資訊
+app.post("/employee/create", function (req, res) {
+  console.log("req:", req.body.account);
+  const paswod = bcrypt.hashSync(req.body.password, 10);
+  let sqlString = `SELECT COUNT(1) AS count FROM employee
+    WHERE employee_account =? `;
+  connection.query(sqlString, [req.body.account], function (error, data) {
+    // res.send(JSON.stringify(data))
+    console.log("data:", JSON.stringify(data));
+    console.log("data count:", data[0].count);
+    if (data[0].count === 0) {
+      connection.query(
+        `insert into employee (employee_account, employee_pwd, employee_name, employee_tel, employee_email, employee_status, department) 
+                 values (?,?,?,?,?,1,?)`,
+        [
+          req.body.account,
+          paswod,
+          req.body.name,
+          req.body.tel,
+          req.body.email,
+          req.body.dept,
+        ]
+      );
+      res.send("新增成功");
+      console.log("ans:", "a");
+    } else {
+      res.send("新增失敗,已有重複帳號");
+      console.log("ans:", "b");
+    }
+    console.log("ans:", "c");
+  });
+});
+
+//修改員工資訊
+app.put("/employee/update", function (req, res) {
+  console.log("/employee/update");
+  console.log(req.body.employee_id);
+  console.log(req.body);
+  connection.query(
+    `update employee set employee_account = ?, employee_name = ?, employee_tel = ?, employee_email = ?, startwork_time = ? where employee_id = ` +
+      req.body.employee_id,
+    [
+      req.body.employee_account,
+      req.body.employee_name,
+      req.body.employee_tel,
+      req.body.employee_email,
+      req.body.startwork_time,
+    ]
+  );
+});
+
+//查詢部門表
+app.get("/dept", function (req, res) {
+  connection.query(
+    "SELECT id, dept_name FROM  department ",
+    function (error, data) {
+      res.send(JSON.stringify(data));
+      console.log(data);
+    }
+  );
+});
+
 //個人版出缺勤
 app.get("/attendance/emp", function (req, res) {
   connection.query(
@@ -629,6 +745,9 @@ app.get("/qOrdNum", function (req, res) {
     }
   );
 });
+// connection.query("select * from products", function (error, data) {
+//   res.send(JSON.stringify(data))
+// })
 
 //新增產品(庫存)
 app.post("/product/create", upload.single("photo_url"), (req, res) => {
