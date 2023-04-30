@@ -581,9 +581,9 @@ app.get("/qOrdNum", function (req, res) {
     }
   );
 });
-connection.query("select * from products", function (error, data) {
-  res.send(JSON.stringify(data))
-})
+// connection.query("select * from products", function (error, data) {
+//   res.send(JSON.stringify(data))
+// })
 
 
 //新增產品(庫存)
