@@ -13,18 +13,20 @@ import Header from "../../components/Header";
 import React, { useState, useEffect, Component } from "react";
 import { map, find, propEq, forEach, isNil } from 'ramda';
 import axios from "axios";
-import Select, { StylesConfig } from 'react-select';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
 
 
 const EmployeeForm = () => {
 
-  const [email, setEmail] = useState([]);
-  const [dept, setDepts] = useState([]);
-  const department = () => map((dep) => ({ value: dep.dept_name, label: dep.dept_name }), dept);
+  const [depts, setDepts] = useState([]);
 
   useEffect(() => {
     getDepts();
   }, []);
+
 
   function getDepts() {
     axios.get('http://localhost:3702/dept')
@@ -39,58 +41,26 @@ const EmployeeForm = () => {
   }
 
   const handleFormSubmit = (values, { resetForm }) => {
-    console.log(values);
-    alert(JSON.stringify(values, null, 2));
+    console.log("CLICK", values);
+    // const result = "失敗"
     axios.post('http://localhost:3702/employee/create', values)
       .then(response => {
-        console.log(response.data);
+        // result = response.data;
+        console.log("resp", response.data);
+        alert(response.data);
         // setDepts(response.data)
       })
       .catch(error => {
         console.error(error);
       });
-
+    // console.log("alert", res.data);
+    // alert(result);
     getDepts();
     resetForm();
   };
 
 
-  // 部門
-  // const department = () => map((dep) => ({ value: dep.name, label: dep.name }), dept);
-  // const withFormik = Formik({
-  //   mapPropsToValues: () => ({ color: "" }),
-  //   handleSubmit: (values, { setSubmitting }) => {
-  //     setTimeout(() => {
-  //       alert(JSON.stringify(values, null, 2));
-  //       setSubmitting(false);
-  //     }, 1000);
-  //   },
-  //   displayName: "BasicForm" // helps with React DevTools
-  // });
-  const groupStyles = {
-    display: 'flex',
-    alignItems: 'center',
-    backgroundColor: '#4cceac',
-    justifyContent: 'space-between',
-  };
-  const groupBadgeStyles = {
-    backgroundColor: '#4cceac',
-    borderRadius: '2em',
-    color: '#4cceac',
-    display: 'inline-block',
-    fontSize: 12,
-    fontWeight: 'normal',
-    lineHeight: '1',
-    minWidth: 1,
-    padding: '0.16666666666667em 0.5em',
-    textAlign: 'center',
-  };
-  const formatGroupLabel = (data) => (
-    <div style={groupStyles}>
-      <span>{data.label}</span>
-      <span style={groupBadgeStyles}>{data.options.length}</span>
-    </div>
-  );
+
 
   return (
     <Box m="40px">
@@ -99,7 +69,18 @@ const EmployeeForm = () => {
       <Formik
         onSubmit={handleFormSubmit}
         initialValues={iniValues}
+<<<<<<< HEAD
       //validationSchema={checkoutSchema}
+=======
+        validationSchema={yup.object({
+          name: yup.string().required('必填'),
+          account: yup.string().max(15).required('必填'),
+          email: yup.string().email('請輸入正確的電子郵件格式'),
+          password: yup.string().required('必填'),
+          tel: yup.string().max(15),
+          dept: yup.string().required('必填')
+        })}
+>>>>>>> 980fe97e2675804e4aea33ddbdc43e54c2b7fa75
       >
         {({ handleBlur, handleSubmit, handleChange, handleReset, values, errors, touched }) => (
           <Box component={Form} onSubmit={handleSubmit}>
@@ -204,25 +185,36 @@ const EmployeeForm = () => {
                 gridColumn: "span 2",
               }}
             />
-            {/* <select
-              name="dept"
-              value={values.color}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              style={{ display: "block" }}
-            >
-              <option value="" label="選擇部門">
-                選擇部門{" "}
-              </option>
-              {dept.map((option) => (
-                <option value={option.id} label={option.dept_name}>{option.dept_name}</option>
-              ))}
-            </select> */}
-            <Select
-              name="dept"
-              options={department()}
-              defaultValue="選擇部門"
-              formatGroupLabel={formatGroupLabel}
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">選擇部門</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={values.dept}
+                label="選擇部門"
+                name="dept"
+                onChange={handleChange}
+                sx={{
+                  width: '100%',
+                  m: 1,
+                  '& .MuiInputBase-input': { fontSize: 22, },
+                  '& .MuiInputBase-outlined': { color: '#00FFD5', fontSize: "22px" },
+                  '& .MuiInputBase-root': { fontSize: '22px' },
+                  gridColumn: "span 2",
+                }}
+              >
+                {depts.map((dep, index) => (
+                  <MenuItem key={index} value={dep.id}>
+                    {dep.dept_name}
+                  </MenuItem>
+                ))}
+
+              </Select>
+            </FormControl>
+
+            {/* <Button type="submit" onClick={handleReset} >建立</Button> */}
+            <Button variant='contained' type="submit" color='primary'
+              style={{ fontSize: '22px', backgroundColor: "#21b6ae" }}
               sx={{
                 width: '100%',
                 m: 1,
@@ -230,17 +222,15 @@ const EmployeeForm = () => {
                 '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
                 '& .MuiOutlinedInput-root': { fontSize: '22px' },
                 gridColumn: "span 2",
-              }}
-            />
-
-
-            <button type="submit" onClick={handleReset} >建立</button>
-
+              }}>
+              新增資料
+            </Button>
           </Box>
 
         )
         }
       </Formik >
+
     </Box >
   );
 };
