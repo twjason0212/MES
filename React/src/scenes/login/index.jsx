@@ -15,7 +15,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Box } from "@mui/material";
 // import { margin } from "@mui/system";
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Login = (props) => {
@@ -40,50 +40,49 @@ const Login = (props) => {
     password: Yup.string().required("Required"),
   });
   const onSubmit = (values, props) => {
-    if (values.username === '') {
-      alert('請輸入帳號')
-      return false
-    } else if (values.password === '') {
-      alert('請輸入密碼')
-      return false
+    if (values.username === "") {
+      alert("請輸入帳號");
+      return false;
+    } else if (values.password === "") {
+      alert("請輸入密碼");
+      return false;
     } else {
       axios({
-        method: 'POST',
-        url: 'http://127.0.0.1:3702/api/login',
+        method: "POST",
+        url: "http://127.0.0.1:3702/api/login",
         data: {
           username: values.username,
-          password: values.password
-        }
-      }
-      ).then((response) => {
+          password: values.password,
+        },
+      }).then((response) => {
         console.log(response.data);
         console.log(response.data.success);
         if (response.data.success === true) {
-          window.sessionStorage.setItem('name', response.data.name)
-          window.sessionStorage.setItem('token', response.data.token)
-          window.sessionStorage.setItem('user', response.data.login)
-          window.sessionStorage.setItem('email', response.data.email)
-          window.sessionStorage.setItem('res', response.data.success)
-          window.sessionStorage.setItem('dept', response.data.department)
-          history('/checkin');
+          window.sessionStorage.setItem("name", response.data.name);
+          window.sessionStorage.setItem("token", response.data.token);
+          window.sessionStorage.setItem("user", response.data.login);
+          window.sessionStorage.setItem("email", response.data.email);
+          window.sessionStorage.setItem("res", response.data.success);
+          window.sessionStorage.setItem("dept", response.data.department);
+          history("/checkin");
           // 跳轉
 
-          alert('登入成功')
+          alert("登入成功");
           // window.location.href = `${window.location.origin}`
         }
         if (response.data.success === false) {
-          alert('帳號或密碼有誤')
-          return false
+          alert("帳號或密碼有誤");
+          return false;
         }
         if (response.data.login_check === false) {
-          alert('帳號有誤')
-          return false
+          alert("帳號有誤");
+          return false;
         }
         if (response.data.password_check === false) {
-          alert('密碼有誤')
-          return false
+          alert("密碼有誤");
+          return false;
         }
-      })
+      });
     }
 
     console.log(values);
@@ -96,13 +95,16 @@ const Login = (props) => {
   };
   return (
     <Box>
-      <Box sx={{
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        '& label.Mui-focused': { color: '#4cceac', },
-        '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
-        '& .MuiOutlinedInput-root': { fontSize: '22px' },
-
-      }}>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          "& label.Mui-focused": { color: "#4cceac" },
+          "& .MuiInputLabel-outlined": { color: "#4cceac", fontSize: "22px" },
+          "& .MuiOutlinedInput-root": { fontSize: "22px" },
+        }}
+      >
         <Paper style={paperStyle} sx={{ mt: 30 }}>
           <Grid align="center">
             <Avatar style={avatarStyle}>
@@ -118,17 +120,16 @@ const Login = (props) => {
             {(props) => (
               <Form>
                 <Field
-                sx={{mt:1}}
+                  sx={{ mt: 1 }}
                   as={TextField}
                   label="帳號"
                   name="username"
                   placeholder="Enter username"
                   fullWidth
                   required
-                  
                 />
                 <Field
-                sx={{mt:2}}
+                  sx={{ mt: 2 }}
                   as={TextField}
                   label="密碼"
                   name="password"
@@ -136,7 +137,6 @@ const Login = (props) => {
                   type="password"
                   fullWidth
                   required
-                  
                 />
                 {/* <Field
                 as={FormControlLabel}
@@ -148,7 +148,7 @@ const Login = (props) => {
                   type="submit"
                   color="primary"
                   variant="contained"
-sx={{fontSize:'22px'}}
+                  sx={{ fontSize: "22px" }}
                   style={btnstyle}
                   fullWidth
                 >
