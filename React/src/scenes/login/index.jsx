@@ -20,10 +20,9 @@ import axios from "axios";
 
 const Login = (props) => {
   const paperStyle = {
-    padding: 20,
-    height: "73vh",
-    width: 300,
-    margin: "0 auto",
+    padding: 30,
+    height: 450,
+    width: 400,
   };
   const avatarStyle = { backgroundColor: "#1bbd7e" };
   const btnstyle = { margin: "30px 0" };
@@ -66,7 +65,7 @@ const Login = (props) => {
           window.sessionStorage.setItem('email', response.data.email)
           window.sessionStorage.setItem('res', response.data.success)
           window.sessionStorage.setItem('dept', response.data.department)
-          history('/dashboard');
+          history('/checkin');
           // 跳轉
 
           alert('登入成功')
@@ -97,13 +96,19 @@ const Login = (props) => {
   };
   return (
     <Box>
-      <Grid>
-        <Paper style={paperStyle}>
+      <Box sx={{
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        '& label.Mui-focused': { color: '#4cceac', },
+        '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
+        '& .MuiOutlinedInput-root': { fontSize: '22px' },
+
+      }}>
+        <Paper style={paperStyle} sx={{ mt: 30 }}>
           <Grid align="center">
             <Avatar style={avatarStyle}>
               <PersonPin />
             </Avatar>
-            <h2>Sign In</h2>
+            <h2 style={{ fontSize: "24px" }}>Sign In</h2>
           </Grid>
           <Formik
             initialValues={initialValues}
@@ -113,23 +118,25 @@ const Login = (props) => {
             {(props) => (
               <Form>
                 <Field
+                sx={{mt:1}}
                   as={TextField}
-                  label="Username"
+                  label="帳號"
                   name="username"
                   placeholder="Enter username"
                   fullWidth
                   required
-                  helperText={<ErrorMessage name="username" />}
+                  
                 />
                 <Field
+                sx={{mt:2}}
                   as={TextField}
-                  label="Password"
+                  label="密碼"
                   name="password"
                   placeholder="Enter password"
                   type="password"
                   fullWidth
                   required
-                  helperText={<ErrorMessage name="password" />}
+                  
                 />
                 {/* <Field
                 as={FormControlLabel}
@@ -141,7 +148,7 @@ const Login = (props) => {
                   type="submit"
                   color="primary"
                   variant="contained"
-
+sx={{fontSize:'22px'}}
                   style={btnstyle}
                   fullWidth
                 >
@@ -161,7 +168,7 @@ const Login = (props) => {
           </Link>
         </Typography> */}
         </Paper>
-      </Grid>
+      </Box>
     </Box>
   );
 };

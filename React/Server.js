@@ -654,7 +654,7 @@ app.get("/allEmp", function (req, res) {
 });
 app.get("/punchInEmp", function (req, res) {
   connection.query(
-    "SELECT COUNT(start_time) as punchinemp FROM attendance where status = 1 and DATE(start_time) = DATE(NOW());",
+    "SELECT COUNT(starttime) as punchinemp FROM attendance where status = 1 and DATE(starttime) = DATE(NOW());",
     [],
     function (err, rows) {
       res.send(JSON.stringify(rows));
