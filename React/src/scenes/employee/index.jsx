@@ -97,12 +97,8 @@ const MyCard = () => {
                 onSubmit={handleFormSubmit}
                 initialValues={iniValues}
                 validationSchema={yup.object({
-                    name: yup.string().required('必填'),
-                    account: yup.string().max(15).required('必填'),
                     email: yup.string().email('請輸入正確的電子郵件格式'),
-                    password: yup.string().required('必填'),
-                    tel: yup.string().max(15),
-                    dept: yup.string().required('必填')
+                    tel: yup.string().max(15)
                 })}
             >
                 {({ handleBlur, handleSubmit, handleChange, handleReset, values, errors, touched }) => (
@@ -148,7 +144,7 @@ const MyCard = () => {
                                 gridColumn: "span 2",
                             }}
                         />
-                        <TextField
+                        {/* <TextField
                             // fullWidth
                             // variant="filled"
                             type="password"
@@ -167,7 +163,7 @@ const MyCard = () => {
                                 '& .MuiOutlinedInput-root': { fontSize: '22px' },
                                 gridColumn: "span 2",
                             }}
-                        />
+                        /> */}
 
                         <TextField
                             // fullWidth
@@ -226,7 +222,7 @@ const MyCard = () => {
                                 '& .MuiOutlinedInput-root': { fontSize: '22px' },
                             }}
                         />
-                        <FormControl fullWidth>
+                        {/* <FormControl fullWidth>
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
@@ -250,7 +246,27 @@ const MyCard = () => {
                                 ))}
 
                             </Select>
-                        </FormControl>
+                        </FormControl> */}
+                        <TextField
+                            // fullWidth
+                            // variant="filled"
+                            type="text"
+                            label="部門"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={users.dept_name}
+                            name="dept"
+                            error={!!touched.email && !!errors.email}
+                            helperText={touched.email && errors.email}
+                            sx={{
+                                width: '100%',
+                                m: 1,
+                                '& label.Mui-focused': { color: '#4cceac', },
+                                '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
+                                '& .MuiOutlinedInput-root': { fontSize: '22px' },
+                                gridColumn: "span 2",
+                            }}
+                        />
 
                         {/* <Button type="submit" onClick={handleReset} >建立</Button> */}
                         <Button variant='contained' type="submit" color='primary'

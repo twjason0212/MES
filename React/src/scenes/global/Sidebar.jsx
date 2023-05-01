@@ -133,11 +133,6 @@ const Sidebar = () => {
         <Menu iconShape="square">
           {/* LOGO AND MENU ICON */}
           <MenuItem
-<<<<<<< HEAD
-
-=======
-
->>>>>>> c3aca4e6ea0ac77ab0ef0d93da2882131416a80c
             onClick={() => setIsCollapsed(isCollapsed)}
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
             style={{
@@ -853,13 +848,9 @@ const Sidebar = () => {
                         <ListItemIcon>
                           <ChecklistIcon />
                         </ListItemIcon>
-<<<<<<< HEAD
-                        <ListItemText primary="打卡" primaryTypographyProps={{ fontSize: '20px' }} />
-=======
                         <ListItemText 
                         primary="打卡"
                         primaryTypographyProps={{ fontSize: '22px' }} />
->>>>>>> c3aca4e6ea0ac77ab0ef0d93da2882131416a80c
                         <Link to="/checkin"></Link>
                       </ListItemButton >
                     </List >
@@ -869,13 +860,9 @@ const Sidebar = () => {
       <ListItemIcon>
         <ChecklistIcon />
       </ListItemIcon>
-<<<<<<< HEAD
-                        <ListItemText primary="出缺勤狀況" primaryTypographyProps={{ fontSize: '20px' }} />
-=======
                         <ListItemText 
                         primary="出缺勤狀況" 
                         primaryTypographyProps={{ fontSize: '22px' }}/>
->>>>>>> c3aca4e6ea0ac77ab0ef0d93da2882131416a80c
                         <Link to="/attdatetime"></Link>
                       </ListItemButton >
                     </List >
@@ -916,18 +903,9 @@ const Sidebar = () => {
                   <ListItemButton onClick={BusinessManagehandleClick}>
                     <ListItemText
                       color={colors.grey[300]}
-<<<<<<< HEAD
-                      sx={{ m: "15px 0 5px 0px" }}
-                      primaryTypographyProps={{
-                        fontSize: '22px',
-                        fontWeight: 'medium',
-                        color: '#4cceac'
-                      }}
-=======
                       sx={{ m: "15px 0 5px 20px" }}
                       primaryTypographyProps={{ fontSize: '22px' }}
 
->>>>>>> c3aca4e6ea0ac77ab0ef0d93da2882131416a80c
                     >
                       業務管理
                     </ListItemText>
@@ -940,13 +918,9 @@ const Sidebar = () => {
                         <ListItemIcon>
                           <FeedRoundedIcon />
                         </ListItemIcon>
-<<<<<<< HEAD
-                        <ListItemText primary="客戶管理" primaryTypographyProps={{ fontSize: '20px' }} />
-=======
                         <ListItemText 
                         primary="客戶管理"
                         primaryTypographyProps={{ fontSize: '22px' }} />
->>>>>>> c3aca4e6ea0ac77ab0ef0d93da2882131416a80c
                         <Link to="/customers"></Link>
                       </ListItemButton >
                     </List >
@@ -955,13 +929,9 @@ const Sidebar = () => {
       <ListItemIcon>
         <FeedRoundedIcon />
       </ListItemIcon>
-<<<<<<< HEAD
-                        <ListItemText primary="訂單管理" primaryTypographyProps={{ fontSize: '20px' }} />
-=======
                         <ListItemText 
                         primary="訂單總攬"
                         primaryTypographyProps={{ fontSize: '22px' }} />
->>>>>>> c3aca4e6ea0ac77ab0ef0d93da2882131416a80c
                         <Link to="/order"></Link>
                       </ListItemButton >
                     </List >
@@ -970,13 +940,9 @@ const Sidebar = () => {
       <ListItemIcon>
         <FactoryIcon />
       </ListItemIcon>
-<<<<<<< HEAD
-                        <ListItemText primary="產品管理" primaryTypographyProps={{ fontSize: '20px' }} />
-=======
                         <ListItemText 
                         primary="產品管理"
                         primaryTypographyProps={{ fontSize: '22px' }} />
->>>>>>> c3aca4e6ea0ac77ab0ef0d93da2882131416a80c
                         <Link to="/inventory"></Link>
                       </ListItemButton >
                     </List >
@@ -1011,18 +977,9 @@ const Sidebar = () => {
       <ListItemButton onClick={ManagerPersonalhandleClick}>
         <ListItemText
           color={colors.grey[300]}
-<<<<<<< HEAD
-          sx={{ m: "15px 0 5px 0px" }}
-          primaryTypographyProps={{
-            fontSize: '22px',
-            fontWeight: 'medium',
-            color: '#4cceac'
-          }}
-=======
                     sx={{ m: "15px 0 5px 20px" }}
                     primaryTypographyProps={{ fontSize: '22px' }}
 
->>>>>>> c3aca4e6ea0ac77ab0ef0d93da2882131416a80c
         >
           個人系統
         </ListItemText>
@@ -1048,13 +1005,9 @@ const Sidebar = () => {
             <ListItemIcon>
               <ChecklistIcon />
             </ListItemIcon>
-<<<<<<< HEAD
-                      <ListItemText primary="打卡" primaryTypographyProps={{ fontSize: '20px' }} />
-=======
                       <ListItemText 
                       primary="打卡" 
                       primaryTypographyProps={{ fontSize: '22px' }}/>
->>>>>>> c3aca4e6ea0ac77ab0ef0d93da2882131416a80c
                       <Link to="/checkin"></Link>
                     </ListItemButton >
                   </List >
@@ -1064,13 +1017,9 @@ const Sidebar = () => {
         <ListItemIcon>
           <ChecklistIcon />
         </ListItemIcon>
-<<<<<<< HEAD
-                      <ListItemText primary="出缺勤狀況" primaryTypographyProps={{ fontSize: '20px' }} />
-=======
                       <ListItemText 
                       primary="出缺勤狀況" 
                       primaryTypographyProps={{ fontSize: '22px' }}/>
->>>>>>> c3aca4e6ea0ac77ab0ef0d93da2882131416a80c
                       <Link to="/attdatetime"></Link>
                     </ListItemButton >
                   </List >
@@ -1111,18 +1060,9 @@ const Sidebar = () => {
                 <ListItemButton onClick={CompanyhandleClick}>
                   <ListItemText
                     color={colors.grey[300]}
-<<<<<<< HEAD
-                    sx={{ m: "15px 0 5px 0px" }}
-                    primaryTypographyProps={{
-                      fontSize: '22px',
-                      fontWeight: 'medium',
-                      color: '#4cceac'
-                    }}
-=======
                     sx={{ m: "15px 0 5px 20px" }}
                     primaryTypographyProps={{ fontSize: '22px' }}
 
->>>>>>> c3aca4e6ea0ac77ab0ef0d93da2882131416a80c
                   >
                     公司管理
                   </ListItemText>
@@ -1136,26 +1076,14 @@ const Sidebar = () => {
                       <ListItemIcon>
                         <FeedRoundedIcon />
                       </ListItemIcon>
-<<<<<<< HEAD
-                      <ListItemText primary="數據面板" primaryTypographyProps={{ fontSize: '20px' }} />
-=======
                       <ListItemText 
                       primary="數據面板"
                       primaryTypographyProps={{ fontSize: '22px' }} />
->>>>>>> c3aca4e6ea0ac77ab0ef0d93da2882131416a80c
                       <Link to="/dashboard"></Link>
                     </ListItemButton >
                   </List >
 
     <List component="div" disablePadding>
-<<<<<<< HEAD
-                    <ListItemButton sx={{ pl: 2 }}>
-                      <ListItemIcon>
-                        <PersonAddIcon />
-                      </ListItemIcon>
-                      <ListItemText primary="員工資料管理" primaryTypographyProps={{ fontSize: '20px' }} />
-                      <Link to='/team'></Link>
-=======
                     <ListItemButton sx={{ pl: 4 }}>
       <ListItemIcon>
         <FeedRoundedIcon />
@@ -1200,7 +1128,6 @@ const Sidebar = () => {
           primary="新增員工資料"
           primaryTypographyProps={{ fontSize: '22px' }} />
         <Link to='/form'></Link>
->>>>>>> c3aca4e6ea0ac77ab0ef0d93da2882131416a80c
       </ListItemButton>
     </List>
 
@@ -1209,15 +1136,10 @@ const Sidebar = () => {
         <ListItemIcon>
           <FeedRoundedIcon />
         </ListItemIcon>
-<<<<<<< HEAD
-                      <ListItemText primary="員工出缺勤資料" primaryTypographyProps={{ fontSize: '20px' }} />
-                      <Link to='/attendance'></Link>
-=======
                       <ListItemText 
                       primary="員工資料管理" 
                       primaryTypographyProps={{ fontSize: '22px' }}/>
                       <Link to='/team'></Link>
->>>>>>> c3aca4e6ea0ac77ab0ef0d93da2882131416a80c
                     </ListItemButton >
                   </List >
 
@@ -1226,15 +1148,10 @@ const Sidebar = () => {
         <ListItemIcon>
           <FeedRoundedIcon />
         </ListItemIcon>
-<<<<<<< HEAD
-                      <ListItemText primary="客戶管理" primaryTypographyProps={{ fontSize: '20px' }} />
-                      <Link to="/customers"></Link>
-=======
                       <ListItemText 
                       primary="員工出缺勤資料"
                       primaryTypographyProps={{ fontSize: '22px' }} />
                       <Link to='/attendance'></Link>
->>>>>>> c3aca4e6ea0ac77ab0ef0d93da2882131416a80c
                     </ListItemButton >
                   </List >
 
@@ -1243,15 +1160,10 @@ const Sidebar = () => {
         <ListItemIcon>
           <FeedRoundedIcon />
         </ListItemIcon>
-<<<<<<< HEAD
-                      <ListItemText primary="訂單管理" primaryTypographyProps={{ fontSize: '20px' }} />
-                      <Link to="/order"></Link>
-=======
                       <ListItemText 
                       primary="請假單申請" 
                       primaryTypographyProps={{ fontSize: '22px' }}/>
                       <Link to="/leave"></Link>
->>>>>>> c3aca4e6ea0ac77ab0ef0d93da2882131416a80c
                     </ListItemButton >
                   </List >
 
@@ -1260,15 +1172,10 @@ const Sidebar = () => {
         <ListItemIcon>
           <FactoryIcon />
         </ListItemIcon>
-<<<<<<< HEAD
-                      <ListItemText primary="產品管理" primaryTypographyProps={{ fontSize: '20px' }} />
-                      <Link to="/inventory"></Link>
-=======
                       <ListItemText 
                       primary="加班單申請"
                       primaryTypographyProps={{ fontSize: '22px' }} />
                       <Link to="/overtime"></Link>
->>>>>>> c3aca4e6ea0ac77ab0ef0d93da2882131416a80c
                     </ListItemButton >
                   </List >
 
