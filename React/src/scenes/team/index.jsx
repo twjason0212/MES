@@ -72,6 +72,7 @@ const Team = () => {
     if (value == "") {
       getUsers();
     } else {
+      console.log(value)
       axios.get('http://localhost:3702/employee/select/' + value)
         .then(response => {
           //查詢出來的解果設定回users
@@ -81,19 +82,34 @@ const Team = () => {
           console.error(error);
         });
     }
-
-
   }
 
+  // //查詢員工方法
+  // const changeByDateUser = (value) => {
+  //   if (value == "") {
+  //     getUsers();
+  //   } else {
+  //     axios.get('http://localhost:3702/employee/selectDate/' + value)
+  //       .then(response => {
+  //         //查詢出來的解果設定回users
+  //         setUsers(response.data)
+  //       })
+  //       .catch(error => {
+  //         console.error(error);
+  //       });
+  //   }
+  // }
 
   const handleChange = (event) => {
+    console.log(event)
     setFilter({ ...filter, [event.target.name]: event.target.value });
     changeUser(event.target.value);
   };
 
-  const handleDateChange = (event) => {
-    setFilter({ ...filter, [event.target.name]: event.target.value });
-  };
+  // const handleDateChange = (event) => {
+  //   setFilter({ ...filter, [event.target.name]: event.target.value });
+  //   changeUser(event.target.value);
+  // };
 
   const handleSaveClick = (newData) => {
     console.log(newData)
@@ -165,37 +181,37 @@ const Team = () => {
         );
       },
     },
-    {
-      field: "accessLevel",
-      headerName: "Access Level",
-      flex: 1,
-      renderCell: ({ row: { access } }) => {
-        return (
-          <Box
-            width="60%"
-            m="0 auto"
-            p="5px"
-            display="flex"
-            justifyContent="center"
-            backgroundColor={
-              access === "admin"
-                ? colors.greenAccent[600]
-                : access === "manager"
-                  ? colors.greenAccent[700]
-                  : colors.greenAccent[700]
-            }
-            borderRadius="4px"
-          >
-            {access === "admin" && <AdminPanelSettingsOutlinedIcon />}
-            {access === "manager" && <SecurityOutlinedIcon />}
-            {access === "user" && <LockOpenOutlinedIcon />}
-            <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
-              {access}
-            </Typography>
-          </Box>
-        );
-      },
-    }
+    // {
+    //   field: "accessLevel",
+    //   headerName: "Access Level",
+    //   flex: 1,
+    //   renderCell: ({ row: { access } }) => {
+    //     return (
+    //       <Box
+    //         width="60%"
+    //         m="0 auto"
+    //         p="5px"
+    //         display="flex"
+    //         justifyContent="center"
+    //         backgroundColor={
+    //           access === "admin"
+    //             ? colors.greenAccent[600]
+    //             : access === "manager"
+    //               ? colors.greenAccent[700]
+    //               : colors.greenAccent[700]
+    //         }
+    //         borderRadius="4px"
+    //       >
+    //         {access === "admin" && <AdminPanelSettingsOutlinedIcon />}
+    //         {access === "manager" && <SecurityOutlinedIcon />}
+    //         {access === "user" && <LockOpenOutlinedIcon />}
+    //         <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
+    //           {access}
+    //         </Typography>
+    //       </Box>
+    //     );
+    //   },
+    // }
   ];
 
 
@@ -218,13 +234,13 @@ const Team = () => {
               '& .MuiOutlinedInput-root': { fontSize: '22px' },
             }}
           />
-          <TextField
+          {/* <TextField
             name="startwork"
             label="報到日期"
             type="month"
             InputLabelProps={{ shrink: true }}
             // value={filter.startwork}
-            onChange={handleDateChange}
+            onChange={handleChange}
             sx={{
               width: '100%',
               m: 1,
@@ -232,7 +248,7 @@ const Team = () => {
               '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
               '& .MuiOutlinedInput-root': { fontSize: '22px' },
             }}
-          />
+          /> */}
 
         </div>
       </div>

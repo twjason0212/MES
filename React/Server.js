@@ -91,7 +91,7 @@ app.get("/attdance", function (req, res) {
 app.put("/attdance", function (req, res) {
   connection.query(
     "update attendance set starttime = ? , endtime = ? where id =" +
-      req.body.id,
+    req.body.id,
     [req.body.starttime, req.body.endtime]
   );
   res.send("Update Finish");
@@ -286,20 +286,48 @@ app.get("/employee/:id", function (req, res) {
   );
 });
 
+
+//獲取單一員工資訊by員工id
+app.get("/employee/:account", function (req, res) {
+  console.log("/employee/:account", req.params.account);
+  connection.query(`SELECT employee_id, employee.employee_account, employee.employee_name, employee_pwd,
+    department.dept_name, employee.employee_tel, employee.employee_email, role.role_name, startwork_time
+    FROM employee
+    LEFT JOIN role ON employee.employee_role = role.id 
+    LEFT JOIN department ON employee.department = department.id
+      WHERE employee_account = '`+ req.params.account + `'`, function (error, data) {
+    // connection.query("select id,EmployeeName,EmployeeId,DATE_FORMAT(starttime, '%Y-%m-%d %H:%i') as starttime,DATE_FORMAT(endtime, '%Y-%m-%d %H:%i') as endtime,holiday from att", function (error, data) {
+    res.send(JSON.stringify(data))
+    console.log(data);
+  })
+})
+
 //模糊查詢員工資訊
 app.get("/employee/select/:keyword", function (req, res) {
   console.log("/employee/:keyword", req.params);
-  let sqlString =
-    `SELECT employee_id, employee.employee_account, employee.employee_name, 
+  let sqlString = `SELECT employee_id, employee.employee_account, employee.employee_name, 
     department.dept_name, employee.employee_tel, employee.employee_email, role.role_name 
     FROM employee
     LEFT JOIN role ON employee.employee_role = role.id 
     LEFT JOIN department ON employee.department = department.id
-    WHERE employee_name like '` +
-    "%" +
-    req.params.keyword +
-    "%" +
-    `'`;
+    WHERE employee_name like '` + '%' + req.params.keyword + `%'`
+  connection.query(sqlString, function (error, data) {
+    // connection.query("select id,EmployeeName,EmployeeId,DATE_FORMAT(starttime, '%Y-%m-%d %H:%i') as starttime,DATE_FORMAT(endtime, '%Y-%m-%d %H:%i') as endtime,holiday from att", function (error, data) {
+    res.send(JSON.stringify(data));
+    console.log("JSON.stringify(data)", JSON.stringify(data));
+  })
+})
+
+//模糊查詢員工資訊
+app.get("/employee/account/:account", function (req, res) {
+  console.log("/employee/account/:account", req.params);
+  let sqlString =
+    `SELECT employee_id, employee.employee_account, employee.employee_name, department.id,
+    department.dept_name, employee.employee_tel, employee.employee_email, role.role_name, employee.startwork_time 
+    FROM employee
+    LEFT JOIN role ON employee.employee_role = role.id 
+    LEFT JOIN department ON employee.department = department.id
+    WHERE employee_account = '` + req.params.account + `'`;
   connection.query(sqlString, function (error, data) {
     // connection.query("select id,EmployeeName,EmployeeId,DATE_FORMAT(starttime, '%Y-%m-%d %H:%i') as starttime,DATE_FORMAT(endtime, '%Y-%m-%d %H:%i') as endtime,holiday from att", function (error, data) {
     res.send(JSON.stringify(data));
@@ -346,7 +374,7 @@ app.put("/employee/update", function (req, res) {
   console.log(req.body);
   connection.query(
     `update employee set employee_account = ?, employee_name = ?, employee_tel = ?, employee_email = ?, startwork_time = ? where employee_id = ` +
-      req.body.employee_id,
+    req.body.employee_id,
     [
       req.body.employee_account,
       req.body.employee_name,
@@ -412,7 +440,7 @@ app.get("/coustomer", function (req, res) {
 app.put("/coustomer", function (req, res) {
   connection.query(
     "update customers set customerphone = ? , customeremail = ? , customeraddress = ? ,customerfax = ? where customerid =" +
-      req.body.customerid,
+    req.body.customerid,
     [
       req.body.customerphone,
       req.body.customeremail,
@@ -572,7 +600,7 @@ app.get("/order", function (req, res) {
 app.put("/order/edit", function (req, res) {
   connection.query(
     "update orders set deliverydate = ? , orderstate = ? ,changdate = ? where orderid = " +
-      req.body.orderid,
+    req.body.orderid,
     [req.body.deliverydate, req.body.orderstate, req.body.changdate]
   );
   res.send("修改成功");
@@ -778,7 +806,7 @@ app.get("/product", function (req, res) {
 app.put("/product", function (req, res) {
   connection.query(
     "update products set product_amount	 = ? where product_id =" +
-      req.body.product_id,
+    req.body.product_id,
     [req.body.product_amount]
   );
   res.send("Update Finish");
@@ -800,7 +828,7 @@ app.put("/workorderlist", function (req, res) {
   console.log(req.body);
   connection.query(
     "update work_order set machine_uuid = ? ,work_order_executor = ?, work_order_status = ? where id = " +
-      req.body.id,
+    req.body.id,
     [req.body.machine_uuid, req.body.work_order_executor, 2]
   );
   res.send("接單完成");

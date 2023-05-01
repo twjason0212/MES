@@ -26,6 +26,7 @@ import Checkin from "./scenes/checkin/checkin";
 import PendingWork from "./scenes/pendingwork/pendingwork";
 import PendingWorkLeader from "./scenes/pendingwork/pendingworkLeader";
 import WorlOrderAll from "./scenes/workorder/worlorderall";
+import MyCard from "./scenes/employee";
 
 
 import { CssBaseline, ThemeProvider } from "@mui/material";
@@ -100,6 +101,7 @@ function App() {
             <Route path='/workorder' element={<Layout><WorkOrder /></Layout>} />-
             <Route path='/checkin' element={<Layout><Checkin /></Layout>} />-
             <Route path='/attdatetime' element={<Layout><Attdatetime /></Layout>} />-
+            <Route path='/employee' element={<Layout><MyCard /></Layout>} />-
             <Route path='/workorderlist' element={<Layout><WorkOrderList /></Layout>} />-
             <Route path='/pendingwork' element={<Layout><PendingWork /></Layout>} />-
             <Route path='/pendingworkLeader' element={<Layout><PendingWorkLeader /></Layout>} />-

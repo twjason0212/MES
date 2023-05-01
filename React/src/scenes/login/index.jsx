@@ -66,7 +66,7 @@ const Login = (props) => {
           window.sessionStorage.setItem('email', response.data.email)
           window.sessionStorage.setItem('res', response.data.success)
           window.sessionStorage.setItem('dept', response.data.department)
-          history('/dashboard');
+          history('/checkin');
           // 跳轉
 
           alert('登入成功')
