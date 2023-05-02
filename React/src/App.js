@@ -19,14 +19,13 @@ import Inventory from "./scenes/inventory/inventor";
 import Order from "./scenes/order/order";
 import Attendance from "./scenes/attendance/attendance";
 import Customers from "./scenes/customers/customers";
-import WorkOrder from './scenes/workorder/workOrder';
+import WorkOrder from "./scenes/workorder/workOrder";
 import WorkOrderList from "./scenes/workorderlist/workorderlist";
 import Attdatetime from "./scenes/attdatetime/attdatetime";
 import Checkin from "./scenes/checkin/checkin";
 import PendingWork from "./scenes/pendingwork/pendingwork";
 import PendingWorkLeader from "./scenes/pendingwork/pendingworkLeader";
 import WorlOrderAll from "./scenes/workorder/worlorderall";
-
 
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
@@ -37,7 +36,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const Layout = (props) => {
-    const isLoggedIn = window.sessionStorage.getItem('res');
+    const isLoggedIn = window.sessionStorage.getItem("res");
     return (
       <>
         {isLoggedIn && <Sidebar isSidebar={props.isSidebar} />}
@@ -49,14 +48,14 @@ function App() {
   };
 
   const LoginLayout = (props) => {
-    const isLoggedIn = window.sessionStorage.getItem('res');
+    const isLoggedIn = window.sessionStorage.getItem("res");
 
     if (!isLoggedIn) {
-
       return (
-        <main className="content" style={{ marginLeft: "19em" }}>
+        <main className="content">
           <Login />
-        </main>);
+        </main>
+      );
     } else {
       return (
         <>
@@ -68,13 +67,7 @@ function App() {
         </>
       );
     }
-
   };
-
-
-
-
-
 
   return (
     <ColorModeContext.Provider value={colorMode}>
@@ -86,27 +79,159 @@ function App() {
           {/* <Topbar setIsSidebar={setIsSidebar} /> */}
           <Routes>
             <Route path="/" element={<LoginLayout></LoginLayout>} />
-
-            <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
-            <Route path="/team" element={<Layout><Team /></Layout>} />
-            <Route path="/form" element={<Layout><Form /></Layout>} />
-            <Route path="/factory" element={<Layout><Factory /></Layout>} />
-            <Route path="/inventory" element={<Layout><Inventory /></Layout>} />
-            <Route path="/overtime" element={<Layout><OvertimeFormik /></Layout>} />
-            <Route path="/leave" element={<Layout><LeaveFormik /></Layout>} />
-            <Route path="/attendance" element={<Layout><Attendance /></Layout>} />-
-            <Route path="/order" element={<Layout><Order /></Layout>} />-
-            <Route path="/customers" element={<Layout><Customers /></Layout>} />
-            <Route path='/workorder' element={<Layout><WorkOrder /></Layout>} />-
-            <Route path='/checkin' element={<Layout><Checkin /></Layout>} />-
-            <Route path='/attdatetime' element={<Layout><Attdatetime /></Layout>} />-
-            <Route path='/workorderlist' element={<Layout><WorkOrderList /></Layout>} />-
-            <Route path='/pendingwork' element={<Layout><PendingWork /></Layout>} />-
-            <Route path='/pendingworkLeader' element={<Layout><PendingWorkLeader /></Layout>} />-
-            <Route path='/worlorderall' element={<Layout><WorlOrderAll /></Layout>} />-
-
-            {/* <Route path="/attendance" element={<Attendance />} /> */}
-            <Route path="/total_leave" element={<Layout><TotalLeave /></Layout>} />
+            <Route
+              path="/dashboard"
+              element={
+                <Layout>
+                  <Dashboard />
+                </Layout>
+              }
+            />
+            <Route
+              path="/team"
+              element={
+                <Layout>
+                  <Team />
+                </Layout>
+              }
+            />
+            <Route
+              path="/form"
+              element={
+                <Layout>
+                  <Form />
+                </Layout>
+              }
+            />
+            <Route
+              path="/factory"
+              element={
+                <Layout>
+                  <Factory />
+                </Layout>
+              }
+            />
+            <Route
+              path="/inventory"
+              element={
+                <Layout>
+                  <Inventory />
+                </Layout>
+              }
+            />
+            <Route
+              path="/overtime"
+              element={
+                <Layout>
+                  <OvertimeFormik />
+                </Layout>
+              }
+            />
+            <Route
+              path="/leave"
+              element={
+                <Layout>
+                  <LeaveFormik />
+                </Layout>
+              }
+            />
+            <Route
+              path="/attendance"
+              element={
+                <Layout>
+                  <Attendance />
+                </Layout>
+              }
+            />
+            -
+            <Route
+              path="/order"
+              element={
+                <Layout>
+                  <Order />
+                </Layout>
+              }
+            />
+            -
+            <Route
+              path="/customers"
+              element={
+                <Layout>
+                  <Customers />
+                </Layout>
+              }
+            />
+            <Route
+              path="/workorder"
+              element={
+                <Layout>
+                  <WorkOrder />
+                </Layout>
+              }
+            />
+            -
+            <Route
+              path="/checkin"
+              element={
+                <Layout>
+                  <Checkin />
+                </Layout>
+              }
+            />
+            -
+            <Route
+              path="/attdatetime"
+              element={
+                <Layout>
+                  <Attdatetime />
+                </Layout>
+              }
+            />
+            -
+            <Route
+              path="/workorderlist"
+              element={
+                <Layout>
+                  <WorkOrderList />
+                </Layout>
+              }
+            />
+            -
+            <Route
+              path="/pendingwork"
+              element={
+                <Layout>
+                  <PendingWork />
+                </Layout>
+              }
+            />
+            -
+            <Route
+              path="/pendingworkLeader"
+              element={
+                <Layout>
+                  <PendingWorkLeader />
+                </Layout>
+              }
+            />
+            -
+            <Route
+              path="/worlorderall"
+              element={
+                <Layout>
+                  <WorlOrderAll />
+                </Layout>
+              }
+            />
+            -{/* <Route path="/attendance" element={<Attendance />} /> */}
+            <Route
+              path="/total_leave"
+              element={
+                <Layout>
+                  <TotalLeave />
+                </Layout>
+              }
+            />
             <Route path="/*" element={<LoginLayout></LoginLayout>} />
           </Routes>
           {/* </main> */}
@@ -117,8 +242,6 @@ function App() {
 }
 
 export default App;
-
-
 
 // {isLoggedIn && <Sidebar isSidebar={isSidebar} />}
 //       <main className="content">

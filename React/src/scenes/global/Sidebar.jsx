@@ -13,14 +13,19 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import FeedRoundedIcon from "@mui/icons-material/FeedRounded";
 import ChecklistIcon from "@mui/icons-material/Checklist";
 import ImportContactsSharpIcon from "@mui/icons-material/ImportContactsSharp";
-
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import ContactEmergencyIcon from "@mui/icons-material/ContactEmergency";
+import PunchClockIcon from "@mui/icons-material/PunchClock";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
+import ListAltIcon from "@mui/icons-material/ListAlt";
 import ListItemText from "@mui/material/ListItemText";
 import Collapse from "@mui/material/Collapse";
+import SwitchAccountIcon from "@mui/icons-material/SwitchAccount";
+import GradingIcon from "@mui/icons-material/Grading";
 
 import StarBorder from "@mui/icons-material/StarBorder";
 import { Style } from "@mui/icons-material";
@@ -391,7 +396,7 @@ const Sidebar = () => {
                   <List component="div" disablePadding>
                     <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
-                        <FeedRoundedIcon />
+                        <PunchClockIcon />
                       </ListItemIcon>
                       <ListItemText primary="員工打卡" />
                       <Link to="/checkin"></Link>
@@ -920,7 +925,7 @@ const Sidebar = () => {
                   <List component="div" disablePadding>
                     <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
-                        <FeedRoundedIcon />
+                        <ContactEmergencyIcon />
                       </ListItemIcon>
                       <ListItemText
                         primary="客戶管理"
@@ -1012,7 +1017,7 @@ const Sidebar = () => {
                   <List component="div" disablePadding>
                     <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
-                        <ChecklistIcon />
+                        <PunchClockIcon />
                       </ListItemIcon>
                       <ListItemText
                         primary="打卡"
@@ -1086,7 +1091,7 @@ const Sidebar = () => {
                   <List component="div" disablePadding>
                     <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
-                        <FeedRoundedIcon />
+                        <DashboardIcon />
                       </ListItemIcon>
                       <ListItemText
                         primary="數據面板"
@@ -1099,7 +1104,7 @@ const Sidebar = () => {
                   <List component="div" disablePadding>
                     <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
-                        <FeedRoundedIcon />
+                        <FactoryIcon />
                       </ListItemIcon>
                       <ListItemText
                         primary="機台總攬"
@@ -1125,7 +1130,7 @@ const Sidebar = () => {
                   <List component="div" disablePadding>
                     <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
-                        <FeedRoundedIcon />
+                        <GradingIcon />
                       </ListItemIcon>
                       <ListItemText
                         primary="員工出缺勤資料"
@@ -1138,7 +1143,7 @@ const Sidebar = () => {
                   <List component="div" disablePadding>
                     <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
-                        <FeedRoundedIcon />
+                        <SwitchAccountIcon />
                       </ListItemIcon>
                       <ListItemText
                         primary="客戶管理"
@@ -1151,7 +1156,7 @@ const Sidebar = () => {
                   <List component="div" disablePadding>
                     <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
-                        <FeedRoundedIcon />
+                        <ListAltIcon />
                       </ListItemIcon>
                       <ListItemText
                         primary="訂單管理"
@@ -1164,7 +1169,7 @@ const Sidebar = () => {
                   <List component="div" disablePadding>
                     <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
-                        <FactoryIcon />
+                        <InventoryIcon />
                       </ListItemIcon>
                       <ListItemText
                         primary="產品管理"

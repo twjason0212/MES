@@ -34,7 +34,6 @@ import {
 } from "@mui/material/";
 import withAuth from "../../components/withAuth";
 
-
 const Factory = () => {
   const [machines, setMachines] = useState([]);
   const [open, setOpen] = useState(false);
@@ -88,8 +87,8 @@ const Factory = () => {
                           machine.status === 0
                             ? "success"
                             : machine.status === 1
-                              ? "warning"
-                              : "error"
+                            ? "warning"
+                            : "error"
                         }
                         variant="determinate"
                         value={100}
@@ -105,8 +104,8 @@ const Factory = () => {
                           machine.brand === "FANUC"
                             ? imgUrl
                             : machine.brand === "MAZAK"
-                              ? imgUrl1
-                              : imgUrl2
+                            ? imgUrl1
+                            : imgUrl2
                         }
                         alt="Live from space album cover"
                       />
@@ -145,16 +144,17 @@ const Factory = () => {
                             待機時間：{dialog.brand}
                           </Typography>
                           <br /> */}
-                          <Typography variant="h2" mt={2}>
+                          <Typography variant="h2" mt={3}>
                             目標完工件數：{dialog.tar_process_amount + "個"}
                           </Typography>
-                          <br />
-                          <Typography variant="h2" mt={2}>
+                          <Typography variant="h2" mt={3}>
                             實際完工件數：{dialog.real_process_amount + "個"}
                           </Typography>
-                          <br />
-                          <Typography variant="h2" mt={2}>
+                          <Typography variant="h2" mt={3}>
                             當日稼動率：{dialog.day_availability + "%"}
+                          </Typography>
+                          <Typography variant="h2" mt={3}>
+                            Error_Msg：{"*" + dialog.error_msg + "*"}
                           </Typography>
                         </DialogContentText>
                       </DialogContent>
