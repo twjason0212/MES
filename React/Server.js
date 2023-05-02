@@ -543,7 +543,7 @@ app.get("/order", function (req, res) {
             orderid: curr.orderid,
             orderdate: formatDate(curr.orderdate),
             deliverydate: formatDate(curr.deliverydate),
-            changdate: formatDate(curr.changdate),
+            changdate: curr.changdate,
             orderstate: curr.orderstate,
             orderstate_name: curr.orderstate_name,
             customername: curr.customername,
@@ -777,7 +777,7 @@ app.get("/product", function (req, res) {
 //修改產品(庫存)
 app.put("/product", function (req, res) {
   connection.query(
-    "update products set product_amount	 = ? where product_id =" +
+    "update product set product_amount = ? where product_id =" +
       req.body.product_id,
     [req.body.product_amount]
   );

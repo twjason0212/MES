@@ -50,7 +50,7 @@ const Sidebar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [selected, setSelected] = useState("Dashboard");
+  const [selected, setSelected] = useState("");
 
   //部門控制
 
@@ -179,13 +179,13 @@ const Sidebar = () => {
 
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
             <List component="div" disablePadding >
-              <ListItemButton sx={{ pl: 4 }}>
+              <ListItemButton sx={{ pl: 2 }}>
                 <ListItemIcon>
                   <HomeOutlinedIcon />
                 </ListItemIcon>
                 <ListItemText
                   primary="Home"
-                  primaryTypographyProps={{ fontSize: '22px' }}
+                  primaryTypographyProps={{ fontSize: '20px' }}
                 />
                 <Link to="/"></Link>
               </ListItemButton>
@@ -197,7 +197,7 @@ const Sidebar = () => {
               <ListItemText
                 primaryTypographyProps={{ fontSize: '22px' }}
                 color={colors.grey[300]}
-                sx={{ m: "15px 0 5px 20px" }}
+                sx={{ m: "15px 0 5px 0px" }}
 
               >
                 Home
@@ -219,7 +219,7 @@ const Sidebar = () => {
                 言
                 <>
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <PeopleOutlinedIcon />
                       </ListItemIcon>
@@ -231,7 +231,7 @@ const Sidebar = () => {
                   </List>
 
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <PeopleOutlinedIcon />
                       </ListItemIcon>
@@ -242,7 +242,7 @@ const Sidebar = () => {
                   </List>
 
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <FeedRoundedIcon />
                       </ListItemIcon>
@@ -255,7 +255,7 @@ const Sidebar = () => {
                 佩
                 <>
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <FeedRoundedIcon />
                       </ListItemIcon>
@@ -265,7 +265,7 @@ const Sidebar = () => {
                   </List>
 
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <FeedRoundedIcon />
                       </ListItemIcon>
@@ -275,7 +275,7 @@ const Sidebar = () => {
                   </List>
 
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <ChecklistIcon />
                       </ListItemIcon>
@@ -288,7 +288,7 @@ const Sidebar = () => {
                 冠
                 <>
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <FeedRoundedIcon />
                       </ListItemIcon>
@@ -298,7 +298,7 @@ const Sidebar = () => {
                   </List>
 
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <FeedRoundedIcon />
                       </ListItemIcon>
@@ -311,7 +311,7 @@ const Sidebar = () => {
                 峰
                 <>
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <FeedRoundedIcon />
                       </ListItemIcon>
@@ -321,7 +321,7 @@ const Sidebar = () => {
                   </List>
 
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <FeedRoundedIcon />
                       </ListItemIcon>
@@ -331,7 +331,7 @@ const Sidebar = () => {
                   </List>
 
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <FeedRoundedIcon />
                       </ListItemIcon>
@@ -341,7 +341,7 @@ const Sidebar = () => {
                   </List>
 
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <FeedRoundedIcon />
                       </ListItemIcon>
@@ -351,7 +351,7 @@ const Sidebar = () => {
                   </List>
 
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <FeedRoundedIcon />
                       </ListItemIcon>
@@ -361,7 +361,7 @@ const Sidebar = () => {
                   </List>
 
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <FeedRoundedIcon />
                       </ListItemIcon>
@@ -371,7 +371,7 @@ const Sidebar = () => {
                   </List>
 
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <FeedRoundedIcon />
                       </ListItemIcon>
@@ -381,7 +381,7 @@ const Sidebar = () => {
                   </List>
 
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <FeedRoundedIcon />
                       </ListItemIcon>
@@ -391,7 +391,7 @@ const Sidebar = () => {
                   </List>
 
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <FeedRoundedIcon />
                       </ListItemIcon>
@@ -401,7 +401,7 @@ const Sidebar = () => {
                   </List>
 
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <FeedRoundedIcon />
                       </ListItemIcon>
@@ -420,7 +420,13 @@ const Sidebar = () => {
             {department.includes("生產部") && (
               <>
                 <ListItemButton onClick={EmployeePersonalhandleClick}>
-                  <ListItemText color={colors.grey[300]} sx={{ m: "15px 0 5px 20px" }} >
+                  <ListItemText color={colors.grey[300]} sx={{ m: "15px 0 5px 0px" }}
+                   primaryTypographyProps={{
+                    fontSize: 22,
+                    fontWeight: 'medium',
+                    color: '#4cceac'
+                  }}
+                   >
                     個人系統
                   </ListItemText>
                   {/* 折疊menu */}
@@ -428,18 +434,18 @@ const Sidebar = () => {
                 </ListItemButton>
                 <Collapse in={EmployeeSystemopen} timeout="auto" unmountOnExit>
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <PeopleOutlinedIcon />
                       </ListItemIcon>
                       <ListItemText
                         primary="基本資料"
-                        primaryTypographyProps={{ fontSize: '22px' }} />
-                      <Link to="/form"></Link>
+                        primaryTypographyProps={{ fontSize: '20px' }} />
+                      <Link to="/employee"></Link>
                     </ListItemButton>
                   </List>
                   {/* <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <FeedRoundedIcon />
                       </ListItemIcon>
@@ -448,7 +454,7 @@ const Sidebar = () => {
                     </ListItemButton>
                   </List>
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <FeedRoundedIcon />
                       </ListItemIcon>
@@ -457,7 +463,7 @@ const Sidebar = () => {
                     </ListItemButton>
                   </List> */}
                   {/* <List component="div" disablePadding>
-                  <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemButton sx={{ pl: 2 }}>
                     <ListItemIcon>
                       <FeedRoundedIcon />
                     </ListItemIcon>
@@ -465,7 +471,7 @@ const Sidebar = () => {
                   </ListItemButton>
                 </List>
                 <List component="div" disablePadding>
-                  <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemButton sx={{ pl: 2 }}>
                     <ListItemIcon>
                       <FeedRoundedIcon />
                     </ListItemIcon>
@@ -474,24 +480,24 @@ const Sidebar = () => {
                 </List> */}
 
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <ChecklistIcon />
                       </ListItemIcon>
                       <ListItemText primary="打卡"
-                        primaryTypographyProps={{ fontSize: '22px' }}
+                        primaryTypographyProps={{ fontSize: '20px' }}
                       />
                       <Link to="/checkin"></Link>
                     </ListItemButton>
                   </List>
 
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <ChecklistIcon />
                       </ListItemIcon>
                       <ListItemText primary="出缺勤狀況"
-                        primaryTypographyProps={{ fontSize: '22px' }} />
+                        primaryTypographyProps={{ fontSize: '20px' }} />
                       <Link to="/attdatetime"></Link>
                     </ListItemButton>
                   </List>
@@ -501,9 +507,10 @@ const Sidebar = () => {
                   <ListItemText
                     variant="h6"
                     color={colors.grey[300]}
-                    sx={{ m: "15px 0 5px 20px" }}
-                    primaryTypographyProps={{ fontSize: '22px' }}
-
+                    sx={{ m: "15px 0 5px 0px" }}
+                    primaryTypographyProps={{ fontSize: '22px' ,
+                    fontWeight: 'medium',
+                    color: '#4cceac'}}
                   >
                     生產管理
                   </ListItemText>
@@ -514,12 +521,12 @@ const Sidebar = () => {
 
                   {department === "生產部主管" && (
                     <List component="div" disablePadding>
-                      <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemButton sx={{ pl: 2 }}>
                         <ListItemIcon>
                           <FeedRoundedIcon />
                         </ListItemIcon>
                         <ListItemText primary="新增派工單"
-                          primaryTypographyProps={{ fontSize: '22px' }} />
+                          primaryTypographyProps={{ fontSize: '20px' }} />
                         <Link to="/workorder"></Link>
                       </ListItemButton>
                     </List>
@@ -527,12 +534,12 @@ const Sidebar = () => {
 
                   {department === "生產部員工" && (
                     <List component="div" disablePadding>
-                      <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemButton sx={{ pl: 2 }}>
                         <ListItemIcon>
                           <FeedRoundedIcon />
                         </ListItemIcon>
                         <ListItemText primary="派工單"
-                          primaryTypographyProps={{ fontSize: '22px' }} />
+                          primaryTypographyProps={{ fontSize: '20px' }} />
                         <Link to="/workorderlist"></Link>
                       </ListItemButton>
                     </List>
@@ -540,12 +547,12 @@ const Sidebar = () => {
 
                   {department === "生產部員工" && (
                     <List component="div" disablePadding>
-                      <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemButton sx={{ pl: 2 }}>
                         <ListItemIcon>
                           <FeedRoundedIcon />
                         </ListItemIcon>
-                        <ListItemText primary="待辦工單"
-                          primaryTypographyProps={{ fontSize: '22px' }} />
+                        <ListItemText primary="個人待辦工單"
+                          primaryTypographyProps={{ fontSize: '20px' }} />
                         <Link to="/pendingwork"></Link>
                       </ListItemButton>
                     </List>
@@ -553,12 +560,12 @@ const Sidebar = () => {
 
                   {department === "生產部主管" && (
                     <List component="div" disablePadding>
-                      <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemButton sx={{ pl: 2 }}>
                         <ListItemIcon>
                           <FeedRoundedIcon />
                         </ListItemIcon>
-                        <ListItemText primary="待辦工單"
-                          primaryTypographyProps={{ fontSize: '22px' }} />
+                        <ListItemText primary="個人待辦工單"
+                          primaryTypographyProps={{ fontSize: '20px' }} />
                         <Link to="/pendingworkLeader"></Link>
                       </ListItemButton>
                     </List>
@@ -566,12 +573,12 @@ const Sidebar = () => {
 
                   {department === "生產部主管" && (
                     <List component="div" disablePadding>
-                      <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemButton sx={{ pl: 2 }}>
                         <ListItemIcon>
                           <FeedRoundedIcon />
                         </ListItemIcon>
                         <ListItemText primary="已完成工單列表"
-                          primaryTypographyProps={{ fontSize: '22px' }} />
+                          primaryTypographyProps={{ fontSize: '20px' }} />
                         <Link to="/worlorderall"></Link>
                       </ListItemButton>
                     </List>
@@ -579,18 +586,18 @@ const Sidebar = () => {
 
                   {department === "生產部主管" && (
                     <List component="div" disablePadding>
-                      <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemButton sx={{ pl: 2 }}>
                         <ListItemIcon>
                           <FactoryIcon />
                         </ListItemIcon>
                         <ListItemText primary="機台資訊"
-                          primaryTypographyProps={{ fontSize: '22px' }} />
+                          primaryTypographyProps={{ fontSize: '20px' }} />
                         <Link to="/factory"></Link>
                       </ListItemButton>
                     </List>
                   )}
                   {/* <List component="div" disablePadding>
-                  <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemButton sx={{ pl: 2 }}>
                     <ListItemIcon>
                       <ImportContactsSharpIcon />
                     </ListItemIcon>
@@ -607,15 +614,14 @@ const Sidebar = () => {
                 {/* <Typography
                   variant="h3"
                   color={colors.greenAccent[300]}
-                  sx={{ m: "15px 0 5px 20px" }}
+                  sx={{ m: "15px 0 5px 0px" }}
                 >
                   人事
                 </Typography> */}
                 <ListItemButton onClick={HRPersonalhandleClick} >
                   <ListItemText
-
                     color={colors.grey[300]}
-                    sx={{ m: "15px 0 5px 20px" }}
+                    sx={{ m: "15px 0 5px 0px" }}
                     primaryTypographyProps={{
                       fontSize: 22,
                       fontWeight: 'medium',
@@ -630,22 +636,19 @@ const Sidebar = () => {
                 <Collapse in={HRPersonalopen} timeout="auto" unmountOnExit>
 
                   <List component="div" disablePadding >
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <PeopleOutlinedIcon />
                       </ListItemIcon>
                       <ListItemText
-                        primaryTypographyProps={{
-                          fontSize: 20,
-                          fontWeight: 'medium',
-                        }}
+                        primaryTypographyProps={{fontSize: 20}}
                         primary="基本資料" />
                       <Link to="/form"></Link>
                     </ListItemButton>
                   </List>
 
                   {/* <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <FeedRoundedIcon />
                       </ListItemIcon>
@@ -655,7 +658,7 @@ const Sidebar = () => {
                   </List>
 
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <FeedRoundedIcon />
                       </ListItemIcon>
@@ -665,7 +668,7 @@ const Sidebar = () => {
                   </List> */}
 
                   {/* <List component="div" disablePadding>
-                  <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemButton sx={{ pl: 2 }}>
                     <ListItemIcon>
                       <FeedRoundedIcon />
                     </ListItemIcon>
@@ -673,7 +676,7 @@ const Sidebar = () => {
                   </ListItemButton>
                 </List>
                 <List component="div" disablePadding>
-                  <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemButton sx={{ pl: 2 }}>
                     <ListItemIcon>
                       <FeedRoundedIcon />
                     </ListItemIcon>
@@ -682,33 +685,34 @@ const Sidebar = () => {
                 </List> */}
 
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <ChecklistIcon />
                       </ListItemIcon>
                       <ListItemText primary="打卡"
-                        primaryTypographyProps={{ fontSize: '22px' }} />
+                        primaryTypographyProps={{ fontSize: '20px' }} />
                       <Link to="/checkin"></Link>
                     </ListItemButton>
                   </List>
 
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <ChecklistIcon />
                       </ListItemIcon>
                       <ListItemText primary="出缺勤狀況"
-                        primaryTypographyProps={{ fontSize: '22px' }} />
+                        primaryTypographyProps={{ fontSize: '20px' }} />
                       <Link to="/attdatetime"></Link>
                     </ListItemButton>
                   </List>
                 </Collapse>
                 <ListItemButton onClick={HRManagehandleClick}>
                   <ListItemText
-                    primaryTypographyProps={{ fontSize: '22px' }}
-                    variant="h6"
+                    primaryTypographyProps={{ fontSize: '22px',
+                    fontWeight: 'medium',
+                    color: '#4cceac' }}
                     color={colors.grey[300]}
-                    sx={{ m: "15px 0 5px 20px" }}
+                    sx={{ m: "15px 0 5px 0px" }}
 
                   >
                     人事管理
@@ -719,56 +723,56 @@ const Sidebar = () => {
                 <Collapse in={HRManageopen} timeout="auto" unmountOnExit>
 
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <PersonAddIcon />
                       </ListItemIcon>
                       <ListItemText primary="新增員工資料"
-                        primaryTypographyProps={{ fontSize: '22px' }} />
+                        primaryTypographyProps={{ fontSize: '20px' }} />
                       <Link to='/form'></Link>
                     </ListItemButton>
                   </List>
 
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <PersonAddIcon />
                       </ListItemIcon>
                       <ListItemText primary="員工資料管理"
-                        primaryTypographyProps={{ fontSize: '22px' }} />
+                        primaryTypographyProps={{ fontSize: '20px' }} />
                       <Link to='/team'></Link>
                     </ListItemButton>
                   </List>
 
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <FeedRoundedIcon />
                       </ListItemIcon>
                       <ListItemText primary="員工出缺勤資料"
-                        primaryTypographyProps={{ fontSize: '22px' }} />
+                        primaryTypographyProps={{ fontSize: '20px' }} />
                       <Link to='/attendance'></Link>
                     </ListItemButton>
                   </List>
 
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <FeedRoundedIcon />
                       </ListItemIcon>
                       <ListItemText primary="請假單申請"
-                        primaryTypographyProps={{ fontSize: '22px' }} />
+                        primaryTypographyProps={{ fontSize: '20px' }} />
                       <Link to="/leave"></Link>
                     </ListItemButton>
                   </List>
 
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <FeedRoundedIcon />
                       </ListItemIcon>
                       <ListItemText primary="加班單申請"
-                        primaryTypographyProps={{ fontSize: '22px' }} />
+                        primaryTypographyProps={{ fontSize: '20px' }} />
                       <Link to="/overtime"></Link>
                     </ListItemButton>
                   </List>
@@ -780,19 +784,14 @@ const Sidebar = () => {
             {
               department.includes("業務部") && (
                 <>
-                  <Typography
-                    variant="h3"
-                    color={colors.greenAccent[300]}
-                    sx={{ m: "15px 0 5px 20px" }}
-                  >
-                    業務
-                  </Typography>
                   <ListItemButton onClick={BusinessPersonalhandleClick}>
                     <ListItemText
-                      variant="h6"
+                     
                       color={colors.grey[300]}
-                      sx={{ m: "15px 0 5px 20px" }}
-                      primaryTypographyProps={{ fontSize: '22px' }}
+                      sx={{ m: "15px 0 5px 0px" }}
+                      primaryTypographyProps={{ fontSize: '22px' ,
+                      fontWeight: 'medium',
+                      color: '#4cceac'}}
 
                     >
                       個人系統
@@ -803,41 +802,38 @@ const Sidebar = () => {
                   <Collapse in={BusinessPersonalopen} timeout="auto" unmountOnExit>
 
                     <List component="div" disablePadding >
-                      <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemButton sx={{ pl: 2 }}>
                         <ListItemIcon>
                           <PeopleOutlinedIcon />
                         </ListItemIcon>
                         <ListItemText
-                          primaryTypographyProps={{
-                            fontSize: 20,
-                            fontWeight: 'medium',
-                          }}
+                          primaryTypographyProps={{ fontSize: '20px' }}
                           primary="基本資料" />
                         <Link to="/form"></Link>
                       </ListItemButton>
                     </List>
 
                     <List component="div" disablePadding>
-                      <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemButton sx={{ pl: 2 }}>
                         <ListItemIcon>
                           <ChecklistIcon />
                         </ListItemIcon>
-                        <ListItemText primary="打卡" />
+                        <ListItemText primary="打卡" primaryTypographyProps={{ fontSize: '20px' }}/>
                         <Link to="/checkin"></Link>
                       </ListItemButton>
                     </List>
 
                     <List component="div" disablePadding>
-                      <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemButton sx={{ pl: 2 }}>
                         <ListItemIcon>
                           <ChecklistIcon />
                         </ListItemIcon>
-                        <ListItemText primary="出缺勤狀況" />
+                        <ListItemText primary="出缺勤狀況" primaryTypographyProps={{ fontSize: '20px' }}/>
                         <Link to="/attdatetime"></Link>
                       </ListItemButton>
                     </List>
                     {/* <List component="div" disablePadding>
-                  <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemButton sx={{ pl: 2 }}>
                     <ListItemIcon>
                       <FeedRoundedIcon />
                     </ListItemIcon>
@@ -845,7 +841,7 @@ const Sidebar = () => {
                   </ListItemButton>
                 </List>
                 <List component="div" disablePadding>
-                  <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemButton sx={{ pl: 2 }}>
                     <ListItemIcon>
                       <FeedRoundedIcon />
                     </ListItemIcon>
@@ -853,7 +849,7 @@ const Sidebar = () => {
                   </ListItemButton>
                 </List>
                 <List component="div" disablePadding>
-                  <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemButton sx={{ pl: 2 }}>
                     <ListItemIcon>
                       <FeedRoundedIcon />
                     </ListItemIcon>
@@ -861,7 +857,7 @@ const Sidebar = () => {
                   </ListItemButton>
                 </List>
                 <List component="div" disablePadding>
-                  <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemButton sx={{ pl: 2 }}>
                     <ListItemIcon>
                       <FeedRoundedIcon />
                     </ListItemIcon>
@@ -872,10 +868,11 @@ const Sidebar = () => {
                   </Collapse>
                   <ListItemButton onClick={BusinessManagehandleClick}>
                     <ListItemText
-                      variant="h6"
                       color={colors.grey[300]}
-                      sx={{ m: "15px 0 5px 20px" }}
-
+                      sx={{ m: "15px 0 5px 0px" }}
+                      primaryTypographyProps={{ fontSize: '22px' ,
+                      fontWeight: 'medium',
+                      color: '#4cceac'}}
                     >
                       業務管理
                     </ListItemText>
@@ -884,29 +881,29 @@ const Sidebar = () => {
                   </ListItemButton >
                   <Collapse in={BusinessManageopen} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
-                      <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemButton sx={{ pl: 2 }}>
                         <ListItemIcon>
                           <FeedRoundedIcon />
                         </ListItemIcon>
-                        <ListItemText primary="客戶管理" />
+                        <ListItemText primary="客戶管理" primaryTypographyProps={{ fontSize: '20px' }}/>
                         <Link to="/customers"></Link>
                       </ListItemButton>
                     </List>
                     <List component="div" disablePadding>
-                      <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemButton sx={{ pl: 2 }}>
                         <ListItemIcon>
                           <FeedRoundedIcon />
                         </ListItemIcon>
-                        <ListItemText primary="訂單總攬" />
+                        <ListItemText primary="訂單管理" primaryTypographyProps={{ fontSize: '20px' }}/>
                         <Link to="/order"></Link>
                       </ListItemButton>
                     </List>
                     <List component="div" disablePadding>
-                      <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemButton sx={{ pl: 2 }}>
                         <ListItemIcon>
                           <FactoryIcon />
                         </ListItemIcon>
-                        <ListItemText primary="產品管理" />
+                        <ListItemText primary="產品管理" primaryTypographyProps={{ fontSize: '20px' }}/>
                         <Link to="/inventory"></Link>
                       </ListItemButton>
                     </List>
@@ -914,7 +911,7 @@ const Sidebar = () => {
                   {/* <Typography
               variant="h6"
               color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
+              sx={{ m: "15px 0 5px 0px" }}
             >
               業務管理
             </Typography>
@@ -937,19 +934,13 @@ const Sidebar = () => {
             {/* 管理者 */}
             {department.includes("管理部") && (
               <>
-                <Typography
-                  variant="h3"
-                  color={colors.greenAccent[300]}
-                  sx={{ m: "15px 0 5px 20px" }}
-                >
-                  管理者
-                </Typography>
                 <ListItemButton onClick={ManagerPersonalhandleClick}>
                   <ListItemText
-                    variant="h6"
                     color={colors.grey[300]}
-                    sx={{ m: "15px 0 5px 20px" }}
-
+                    sx={{ m: "15px 0 5px 0px" }}
+                    primaryTypographyProps={{ fontSize: '22px' ,
+                    fontWeight: 'medium',
+                    color: '#4cceac'}}
                   >
                     個人系統
                   </ListItemText>
@@ -959,41 +950,38 @@ const Sidebar = () => {
                 <Collapse in={ManagerPersonalopen} timeout="auto" unmountOnExit>
 
                   <List component="div" disablePadding >
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <PeopleOutlinedIcon />
                       </ListItemIcon>
                       <ListItemText
-                        primaryTypographyProps={{
-                          fontSize: 20,
-                          fontWeight: 'medium',
-                        }}
+                        primaryTypographyProps={{fontSize: 20, }}
                         primary="基本資料" />
                       <Link to="/form"></Link>
                     </ListItemButton>
                   </List>
 
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <ChecklistIcon />
                       </ListItemIcon>
-                      <ListItemText primary="打卡" />
+                      <ListItemText primary="打卡" primaryTypographyProps={{ fontSize: '20px' }}/>
                       <Link to="/checkin"></Link>
                     </ListItemButton>
                   </List>
 
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <ChecklistIcon />
                       </ListItemIcon>
-                      <ListItemText primary="出缺勤狀況" />
+                      <ListItemText primary="出缺勤狀況" primaryTypographyProps={{ fontSize: '20px' }}/>
                       <Link to="/attdatetime"></Link>
                     </ListItemButton>
                   </List>
                   {/* <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
+                <ListItemButton sx={{ pl: 2 }}>
                   <ListItemIcon>
                     <FeedRoundedIcon />
                   </ListItemIcon>
@@ -1001,7 +989,7 @@ const Sidebar = () => {
                 </ListItemButton>
               </List>
               <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
+                <ListItemButton sx={{ pl: 2 }}>
                   <ListItemIcon>
                     <FeedRoundedIcon />
                   </ListItemIcon>
@@ -1009,7 +997,7 @@ const Sidebar = () => {
                 </ListItemButton>
               </List>
               <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
+                <ListItemButton sx={{ pl: 2 }}>
                   <ListItemIcon>
                     <FeedRoundedIcon />
                   </ListItemIcon>
@@ -1017,7 +1005,7 @@ const Sidebar = () => {
                 </ListItemButton>
               </List>
               <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
+                <ListItemButton sx={{ pl: 2 }}>
                   <ListItemIcon>
                     <FeedRoundedIcon />
                   </ListItemIcon>
@@ -1028,10 +1016,11 @@ const Sidebar = () => {
                 </Collapse>
                 <ListItemButton onClick={CompanyhandleClick}>
                   <ListItemText
-                    variant="h6"
                     color={colors.grey[300]}
-                    sx={{ m: "15px 0 5px 20px" }}
-
+                    sx={{ m: "15px 0 5px 0px" }}
+                    primaryTypographyProps={{ fontSize: '22px' ,
+                    fontWeight: 'medium',
+                    color: '#4cceac'}}
                   >
                     公司管理
                   </ListItemText>
@@ -1041,92 +1030,62 @@ const Sidebar = () => {
                 <Collapse in={Companyopen} timeout="auto" unmountOnExit>
 
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <FeedRoundedIcon />
                       </ListItemIcon>
-                      <ListItemText primary="數據面板" />
+                      <ListItemText primary="數據面板" primaryTypographyProps={{ fontSize: '20px' }}/>
                       <Link to="/dashboard"></Link>
                     </ListItemButton>
                   </List>
 
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
-                      <ListItemIcon>
-                        <FeedRoundedIcon />
-                      </ListItemIcon>
-                      <ListItemText primary="客戶管理" />
-                      <Link to="/customers"></Link>
-                    </ListItemButton>
-                  </List>
-
-                  <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
-                      <ListItemIcon>
-                        <FeedRoundedIcon />
-                      </ListItemIcon>
-                      <ListItemText primary="訂單總攬" />
-                      <Link to="/order"></Link>
-                    </ListItemButton>
-                  </List>
-
-                  <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
-                      <ListItemIcon>
-                        <FactoryIcon />
-                      </ListItemIcon>
-                      <ListItemText primary="產品管理" />
-                      <Link to="/inventory"></Link>
-                    </ListItemButton>
-                  </List>
-
-                  <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <PersonAddIcon />
                       </ListItemIcon>
-                      <ListItemText primary="新增員工資料" />
-                      <Link to='/form'></Link>
-                    </ListItemButton>
-                  </List>
-
-                  <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
-                      <ListItemIcon>
-                        <PersonAddIcon />
-                      </ListItemIcon>
-                      <ListItemText primary="員工資料管理" />
+                      <ListItemText primary="員工資料管理" primaryTypographyProps={{ fontSize: '20px' }}/>
                       <Link to='/team'></Link>
                     </ListItemButton>
                   </List>
 
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <FeedRoundedIcon />
                       </ListItemIcon>
-                      <ListItemText primary="員工出缺勤資料" />
+                      <ListItemText primary="員工出缺勤資料" primaryTypographyProps={{ fontSize: '20px' }}/>
                       <Link to='/attendance'></Link>
                     </ListItemButton>
                   </List>
 
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <FeedRoundedIcon />
                       </ListItemIcon>
-                      <ListItemText primary="請假單申請" />
-                      <Link to="/leave"></Link>
+                      <ListItemText primary="客戶管理" primaryTypographyProps={{ fontSize: '20px' }}/>
+                      <Link to="/customers"></Link>
                     </ListItemButton>
                   </List>
 
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 2 }}>
                       <ListItemIcon>
                         <FeedRoundedIcon />
                       </ListItemIcon>
-                      <ListItemText primary="加班單申請" />
-                      <Link to="/overtime"></Link>
+                      <ListItemText primary="訂單管理" primaryTypographyProps={{ fontSize: '20px' }}/>
+                      <Link to="/order"></Link>
+                    </ListItemButton>
+                  </List>
+
+                  <List component="div" disablePadding>
+                    <ListItemButton sx={{ pl: 2 }}>
+                      <ListItemIcon>
+                        <FactoryIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="產品管理" primaryTypographyProps={{ fontSize: '20px' }}/>
+                      <Link to="/inventory"></Link>
                     </ListItemButton>
                   </List>
 

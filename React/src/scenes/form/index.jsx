@@ -256,5 +256,5 @@ const iniValues = {
   password: "",
   dept: "選擇部門",
 };
-export default EmployeeForm;
-// export default withAuth(EmployeeForm);
+// export default EmployeeForm;
+export default withAuth(EmployeeForm);

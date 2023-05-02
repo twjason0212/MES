@@ -295,7 +295,7 @@ const OrdersTable = () => {
                                 onChange={(event) =>
                                     setOrderData({
                                         ...orderdata,
-                                        changdate: event.target.value,
+                                        deliverydate: event.target.value,
                                     })
                                 }
                             />

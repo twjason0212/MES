@@ -42,7 +42,7 @@ const WorkOrderAll = () => {
                 color: '#4cceac'
             }
         }}>
-            <Header title="工單管理" subtitle="" />
+            <Header title="報工單列表" subtitle="已完成之報工單" />
             <TableContainer m="40px 0 0 0">
                 <Table sx={{ backgroundColor: colors.primary[400], mt: 3, }}>
                     <TableHead sx={{

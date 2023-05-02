@@ -17,8 +17,10 @@ const GridCard = () => {
     const [cardData, setCardData] = useState([]);
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
+    const [shouldUpdate, setShouldUpdate] = useState(true);
 
     useEffect(() => {
+        if (shouldUpdate) {
         axios.get('http://127.0.0.1:3702/product')
             .then(response => {
                 setCardData(response.data)
@@ -26,7 +28,9 @@ const GridCard = () => {
             .catch(error => {
                 console.error(error);
             });
-    }, []);
+            setShouldUpdate(false);
+            }
+    }, [shouldUpdate]);
 
     //詳細資料
     const [open, setOpen] = useState(false);
@@ -50,7 +54,6 @@ const GridCard = () => {
             .catch(error => {
                 console.error(error);
             });
-
 
         const updatedRows = cardData.map(row =>
             row.product_id === datas.product_id ? datas : row
@@ -91,7 +94,7 @@ const GridCard = () => {
                         onChange={handleFilter}
                     />
                 </Box>
-                <Newproduct />
+                <Newproduct setShouldUpdate={setShouldUpdate}/>
             </Box>
             <Box sx={{ ml: 3 }}>
                 <Grid container spacing={2} >

@@ -13,7 +13,7 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import { tokens } from "../../theme";
 
-export default function Product() {
+export default function Product({setShouldUpdate}) {
     const [opennew, setopennew] = useState(false);
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
@@ -36,6 +36,7 @@ export default function Product() {
             console.log(response.data);
         });
         setSubmitting(false);
+        setShouldUpdate(true);
         handleClosenew();
     };
 
