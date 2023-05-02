@@ -643,7 +643,7 @@ app.get("/order/customerpie", function (req, res) {
 //機器(冠宇)//row1
 app.get("/machine_list", function (req, res) {
   connection.query(
-    "SELECT `machine_list`.`uuid`,`machine_list`.`brand`,`machine_list`.`status`,`machine_list`.`day_availability`,`work_order`.`tar_process_amount`,`work_order`.`real_process_amount` FROM machine_list LEFT JOIN work_order ON `machine_list`.`uuid`=`work_order`.`machine_uuid`",
+    "SELECT `machine_list`.`uuid`,`machine_list`.`brand`,`machine_list`.`status`,`machine_list`.`day_availability`,`work_order`.`tar_process_amount`,`work_order`.`real_process_amount`,`machine_list`.`error_msg` FROM machine_list LEFT JOIN work_order ON `machine_list`.`uuid`=`work_order`.`machine_uuid`",
     [],
     function (err, rows) {
       res.send(JSON.stringify(rows));
@@ -682,7 +682,7 @@ app.get("/allEmp", function (req, res) {
 });
 app.get("/punchInEmp", function (req, res) {
   connection.query(
-    "SELECT COUNT(start_time) as punchinemp FROM attendance where status = 1 and DATE(start_time) = DATE(NOW());",
+    "SELECT COUNT(starttime) as punchinemp FROM attendance where status = 1 and DATE(starttime) = DATE(NOW());",
     [],
     function (err, rows) {
       res.send(JSON.stringify(rows));

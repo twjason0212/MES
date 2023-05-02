@@ -156,6 +156,10 @@ const Factory = () => {
                           <Typography variant="h2" mt={2}>
                             當日稼動率：{dialog.day_availability + "%"}
                           </Typography>
+                          <br />
+                          <Typography variant="h3" mt={2}>
+                            Error_Msg：{"*"+dialog.error_msg+"*"}
+                          </Typography>
                         </DialogContentText>
                       </DialogContent>
                       <DialogActions>

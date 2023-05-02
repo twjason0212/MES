@@ -55,7 +55,7 @@ function App() {
     if (!isLoggedIn) {
 
       return (
-        <main className="content" style={{ marginLeft: "19em" }}>
+        <main className="content">
           <Login />
         </main>);
     } else {
