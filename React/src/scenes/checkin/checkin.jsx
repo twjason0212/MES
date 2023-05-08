@@ -11,7 +11,6 @@ const CheckIn = () => {
 
     const [events, setEvents] = useState([]);
 
-
     useEffect(() => {
         setInterval(() => {
             const now = new Date();
@@ -26,7 +25,7 @@ const CheckIn = () => {
         const date = new Date();
         const start = type === 'up' ? date.toISOString() : " ";
         const end = type === 'down' ? date.toISOString() : " ";
-        
+
         const eventData = {
             employee_account: window.sessionStorage.getItem('user'),
             starttime: start,
@@ -58,13 +57,13 @@ const CheckIn = () => {
             <Box style={{ width: '100%', 'textAlign': 'center' }}>
                 <Box style={{ 'textAlign': 'center', 'fontSize': '25px', 'color': '#fff', 'fontWeight': '700', 'margin': '10px', paddingTop: '20vh' }}>
                     <Typography sx={{ 'fontSize': '48px', 'color': '#fff', 'fontWeight': '700', 'margin': '30px' }}  >{year}年{month}月{day}日</Typography>
-                    <Typography sx={{'fontSize': '48px', 'color': '#fff', 'fontWeight': '700', 'margin': '30px'}}>{time}</Typography>
+                    <Typography sx={{ 'fontSize': '48px', 'color': '#fff', 'fontWeight': '700', 'margin': '30px' }}>{time}</Typography>
                     <Box>
                         <button type="submit" onClick={() => handleDateSelect('up')}
-                            style={{ 'fontSize': '36px', color: '#fff', 'fontWeight': 700, margin: '30px', 'backgroundColor': 'orange' , width:'200px' ,height:'100px'}}
+                            style={{ 'fontSize': '36px', color: '#fff', 'fontWeight': 700, margin: '30px', 'backgroundColor': 'orange', width: '200px', height: '100px' }}
                         >上班</button>
                         <button type="submit" onClick={() => handleDateSelect('down')}
-                            style={{ 'fontSize': '36px', color: '#fff', 'fontWeight': 700, margin: '30px', 'backgroundColor': 'orange' , width:'200px' ,height:'100px'}}
+                            style={{ 'fontSize': '36px', color: '#fff', 'fontWeight': 700, margin: '30px', 'backgroundColor': 'orange', width: '200px', height: '100px' }}
                         >下班</button>
                     </Box>
                 </Box>
