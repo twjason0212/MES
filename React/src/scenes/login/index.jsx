@@ -58,6 +58,7 @@ const Login = (props) => {
         console.log(response.data);
         console.log(response.data.success);
         if (response.data.success === true) {
+<<<<<<< HEAD
           window.sessionStorage.setItem("name", response.data.name);
           window.sessionStorage.setItem("token", response.data.token);
           window.sessionStorage.setItem("user", response.data.login);
@@ -65,6 +66,15 @@ const Login = (props) => {
           window.sessionStorage.setItem("res", response.data.success);
           window.sessionStorage.setItem("dept", response.data.department);
           history("/checkin");
+=======
+          window.sessionStorage.setItem('name', response.data.name)
+          window.sessionStorage.setItem('token', response.data.token)
+          window.sessionStorage.setItem('user', response.data.login)
+          window.sessionStorage.setItem('email', response.data.email)
+          window.sessionStorage.setItem('res', response.data.success)
+          window.sessionStorage.setItem('dept', response.data.department)
+          history('/checkin');
+>>>>>>> fc18d26e56090139c8f8dcc86d34c174ff46fa1b
           // 跳轉
 
           alert("登入成功");
@@ -95,6 +105,7 @@ const Login = (props) => {
   };
   return (
     <Box>
+<<<<<<< HEAD
       <Box
         sx={{
           display: "flex",
@@ -105,6 +116,15 @@ const Login = (props) => {
           "& .MuiOutlinedInput-root": { fontSize: "22px" },
         }}
       >
+=======
+      <Box sx={{
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        '& label.Mui-focused': { color: '#4cceac', },
+        '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
+        '& .MuiOutlinedInput-root': { fontSize: '22px' },
+
+      }}>
+>>>>>>> fc18d26e56090139c8f8dcc86d34c174ff46fa1b
         <Paper style={paperStyle} sx={{ mt: 30 }}>
           <Grid align="center">
             <Avatar style={avatarStyle}>
@@ -120,16 +140,27 @@ const Login = (props) => {
             {(props) => (
               <Form>
                 <Field
+<<<<<<< HEAD
                   sx={{ mt: 1 }}
+=======
+                sx={{mt:1}}
+>>>>>>> fc18d26e56090139c8f8dcc86d34c174ff46fa1b
                   as={TextField}
                   label="帳號"
                   name="username"
                   placeholder="Enter username"
                   fullWidth
                   required
+<<<<<<< HEAD
                 />
                 <Field
                   sx={{ mt: 2 }}
+=======
+                  
+                />
+                <Field
+                sx={{mt:2}}
+>>>>>>> fc18d26e56090139c8f8dcc86d34c174ff46fa1b
                   as={TextField}
                   label="密碼"
                   name="password"
@@ -137,6 +168,10 @@ const Login = (props) => {
                   type="password"
                   fullWidth
                   required
+<<<<<<< HEAD
+=======
+                  
+>>>>>>> fc18d26e56090139c8f8dcc86d34c174ff46fa1b
                 />
                 {/* <Field
                 as={FormControlLabel}
@@ -148,7 +183,11 @@ const Login = (props) => {
                   type="submit"
                   color="primary"
                   variant="contained"
+<<<<<<< HEAD
                   sx={{ fontSize: "22px" }}
+=======
+sx={{fontSize:'22px'}}
+>>>>>>> fc18d26e56090139c8f8dcc86d34c174ff46fa1b
                   style={btnstyle}
                   fullWidth
                 >

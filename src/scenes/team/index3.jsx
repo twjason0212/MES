@@ -8,7 +8,7 @@ import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../components/Header";
 import axios from "axios";
 import { Box, Button, Dialog, DialogContent, DialogTitle, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, useTheme, Typography } from '@mui/material';
-import withAuth from "../../components/withAuth";
+import { filter } from "ramda";
 
 const Team = () => {
   const theme = useTheme();
@@ -16,13 +16,6 @@ const Team = () => {
   const [users, setUsers] = useState([]);
   const [open, setOpen] = useState(false);
   const [clickedRow, setClickedRow] = useState(null);
-  //宣告監控filrer變數
-  const [filter, setFilter] = useState({
-    EmployeeName: '',
-    startwork: '',
-    holiday: ''
-  });
-
 
   //表單按下單比修改後觸發
   const handleClick = (row) => {
@@ -68,51 +61,30 @@ const Team = () => {
   }
 
   //查詢員工方法
-  const changeUser = (value) => {
-    if (value == "") {
-      getUsers();
-    } else {
-      console.log(value)
-      axios.get('http://localhost:3702/employee/select/' + value)
-        .then(response => {
-          //查詢出來的解果設定回users
-          setUsers(response.data)
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    }
+  const changeUser = (event) => {
+    axios.get('http://localhost:3702/employee/select/' + event.target.value)
+      .then(response => {
+        //查詢出來的解果設定回users
+        setUsers(response.data)
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
 
-  // //查詢員工方法
-  // const changeByDateUser = (value) => {
-  //   if (value == "") {
-  //     getUsers();
-  //   } else {
-  //     axios.get('http://localhost:3702/employee/selectDate/' + value)
-  //       .then(response => {
-  //         //查詢出來的解果設定回users
-  //         setUsers(response.data)
-  //       })
-  //       .catch(error => {
-  //         console.error(error);
-  //       });
-  //   }
-  // }
+  //宣告監控filrer變數
+  const [filter, setFilter] = useState({
+    EmployeeName: '',
+    startwork: '',
+    holiday: ''
+  });
 
   const handleChange = (event) => {
-    console.log(event)
     setFilter({ ...filter, [event.target.name]: event.target.value });
     changeUser(event.target.value);
   };
 
-  // const handleDateChange = (event) => {
-  //   setFilter({ ...filter, [event.target.name]: event.target.value });
-  //   changeUser(event.target.value);
-  // };
-
   const handleSaveClick = (newData) => {
-    console.log(newData)
     // 在這裡將修改後的數據保存到資料庫
     axios.put(`http://127.0.0.1:3702/employee/update`, newData)
       .then(response => {
@@ -134,7 +106,7 @@ const Team = () => {
     { field: 'employee_id', headerName: 'Id', width: 90 },
     {
       field: 'employee_account',
-      headerName: '員工帳號',
+      headerName: '員工編碼',
       width: 150,
       editable: true,
     },
@@ -147,71 +119,113 @@ const Team = () => {
     {
       field: 'dept_name',
       headerName: '部門',
+      type: 'number',
       width: 110,
       editable: true,
     },
     {
       field: 'employee_tel',
       headerName: '電話',
-      width: 150,
-      fontSize: 22,
+      width: 110,
       editable: true,
     },
     {
       field: 'employee_email',
       headerName: '信箱',
-      width: 350,
-      fontSize: 22,
+      width: 110,
       editable: true,
     },
     {
       field: "actions",
       headerName: "Actions",
-      width: 100,
+      width: 400,
       renderCell: (params) => {
         return (
           <Box>
-
-            <Button variant="contained" color="primary" onClick={() => handleClick(params.row)} style={{ fontSize: '22px', backgroundColor: "#21b6ae" }}>
+            {/* <Button
+              color="secondary"
+              onClick={(e) => onButtonClick(e, params.row)}
+              variant="contained"
+            >
+              Edit
+            </Button>
+             */}
+            <Button variant="contained" color="primary" onClick={() => handleClick(params.row)}>
               編輯
             </Button>
             &nbsp;&nbsp;&nbsp;
-
+            {/* <Button
+              color="error"
+              onClick={() => onButtonDelClick(params.row)}
+              variant="contained"
+            >
+              Delete
+            </Button> */}
           </Box>
         );
       },
     },
-    // {
-    //   field: "accessLevel",
-    //   headerName: "Access Level",
-    //   flex: 1,
-    //   renderCell: ({ row: { access } }) => {
-    //     return (
-    //       <Box
-    //         width="60%"
-    //         m="0 auto"
-    //         p="5px"
-    //         display="flex"
-    //         justifyContent="center"
-    //         backgroundColor={
-    //           access === "admin"
-    //             ? colors.greenAccent[600]
-    //             : access === "manager"
-    //               ? colors.greenAccent[700]
-    //               : colors.greenAccent[700]
-    //         }
-    //         borderRadius="4px"
-    //       >
-    //         {access === "admin" && <AdminPanelSettingsOutlinedIcon />}
-    //         {access === "manager" && <SecurityOutlinedIcon />}
-    //         {access === "user" && <LockOpenOutlinedIcon />}
-    //         <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
-    //           {access}
-    //         </Typography>
-    //       </Box>
-    //     );
-    //   },
-    // }
+    {
+      field: "accessLevel",
+      headerName: "Access Level",
+      flex: 1,
+      renderCell: ({ row: { access } }) => {
+        return (
+          <Box
+            width="60%"
+            m="0 auto"
+            p="5px"
+            display="flex"
+            justifyContent="center"
+            backgroundColor={
+              access === "admin"
+                ? colors.greenAccent[600]
+                : access === "manager"
+                  ? colors.greenAccent[700]
+                  : colors.greenAccent[700]
+            }
+            borderRadius="4px"
+          >
+            {access === "admin" && <AdminPanelSettingsOutlinedIcon />}
+            {access === "manager" && <SecurityOutlinedIcon />}
+            {access === "user" && <LockOpenOutlinedIcon />}
+            <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
+              {access}
+            </Typography>
+          </Box>
+        );
+      },
+    },
+    {
+      field: "actions",
+      headerName: "狀態",
+      width: 400,
+      renderCell: (params) => {
+        return (
+          <Box>
+            {/* <Button
+              color="secondary"
+              onClick={(e) => onButtonClick(e, params.row)}
+              variant="contained"
+            >
+              Edit
+            </Button>
+             */}
+            <Button variant="contained" color="primary" onClick={() => handleClick(params.row)}>
+              編輯
+            </Button>
+            &nbsp;&nbsp;&nbsp;
+            {/* <Button
+              color="error"
+              onClick={() => onButtonDelClick(params.row)}
+              variant="contained"
+            >
+              Delete
+            </Button> */}
+          </Box>
+        );
+      },
+    }
   ];
 
 
@@ -224,7 +238,7 @@ const Team = () => {
           <TextField
             name="Employee Name"
             label="員工姓名"
-            //value={filter.EmployeeName}
+            value={filter.EmployeeName}
             onChange={handleChange}
             sx={{
               width: '100%',
@@ -234,12 +248,12 @@ const Team = () => {
               '& .MuiOutlinedInput-root': { fontSize: '22px' },
             }}
           />
-          {/* <TextField
+          <TextField
             name="startwork"
             label="報到日期"
             type="month"
             InputLabelProps={{ shrink: true }}
-            // value={filter.startwork}
+            value={filter.startwork}
             onChange={handleChange}
             sx={{
               width: '100%',
@@ -248,8 +262,13 @@ const Team = () => {
               '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
               '& .MuiOutlinedInput-root': { fontSize: '22px' },
             }}
+          />
+          {/* <TextField sx={{ width: '100%', m: 1 }}
+            name="Department"
+            label="部門"
+            value={filter.EmployeeName}
+            onChange={inputHandler}
           /> */}
-
         </div>
       </div>
       <Box sx={{ height: 600, width: '100%' }}>
@@ -268,13 +287,11 @@ const Team = () => {
           checkboxSelection
           disableRowSelectionOnClick
           sx={{
-            boxShadow: 2,
-            border: 2,
-            fontSize: 22,
-            borderColor: "primary.light",
-            "& .MuiDataGrid-cell:hover": {
-              color: "primary.main"
-            }
+            width: '100%',
+            m: 1,
+            '& label.Mui-focused': { color: '#4cceac', },
+            '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
+            '& .MuiOutlinedInput-root': { fontSize: '22px' },
           }}
         />
       </Box>
@@ -285,14 +302,8 @@ const Team = () => {
           <DialogContent>
             <TextField
               label="員工姓名"
-              defaultValue={clickedRow.employee_name}
+              value={clickedRow.employee_name}
               fullWidth
-              onChange={(event) =>
-                setClickedRow({
-                  ...clickedRow,
-                  employee_name: event.target.value,
-                })
-              }
               sx={{
                 width: '100%',
                 m: 1,
@@ -303,14 +314,8 @@ const Team = () => {
             />
             <TextField
               label="帳號"
-              defaultValue={clickedRow.employee_account}
+              value={clickedRow.employee_account}
               fullWidth
-              onChange={(event) =>
-                setClickedRow({
-                  ...clickedRow,
-                  employee_account: event.target.value,
-                })
-              }
               sx={{
                 width: '100%',
                 m: 1,
@@ -319,17 +324,22 @@ const Team = () => {
                 '& .MuiOutlinedInput-root': { fontSize: '22px' },
               }}
             />
-
+            <TextField
+              label="密碼"
+              value={clickedRow.employee_pwd}
+              fullWidth
+              sx={{
+                width: '100%',
+                m: 1,
+                '& label.Mui-focused': { color: '#4cceac', },
+                '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
+                '& .MuiOutlinedInput-root': { fontSize: '22px' },
+              }}
+            />
             <TextField
               label="電話"
-              defaultValue={clickedRow.employee_tel}
+              value={clickedRow.employee_tel}
               fullWidth
-              onChange={(event) =>
-                setClickedRow({
-                  ...clickedRow,
-                  employee_tel: event.target.value,
-                })
-              }
               sx={{
                 width: '100%',
                 m: 1,
@@ -340,14 +350,8 @@ const Team = () => {
             />
             <TextField
               label="信箱"
-              defaultValue={clickedRow.employee_email}
+              value={clickedRow.employee_email}
               fullWidth
-              onChange={(event) =>
-                setClickedRow({
-                  ...clickedRow,
-                  employee_email: event.target.value,
-                })
-              }
               sx={{
                 width: '100%',
                 m: 1,
@@ -357,7 +361,7 @@ const Team = () => {
               }}
             />
 
-            <Button variant="contained" onClick={() => handleSaveClick(clickedRow)} style={{ fontSize: '22px', backgroundColor: "#21b6ae" }}>
+            <Button variant="contained" onClick={() => handleSaveClick(clickedRow)}>
               儲存
             </Button>
           </DialogContent>
@@ -367,4 +371,4 @@ const Team = () => {
   );
 };
 
-export default withAuth(Team);
+export default Team;

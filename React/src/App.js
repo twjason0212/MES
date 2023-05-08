@@ -26,6 +26,7 @@ import Checkin from "./scenes/checkin/checkin";
 import PendingWork from "./scenes/pendingwork/pendingwork";
 import PendingWorkLeader from "./scenes/pendingwork/pendingworkLeader";
 import WorlOrderAll from "./scenes/workorder/worlorderall";
+import MyCard from "./scenes/employee";
 
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
@@ -184,6 +185,168 @@ function App() {
               element={
                 <Layout>
                   <Attdatetime />
+                </Layout>
+              }
+            />
+            -
+            <Route
+              path="/workorderlist"
+              element={
+                <Layout>
+                  <WorkOrderList />
+                </Layout>
+              }
+            />
+            -
+            <Route
+              path="/pendingwork"
+              element={
+                <Layout>
+                  <PendingWork />
+                </Layout>
+              }
+            />
+            -
+            <Route
+              path="/pendingworkLeader"
+              element={
+                <Layout>
+                  <PendingWorkLeader />
+                </Layout>
+              }
+            />
+            -
+            <Route
+              path="/worlorderall"
+              element={
+                <Layout>
+                  <WorlOrderAll />
+                </Layout>
+              }
+            />
+            -{/* <Route path="/attendance" element={<Attendance />} /> */}
+            <Route
+              path="/total_leave"
+              element={
+                <Layout>
+                  <TotalLeave />
+                </Layout>
+              }
+            />
+            <Route
+              path="/dashboard"
+              element={
+                <Layout>
+                  <Dashboard />
+                </Layout>
+              }
+            />
+            <Route
+              path="/team"
+              element={
+                <Layout>
+                  <Team />
+                </Layout>
+              }
+            />
+            <Route
+              path="/form"
+              element={
+                <Layout>
+                  <Form />
+                </Layout>
+              }
+            />
+            <Route
+              path="/factory"
+              element={
+                <Layout>
+                  <Factory />
+                </Layout>
+              }
+            />
+            <Route
+              path="/inventory"
+              element={
+                <Layout>
+                  <Inventory />
+                </Layout>
+              }
+            />
+            <Route
+              path="/overtime"
+              element={
+                <Layout>
+                  <OvertimeFormik />
+                </Layout>
+              }
+            />
+            <Route
+              path="/leave"
+              element={
+                <Layout>
+                  <LeaveFormik />
+                </Layout>
+              }
+            />
+            <Route
+              path="/attendance"
+              element={
+                <Layout>
+                  <Attendance />
+                </Layout>
+              }
+            />
+            -
+            <Route
+              path="/order"
+              element={
+                <Layout>
+                  <Order />
+                </Layout>
+              }
+            />
+            -
+            <Route
+              path="/customers"
+              element={
+                <Layout>
+                  <Customers />
+                </Layout>
+              }
+            />
+            <Route
+              path="/workorder"
+              element={
+                <Layout>
+                  <WorkOrder />
+                </Layout>
+              }
+            />
+            -
+            <Route
+              path="/checkin"
+              element={
+                <Layout>
+                  <Checkin />
+                </Layout>
+              }
+            />
+            -
+            <Route
+              path="/attdatetime"
+              element={
+                <Layout>
+                  <Attdatetime />
+                </Layout>
+              }
+            />
+            -
+            <Route
+              path="/employee"
+              element={
+                <Layout>
+                  <MyCard />
                 </Layout>
               }
             />

@@ -27,23 +27,31 @@ const MyCard = () => {
 
     const [userIsLogin, setUserIsLogin] = useState(false)
     useEffect(() => {
-        getDepts();
-        console.log("session", sessionStorage.getItem('userConfig'))
+        // getDepts();
+        console.log("session", sessionStorage.getItem('user'))
         if (sessionStorage.getItem('isLogin')) {
             setUserIsLogin(true)
         }
-        getUser(sessionStorage.getItem('userConfig'))
+        getUser(sessionStorage.getItem('user'))
     }, [])
 
+    // //初始觸發
+    // useEffect(() => {
+    //     //獲取後端員工清單
+    //     getUsers();
+    // }, []);
+
+
+
     //表單按下單比修改後觸發
-    const getUser = (id) => {
-        console.log("id", id);
+    const getUser = (account) => {
+        console.log("account", account);
         console.log("userdata1111", users);
         //請求後端查詢該筆員工id的員工資訊
-        axios.get('http://localhost:3702/employee/' + id)
+        axios.get('http://localhost:3702/employee/account/' + account)
             .then(response => {
-                setUsers(response.data);
-                console.log("data:npm", response.data);
+                setUsers(response.data[0]);
+                console.log("data:npm", response.data[0]);
             })
             .catch(error => {
                 console.error(error);
@@ -66,7 +74,7 @@ const MyCard = () => {
     const handleFormSubmit = (values, { resetForm }) => {
         console.log(values);
         alert(JSON.stringify(values, null, 2));
-        axios.post('http://localhost:3702/employee/create', values)
+        axios.post('http://localhost:3702/employee/update', values)
             .then(response => {
                 console.log(response.data);
                 // setDepts(response.data)
@@ -89,12 +97,8 @@ const MyCard = () => {
                 onSubmit={handleFormSubmit}
                 initialValues={iniValues}
                 validationSchema={yup.object({
-                    name: yup.string().required('必填'),
-                    account: yup.string().max(15).required('必填'),
                     email: yup.string().email('請輸入正確的電子郵件格式'),
-                    password: yup.string().required('必填'),
-                    tel: yup.string().max(15),
-                    dept: yup.string().required('必填')
+                    tel: yup.string().max(15)
                 })}
             >
                 {({ handleBlur, handleSubmit, handleChange, handleReset, values, errors, touched }) => (
@@ -140,14 +144,14 @@ const MyCard = () => {
                                 gridColumn: "span 2",
                             }}
                         />
-                        <TextField
+                        {/* <TextField
                             // fullWidth
                             // variant="filled"
                             type="password"
                             label="密碼"
                             onBlur={handleBlur}
                             onChange={handleChange}
-                            value={values.password}
+                            value={users.employee_pwd}
                             name="password"
                             error={!!touched.password && !!errors.password}
                             helperText={touched.password && errors.password}
@@ -159,7 +163,7 @@ const MyCard = () => {
                                 '& .MuiOutlinedInput-root': { fontSize: '22px' },
                                 gridColumn: "span 2",
                             }}
-                        />
+                        /> */}
 
                         <TextField
                             // fullWidth
@@ -168,7 +172,7 @@ const MyCard = () => {
                             label="電話"
                             onBlur={handleBlur}
                             onChange={handleChange}
-                            value={values.tel}
+                            value={users.employee_tel}
                             name="tel"
                             error={!!touched.tel && !!errors.tel}
                             helperText={touched.tel && errors.tel}
@@ -188,7 +192,7 @@ const MyCard = () => {
                             label="電子信箱"
                             onBlur={handleBlur}
                             onChange={handleChange}
-                            value={values.email}
+                            value={users.employee_email}
                             name="email"
                             error={!!touched.email && !!errors.email}
                             helperText={touched.email && errors.email}
@@ -202,14 +206,13 @@ const MyCard = () => {
                             }}
                         />
                         <TextField
+                            disabled
                             InputProps={{
                                 readOnly: true,
                             }}
                             name="startwork"
                             label="報到日期"
-                            type="month"
-                            InputLabelProps={{ shrink: true }}
-                            value={users.startwork}
+                            value={users.startwork_time}
                             // onChange={handleChange}
                             sx={{
                                 width: '100%',
@@ -219,11 +222,11 @@ const MyCard = () => {
                                 '& .MuiOutlinedInput-root': { fontSize: '22px' },
                             }}
                         />
-                        <FormControl fullWidth>
+                        {/* <FormControl fullWidth>
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={values.dept}
+                                value={users.dept_name}
                                 label="選擇部門"
                                 name="dept"
                                 onChange={handleChange}
@@ -243,7 +246,27 @@ const MyCard = () => {
                                 ))}
 
                             </Select>
-                        </FormControl>
+                        </FormControl> */}
+                        <TextField
+                            // fullWidth
+                            // variant="filled"
+                            type="text"
+                            label="部門"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={users.dept_name}
+                            name="dept"
+                            error={!!touched.email && !!errors.email}
+                            helperText={touched.email && errors.email}
+                            sx={{
+                                width: '100%',
+                                m: 1,
+                                '& label.Mui-focused': { color: '#4cceac', },
+                                '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
+                                '& .MuiOutlinedInput-root': { fontSize: '22px' },
+                                gridColumn: "span 2",
+                            }}
+                        />
 
                         {/* <Button type="submit" onClick={handleReset} >建立</Button> */}
                         <Button variant='contained' type="submit" color='primary'

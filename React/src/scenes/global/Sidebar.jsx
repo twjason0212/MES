@@ -136,6 +136,10 @@ const Sidebar = () => {
         <Menu iconShape="square">
           {/* LOGO AND MENU ICON */}
           <MenuItem
+<<<<<<< HEAD
+=======
+            
+>>>>>>> fc18d26e56090139c8f8dcc86d34c174ff46fa1b
             onClick={() => setIsCollapsed(isCollapsed)}
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
             style={{
@@ -185,14 +189,22 @@ const Sidebar = () => {
           )}
 
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
+<<<<<<< HEAD
             <List component="div" disablePadding>
+=======
+            <List component="div" disablePadding >
+>>>>>>> fc18d26e56090139c8f8dcc86d34c174ff46fa1b
               <ListItemButton sx={{ pl: 2 }}>
                 <ListItemIcon>
                   <HomeOutlinedIcon />
                 </ListItemIcon>
                 <ListItemText
                   primary="Home"
+<<<<<<< HEAD
                   primaryTypographyProps={{ fontSize: "20px" }}
+=======
+                  primaryTypographyProps={{ fontSize: '20px' }}
+>>>>>>> fc18d26e56090139c8f8dcc86d34c174ff46fa1b
                 />
                 <Link to="/"></Link>
               </ListItemButton>

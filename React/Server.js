@@ -286,6 +286,26 @@ app.get("/employee/:id", function (req, res) {
   );
 });
 
+//獲取單一員工資訊by員工id
+app.get("/employee/:account", function (req, res) {
+  console.log("/employee/:account", req.params.account);
+  connection.query(
+    `SELECT employee_id, employee.employee_account, employee.employee_name, employee_pwd,
+    department.dept_name, employee.employee_tel, employee.employee_email, role.role_name, startwork_time
+    FROM employee
+    LEFT JOIN role ON employee.employee_role = role.id 
+    LEFT JOIN department ON employee.department = department.id
+      WHERE employee_account = '` +
+      req.params.account +
+      `'`,
+    function (error, data) {
+      // connection.query("select id,EmployeeName,EmployeeId,DATE_FORMAT(starttime, '%Y-%m-%d %H:%i') as starttime,DATE_FORMAT(endtime, '%Y-%m-%d %H:%i') as endtime,holiday from att", function (error, data) {
+      res.send(JSON.stringify(data));
+      console.log(data);
+    }
+  );
+});
+
 //模糊查詢員工資訊
 app.get("/employee/select/:keyword", function (req, res) {
   console.log("/employee/:keyword", req.params);
@@ -298,7 +318,25 @@ app.get("/employee/select/:keyword", function (req, res) {
     WHERE employee_name like '` +
     "%" +
     req.params.keyword +
-    "%" +
+    `%'`;
+  connection.query(sqlString, function (error, data) {
+    // connection.query("select id,EmployeeName,EmployeeId,DATE_FORMAT(starttime, '%Y-%m-%d %H:%i') as starttime,DATE_FORMAT(endtime, '%Y-%m-%d %H:%i') as endtime,holiday from att", function (error, data) {
+    res.send(JSON.stringify(data));
+    console.log("JSON.stringify(data)", JSON.stringify(data));
+  });
+});
+
+//模糊查詢員工資訊
+app.get("/employee/account/:account", function (req, res) {
+  console.log("/employee/account/:account", req.params);
+  let sqlString =
+    `SELECT employee_id, employee.employee_account, employee.employee_name, department.id,
+    department.dept_name, employee.employee_tel, employee.employee_email, role.role_name, employee.startwork_time 
+    FROM employee
+    LEFT JOIN role ON employee.employee_role = role.id 
+    LEFT JOIN department ON employee.department = department.id
+    WHERE employee_account = '` +
+    req.params.account +
     `'`;
   connection.query(sqlString, function (error, data) {
     // connection.query("select id,EmployeeName,EmployeeId,DATE_FORMAT(starttime, '%Y-%m-%d %H:%i') as starttime,DATE_FORMAT(endtime, '%Y-%m-%d %H:%i') as endtime,holiday from att", function (error, data) {

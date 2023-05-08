@@ -47,7 +47,7 @@ const EmployeeForm = () => {
       .then(response => {
         // result = response.data;
         console.log("resp", response.data);
-        alert(response.data);
+        alert(response.data[0]);
         // setDepts(response.data)
       })
       .catch(error => {
