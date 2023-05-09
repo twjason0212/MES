@@ -91,7 +91,7 @@ app.get("/attdance", function (req, res) {
 app.put("/attdance", function (req, res) {
   connection.query(
     "update attendance set starttime = ? , endtime = ? where id =" +
-      req.body.id,
+    req.body.id,
     [req.body.starttime, req.body.endtime]
   );
   res.send("Update Finish");
@@ -199,7 +199,7 @@ app.post("/attendance/checkin", function (req, res) {
           res.status(500).send("Error occurred: " + error.message);
         } else if (results.length > 0) {
           // 已经有上班记录了
-          res.status(400).send("You have already checked in");
+          res.status(400).send("你已經打卡了(上班)");
         } else {
           connection.query(
             "INSERT INTO attendance SET employee_account = ?, starttime = ?, status = ?",
@@ -230,7 +230,7 @@ app.post("/attendance/checkin", function (req, res) {
           res.status(400).send("You haven't checked in yet");
         } else if (results[0].endtime !== null) {
           // 已经有下班记录了
-          res.status(400).send("You have already checked out");
+          res.status(400).send("你已經打卡了(下班)");
         } else {
           connection.query(
             "UPDATE attendance SET endtime = ? WHERE employee_account = ? AND DATE(starttime) = CURDATE()",
@@ -346,7 +346,7 @@ app.put("/employee/update", function (req, res) {
   console.log(req.body);
   connection.query(
     `update employee set employee_account = ?, employee_name = ?, employee_tel = ?, employee_email = ?, startwork_time = ? where employee_id = ` +
-      req.body.employee_id,
+    req.body.employee_id,
     [
       req.body.employee_account,
       req.body.employee_name,
@@ -412,7 +412,7 @@ app.get("/coustomer", function (req, res) {
 app.put("/coustomer", function (req, res) {
   connection.query(
     "update customers set customerphone = ? , customeremail = ? , customeraddress = ? ,customerfax = ? where customerid =" +
-      req.body.customerid,
+    req.body.customerid,
     [
       req.body.customerphone,
       req.body.customeremail,
@@ -448,15 +448,46 @@ app.get("/coustomername", function (req, res) {
   );
 });
 
+//新增訂單下拉式選單(產品)
+app.get("/productname", function (req, res) {
+  connection.query(
+    "select product_name from product",
+    function (error, data) {
+      res.send(JSON.stringify(data));
+    }
+  );
+});
+
+//新增訂單(自動訂單編號)
+app.get('/orderid', function (req, res) {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
+
+
+  connection.query(`select COUNT(*) AS count from orders where orderdate = '${year}-${month}-${day}'`, function (error, data) {
+    if (error) {
+      console.log(error)
+      return;
+    }
+
+    const count = data[0].count + 1;
+    const orderNo = `${year}${month}${day}${count.toString().padStart(3, '0')}`;
+    res.send(orderNo)
+    console.log(orderNo)
+  })
+})
+
 //新增訂單
 app.post("/order/create", function (req, res) {
   const order = req.body;
   // start a MySQL transaction
-  pool.getConnection((err, connection) => {
-    if (err) throw err;
+  pool.getConnection((error, connection) => {
+    if (error) throw error;
 
     connection.beginTransaction((err) => {
-      if (err) throw err;
+      if (error) throw error;
 
       // insert data into orders table
       const orderData = {
@@ -572,11 +603,12 @@ app.get("/order", function (req, res) {
 app.put("/order/edit", function (req, res) {
   connection.query(
     "update orders set deliverydate = ? , orderstate = ? ,changdate = ? where orderid = " +
-      req.body.orderid,
+    req.body.orderid,
     [req.body.deliverydate, req.body.orderstate, req.body.changdate]
   );
   res.send("修改成功");
 });
+
 
 //訂單產品分布pie
 app.get("/order/productpie", function (req, res) {
@@ -745,9 +777,7 @@ app.get("/qOrdNum", function (req, res) {
     }
   );
 });
-// connection.query("select * from products", function (error, data) {
-//   res.send(JSON.stringify(data))
-// })
+
 
 //新增產品(庫存)
 app.post("/product/create", upload.single("photo_url"), (req, res) => {
@@ -771,6 +801,7 @@ app.post("/product/create", upload.single("photo_url"), (req, res) => {
 app.get("/product", function (req, res) {
   connection.query("select * from product", function (error, data) {
     res.send(JSON.stringify(data));
+    console.log(data)
   });
 });
 
@@ -778,7 +809,7 @@ app.get("/product", function (req, res) {
 app.put("/product", function (req, res) {
   connection.query(
     "update product set product_amount = ? where product_id =" +
-      req.body.product_id,
+    req.body.product_id,
     [req.body.product_amount]
   );
   res.send("Update Finish");
@@ -800,7 +831,7 @@ app.put("/workorderlist", function (req, res) {
   console.log(req.body);
   connection.query(
     "update work_order set machine_uuid = ? ,work_order_executor = ?, work_order_status = ? where id = " +
-      req.body.id,
+    req.body.id,
     [req.body.machine_uuid, req.body.work_order_executor, 2]
   );
   res.send("接單完成");
@@ -885,14 +916,24 @@ app.put("/reportorder", function (req, res) {
 app.put("/reportorderl", function (req, res) {
   connection.query(
     "update report_order join work_order on work_order.work_order_id = report_order.work_order_id set report_order.real_process_amount = ? , report_order.defect_process_amount = ?, work_order.work_order_status = ?  where work_order.id = ?",
-    [
-      req.body.real_process_amount,
-      req.body.defect_process_amount,
-      4,
-      req.body.id,
-    ]
-  );
-  res.send("審核通過");
+    [req.body.real_process_amount, req.body.defect_process_amount, 4, req.body.id,], function (error, result) {
+      if (error) {
+        res.send(error.message);
+      } else {
+        const now = new Date();
+       
+        connection.query('update product set product_amount = ? ,product_updatetime=? where product_name = ?', [req.body.real_process_amount, now, req.body.product_name], function (error, result) {
+          if (error){
+            res.send(error.message);
+          } else {
+            res.send("審核通過"); 
+            console.log(result);
+          }
+        })
+      }
+    });
+  
+
 });
 
 //工單管理

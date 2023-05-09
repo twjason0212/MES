@@ -5,6 +5,9 @@ import axios from 'axios';
 import { tokens } from "../../theme";
 import Neworder2 from './neworder2.jsx';
 import Grid from '@mui/material/Unstable_Grid2';
+import EditIcon from '@mui/icons-material/Edit';
+import SaveAsIcon from '@mui/icons-material/SaveAs';
+
 function getDaysDiff(date1, date2) {
     const timeDiff = date2.getTime() - date1.getTime();
     const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
@@ -115,8 +118,7 @@ const OrdersTable = () => {
                         color: '#4cceac'
                     }, '& .MuiInputLabel-outlined': {
                         color: '#4cceac',
-                        fontSize: "22px",
-                        pl: 2
+                        fontSize: "22px"
                     }, '& .MuiOutlinedInput-root': {
                         fontSize: '22px'
                     },
@@ -170,9 +172,9 @@ const OrdersTable = () => {
                                     <TableCell className='textcen'>{order.orderdate}</TableCell>
                                     <TableCell className='textcen'>{order.deliverydate}</TableCell>
                                     <TableCell className='textcen'>{order.orderstate_name}</TableCell>
-                                    <TableCell className='textcen'>{getDaysDiff(new Date(), new Date(order.deliverydate)) < 0 ? '-' : getDaysDiff(new Date(), new Date(order.deliverydate))}天</TableCell>
+                                    <TableCell className='textcen'>{getDaysDiff(new Date(), new Date(order.deliverydate)) < 0 ? '-' : `${getDaysDiff(new Date(), new Date(order.deliverydate))}天`}</TableCell>
                                     <TableCell className='textcen'>
-                                        <Button variant="contained" size='large' className='textcen' color="secondary" onClick={() => handleRowClick(order)}>
+                                        <Button variant="contained" size='large' className='textcen' color="secondary" onClick={() => handleRowClick(order)} startIcon={<EditIcon style={{fontSize:28}} />}>
                                             編輯
                                         </Button>
 
@@ -357,8 +359,8 @@ const OrdersTable = () => {
                                 <MenuItem value={3}>已結單</MenuItem>
                             </Select> */}
                             <DialogActions sx={{ mt: 2 }}>
-                                <Button variant="contained" onClick={handleClose} color="error">取消</Button>
-                                <Button variant="contained" type="submit" color="info" onClick={() => handleSaveClick(orderdata)}>
+                                
+                                <Button variant="contained" type="submit" color="info" fullWidth onClick={() => handleSaveClick(orderdata)} startIcon={<SaveAsIcon style={{fontSize:28}} />}>
                                     儲存
                                 </Button>
                             </DialogActions>

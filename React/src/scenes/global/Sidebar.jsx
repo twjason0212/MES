@@ -643,7 +643,7 @@ const Sidebar = () => {
                       <ListItemText
                         primaryTypographyProps={{fontSize: 20}}
                         primary="基本資料" />
-                      <Link to="/form"></Link>
+                      <Link to="/employee"></Link>
                     </ListItemButton>
                   </List>
 
@@ -809,7 +809,7 @@ const Sidebar = () => {
                         <ListItemText
                           primaryTypographyProps={{ fontSize: '20px' }}
                           primary="基本資料" />
-                        <Link to="/form"></Link>
+                        <Link to="/employee"></Link>
                       </ListItemButton>
                     </List>
 
@@ -957,7 +957,7 @@ const Sidebar = () => {
                       <ListItemText
                         primaryTypographyProps={{fontSize: 20, }}
                         primary="基本資料" />
-                      <Link to="/form"></Link>
+                      <Link to="/employee"></Link>
                     </ListItemButton>
                   </List>
 

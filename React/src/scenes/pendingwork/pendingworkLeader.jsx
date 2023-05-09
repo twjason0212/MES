@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {
     Box, TableContainer, TableHead, TableRow, TableCell, TableBody, Table, Button
-    , Dialog, DialogContent, TextField, useTheme, DialogTitle
+    , Dialog, DialogContent, TextField, useTheme, DialogTitle, Snackbar, Alert
 } from "@mui/material";
 import axios from "axios";
 import withAuth from "../../components/withAuth";
@@ -10,6 +10,8 @@ import { tokens } from "../../theme";
 import Grid from '@mui/material/Unstable_Grid2';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
+import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
+import SaveAsIcon from '@mui/icons-material/SaveAs';
 
 const PendingWorkLeader = () => {
 
@@ -60,12 +62,25 @@ const PendingWorkLeader = () => {
         console.log(data)
     }
 
+    const [alertOpen, setAlertOpen] = useState(false)
+
+    const handleAlertClose = () => {
+        setAlertOpen(false)
+    };
+
+
+
 
 
     return (
         <Box m="20px" >
+            <Snackbar open={alertOpen} autoHideDuration={3000} onClose={handleAlertClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}  >
+                <Alert onClose={handleAlertClose} icon={false} sx={{ width: '100%', fontSize: 20, color: 'black', backgroundColor: '#4cceac' }}>
+                    審核完成!
+                </Alert>
+            </Snackbar>
 
-            <Header title="個人待辦工單" subtitle="尚待處理之工單"/>
+            <Header title="個人待辦工單" subtitle="尚待處理之工單" />
             <TableContainer m="40px 0 0 0">
                 <Table sx={{ backgroundColor: colors.primary[400], mt: 3, }}>
                     <TableHead sx={{
@@ -99,7 +114,7 @@ const PendingWorkLeader = () => {
                                     <TableCell>{order.work_order_status_name}</TableCell>
                                     <TableCell>
                                         <Button variant="contained" color="secondary" sx={{ fontSize: '20px', textAlign: "center" }}
-                                            onClick={() => handlePeClick(order)}>
+                                            onClick={() => handlePeClick(order)} startIcon={<AssignmentTurnedInIcon style={{ fontSize: 28 }} />}>
                                             審核
                                         </Button>
                                     </TableCell>
@@ -248,8 +263,8 @@ const PendingWorkLeader = () => {
                                                 />
                                             </Grid>
                                         </Grid>
-                                        <Button fullWidth sx={{ mt: 2 }} variant="contained" type="submit" color="info" >
-                                            儲存
+                                        <Button fullWidth sx={{ mt: 2 }} variant="contained" type="submit" color="info" startIcon={<SaveAsIcon style={{fontSize:28}} />} >
+                                            審核完成
                                         </Button>
                                     </Box>
                                 )}

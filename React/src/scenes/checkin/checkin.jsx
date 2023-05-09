@@ -45,6 +45,7 @@ const CheckIn = () => {
             .then((response) => {
                 console.log(response.data);
                 setEvents([...events, eventData]);
+                alert("打卡成功")
             })
             .catch((error) => {
                 console.log(error);
@@ -55,7 +56,6 @@ const CheckIn = () => {
 
 
         console.log(events)
-        alert("打卡成功")
     }
 
 
