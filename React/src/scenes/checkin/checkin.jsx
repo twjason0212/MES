@@ -12,6 +12,11 @@ const CheckIn = () => {
     const [events, setEvents] = useState([]);
 
     useEffect(() => {
+        const now = new Date();
+        setYear(now.getFullYear());
+        setMonth(now.getMonth() + 1);
+        setDay(now.getDate());
+        setTime(now.toLocaleTimeString());
         setInterval(() => {
             const now = new Date();
             setYear(now.getFullYear());
