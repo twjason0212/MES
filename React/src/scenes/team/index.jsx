@@ -303,6 +303,7 @@ const Team = () => {
             />
             <TextField
               label="帳號"
+              disabled
               defaultValue={clickedRow.employee_account}
               fullWidth
               onChange={(event) =>
