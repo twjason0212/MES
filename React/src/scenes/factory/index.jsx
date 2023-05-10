@@ -55,7 +55,6 @@ const Factory = () => {
       .then((response) => response.json())
       .then((data) => setMachines(data));
   }, []);
-
   return (
     <Box m="20px">
       <Header title="MACHINE OVERVIEW" subtitle="Machine Status" />
@@ -154,7 +153,8 @@ const Factory = () => {
                             當日稼動率：{dialog.day_availability + "%"}
                           </Typography>
                           <Typography variant="h2" mt={3}>
-                            Error_Msg：{"*" + dialog.error_msg + "*"}
+                            錯誤訊息：
+                            {dialog.error_msg === "" ? "無" : dialog.error_msg}
                           </Typography>
                         </DialogContentText>
                       </DialogContent>
