@@ -48,7 +48,7 @@ const WorkOrderAll = () => {
             <TableContainer m="40px 0 0 0">
                 <Table sx={{ backgroundColor: colors.primary[400], mt: 3, }}>
                     <TableHead sx={{
-                        backgroundColor: colors.blueAccent[700], mt: 2, '& .MuiTableCell-root': { fontSize: '22px', textAlign: "center" }
+                        backgroundColor: colors.blueAccent[700], mt: 2, '& .MuiTableCell-root': { fontSize: '24px', textAlign: "center" }
                     }}>
                         <TableRow>
                             <TableCell>派工單號</TableCell>
@@ -61,7 +61,7 @@ const WorkOrderAll = () => {
                     <TableBody>
                         {workorder.map((order) => (
                             <React.Fragment key={order.work_order_id}>
-                                <TableRow sx={{ '& .MuiTableCell-root': { fontSize: '20px', textAlign: "center" } }}>
+                                <TableRow sx={{ '& .MuiTableCell-root': { fontSize: '24px', textAlign: "center" } }}>
                                     <TableCell onClick={() => handleCollClick(order.work_order_id)}>{order.work_order_id}</TableCell>
                                     <TableCell>{order.product_name}</TableCell>
                                     <TableCell>{new Date(order.process_date).toLocaleString('zh-TW', {
@@ -79,24 +79,24 @@ const WorkOrderAll = () => {
                                     <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={5}>
                                         <Collapse in={collopen.includes(order.work_order_id)} timeout="auto" unmountOnExit>
                                             <AccordionSummary aria-controls="panel1c-content" id="panel1c-header">
-                                                <Typography variant="h4" sx={{ mt: 1, p: 1, backgroundColor: colors.blueAccent[700] }}>報工單資料</Typography>
+                                                <Typography variant="h3" sx={{ mt: 1, p: 1, backgroundColor: colors.blueAccent[700] }}>報工單資料</Typography>
                                             </AccordionSummary>
                                             <AccordionDetails>
                                                 <Grid container spacing={3} sx={{ ml: 3 }}>
                                                     <Grid xs={6}>
-                                                        <Typography variant='h4'>製作人員:{order.work_order_executor}</Typography>
+                                                        <Typography variant='h3'>製作人員:{order.work_order_executor}</Typography>
                                                     </Grid>
                                                     <Grid xs={6}>
-                                                        <Typography variant='h4'>製作機器編號:{order.machine_uuid}</Typography>
+                                                        <Typography variant='h3'>製作機器編號:{order.machine_uuid}</Typography>
                                                     </Grid>
                                                     <Grid xs={6}>
-                                                        <Typography variant='h4'>成品數量:{order.real_process_amount}</Typography>
+                                                        <Typography variant='h3'>成品數量:{order.real_process_amount}</Typography>
                                                     </Grid>
                                                     <Grid xs={6}>
-                                                        <Typography variant='h4'>不良品數量: {order.defect_process_amount}</Typography>
+                                                        <Typography variant='h3'>不良品數量: {order.defect_process_amount}</Typography>
                                                     </Grid>
                                                     <Grid xs={6}>
-                                                        <Typography variant='h4'>不良率:{order.defect_process_amount / order.real_process_amount}</Typography>
+                                                        <Typography variant='h3'>不良率:{order.defect_process_amount / order.real_process_amount}</Typography>
                                                     </Grid>
                                                 </Grid>
                                             </AccordionDetails>

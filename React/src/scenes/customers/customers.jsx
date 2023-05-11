@@ -122,8 +122,8 @@ const Newcust = () => {
                 <Grid container alignItems="center" sx={{
                     '& .MuiTextField-root': { mt: 2 },
                     '& label.Mui-focused': { color: '#4cceac' },
-                    '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
-                    '& .MuiOutlinedInput-root': { fontSize: '22px' },
+                    '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "24px" },
+                    '& .MuiOutlinedInput-root': { fontSize: '24px' },
                 }}>
                     <Grid item xs={6} >
                         <Box sx={{
@@ -161,7 +161,7 @@ const Newcust = () => {
                 </Snackbar>
                 <Table sx={{ backgroundColor: colors.primary[400], mt: 3, }}>
                     <TableHead sx={{
-                        backgroundColor: colors.blueAccent[700], mt: 2, '& .MuiTableCell-root': { fontSize: '22px', textAlign: "center" }
+                        backgroundColor: colors.blueAccent[700], mt: 2, '& .MuiTableCell-root': { fontSize: '24px', textAlign: "center" }
                     }}>
                         <TableRow>
                             <TableCell>ID</TableCell>
@@ -177,7 +177,7 @@ const Newcust = () => {
                         {filtercustomer.map((customer) => (
                             <React.Fragment key={customer.customerid}>
                                 <TableRow onClick={() => handleCollClick(customer.customerid)}
-                                    sx={{ '& .MuiTableCell-root': { fontSize: '20px', textAlign: "center" } }}>
+                                    sx={{ '& .MuiTableCell-root': { fontSize: '24px', textAlign: "center" } }}>
                                     <TableCell >{customer.customerid}</TableCell>
                                     <TableCell>{customer.customername}</TableCell>
                                     <TableCell>{customer.customerphone}</TableCell>
@@ -185,7 +185,7 @@ const Newcust = () => {
                                     {/* <TableCell>{customer.customeraddress}</TableCell>
                             <TableCell>{customer.customerfax}</TableCell> */}
                                     <TableCell>
-                                        <Button variant="contained" color="secondary" sx={{ fontSize: '20px', textAlign: "center" }}
+                                        <Button variant="contained" color="secondary" sx={{ fontSize: '24px', textAlign: "center" }}
                                             onClick={() => handleClick(customer)} startIcon={<EditIcon style={{ fontSize: 28 }} />}>
                                             編輯
                                         </Button>
@@ -195,11 +195,11 @@ const Newcust = () => {
                                     <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={5}>
                                         <Collapse in={collopen.includes(customer.customerid)} timeout="auto" unmountOnExit>
                                             <AccordionSummary aria-controls="panel1c-content" id="panel1c-header">
-                                                <Typography variant="h4" sx={{ mt: 1, p: 1, backgroundColor: colors.blueAccent[700] }}>客戶資料</Typography>
+                                                <Typography variant="h3" sx={{ mt: 1, p: 1, backgroundColor: colors.blueAccent[700] }}>客戶資料</Typography>
                                             </AccordionSummary>
                                             <AccordionDetails sx={{ ml: 3 }}>
-                                                <Typography variant="h4" sx={{ mb: 1 }}>客戶地址:{customer.customeraddress}</Typography>
-                                                <Typography variant="h4">客戶傳真:{customer.customerfax}</Typography>
+                                                <Typography variant="h3" sx={{ mb: 1 }}>客戶地址:{customer.customeraddress}</Typography>
+                                                <Typography variant="h3">客戶傳真:{customer.customerfax}</Typography>
                                             </AccordionDetails>
                                         </Collapse>
                                     </TableCell>
@@ -214,11 +214,11 @@ const Newcust = () => {
                     <Dialog open={open} onClose={handleClose} sx={{
                         '& .MuiTextField-root': { mt: 2 },
                         '& label.Mui-focused': { color: '#4cceac' },
-                        '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
-                        '& .MuiOutlinedInput-root': { fontSize: '22px' },
-                        '& .MuiButton-root': { fontSize: '22px' },
+                        '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "24px" },
+                        '& .MuiOutlinedInput-root': { fontSize: '24px' },
+                        '& .MuiButton-root': { fontSize: '24px' },
                     }} >
-                        <DialogTitle variant="h4" sx={{ color: colors.greenAccent[500] }}>編輯客戶資料</DialogTitle>
+                        <DialogTitle variant="h3" sx={{ color: colors.greenAccent[500] }}>編輯客戶資料</DialogTitle>
                         <DialogContent sx={{ ml: 2 }}>
                             <TextField
                                 label="客戶ID"

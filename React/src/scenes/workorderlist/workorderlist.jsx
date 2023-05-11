@@ -82,7 +82,7 @@ const WorkOrderList = () => {
             <TableContainer m="40px 0 0 0">
                 <Table sx={{ backgroundColor: colors.primary[400], mt: 3, }}>
                     <TableHead sx={{
-                        backgroundColor: colors.blueAccent[700], mt: 2, '& .MuiTableCell-root': { fontSize: '22px', textAlign: "center" }
+                        backgroundColor: colors.blueAccent[700], mt: 2, '& .MuiTableCell-root': { fontSize: '24px', textAlign: "center" }
                     }}>
                         <TableRow>
                             <TableCell>派工單號</TableCell>
@@ -96,7 +96,7 @@ const WorkOrderList = () => {
                     <TableBody>
                         {workorder.map((order) => (
                             <React.Fragment key={order.work_order_id}>
-                                <TableRow sx={{ '& .MuiTableCell-root': { fontSize: '20px', textAlign: "center" } }}>
+                                <TableRow sx={{ '& .MuiTableCell-root': { fontSize: '24px', textAlign: "center" } }}>
                                     <TableCell>{order.work_order_id}</TableCell>
                                     <TableCell>{order.product_name}</TableCell>
                                     <TableCell>{new Date(order.process_date).toLocaleString('zh-TW', {
@@ -110,7 +110,7 @@ const WorkOrderList = () => {
                                     <TableCell>{order.tar_process_amount}</TableCell>
                                     <TableCell>{order.work_order_status_name}</TableCell>
                                     <TableCell>
-                                        <Button variant="contained" color="secondary" sx={{ fontSize: '20px', textAlign: "center" }}
+                                        <Button variant="contained" color="secondary" sx={{ fontSize: '24px', textAlign: "center" }}
                                             onClick={() => handleReClick(order)} startIcon={<AssignmentTurnedInIcon style={{ fontSize: 28 }} />} >
                                             接單
                                         </Button>
@@ -129,11 +129,11 @@ const WorkOrderList = () => {
                             color: '#4cceac',
                         }, '& .MuiInputLabel-outlined': {
                             color: '#4cceac',
-                            fontSize: "22px"
+                            fontSize: "24px"
                         }, '& .MuiOutlinedInput-root': {
-                            fontSize: '22px'
+                            fontSize: '24px'
                         }, '& .MuiButton-root': {
-                            fontSize: '22px', mt: 4
+                            fontSize: '24px', mt: 4
                         },
                     }} >
 

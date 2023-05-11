@@ -85,7 +85,7 @@ const PendingWorkLeader = () => {
                 <Table sx={{ backgroundColor: colors.primary[400], mt: 3, }}>
                     <TableHead sx={{
                         backgroundColor: colors.blueAccent[700], mt: 2,
-                        '& .MuiTableCell-root': { fontSize: '22px', textAlign: "center" }
+                        '& .MuiTableCell-root': { fontSize: '24px', textAlign: "center" }
                     }}>
                         <TableRow>
                             <TableCell>派工單號</TableCell>
@@ -99,7 +99,7 @@ const PendingWorkLeader = () => {
                     <TableBody>
                         {pendingwork.map((order) => (
                             <React.Fragment key={order.work_order_id}>
-                                <TableRow sx={{ '& .MuiTableCell-root': { fontSize: '20px', textAlign: "center" } }}>
+                                <TableRow sx={{ '& .MuiTableCell-root': { fontSize: '24px', textAlign: "center" } }}>
                                     <TableCell>{order.work_order_id}</TableCell>
                                     <TableCell>{order.product_name}</TableCell>
                                     <TableCell>{new Date(order.process_date).toLocaleString('zh-TW', {
@@ -113,7 +113,7 @@ const PendingWorkLeader = () => {
                                     <TableCell>{order.tar_process_amount}</TableCell>
                                     <TableCell>{order.work_order_status_name}</TableCell>
                                     <TableCell>
-                                        <Button variant="contained" color="secondary" sx={{ fontSize: '20px', textAlign: "center" }}
+                                        <Button variant="contained" color="secondary" sx={{ fontSize: '24px', textAlign: "center" }}
                                             onClick={() => handlePeClick(order)} startIcon={<AssignmentTurnedInIcon style={{ fontSize: 28 }} />}>
                                             審核
                                         </Button>
@@ -126,18 +126,18 @@ const PendingWorkLeader = () => {
 
                 {rependingwork && (
                     <Dialog open={open} onClose={handleClose} sx={{
-                        "& .titlegreen-text": { color: colors.greenAccent[500], fontSize: "22px", },
+                        "& .titlegreen-text": { color: colors.greenAccent[500], fontSize: "24px", },
                         '& .MuiTextField-root': { m: 1 },
                         '& label.Mui-focused': {
                             color: '#4cceac'
                         }, '& .MuiInputLabel-outlined': {
                             color: '#4cceac',
-                            fontSize: "22px",
+                            fontSize: "24px",
 
                         }, '& .MuiOutlinedInput-root': {
-                            fontSize: '22px'
+                            fontSize: '24px'
                         }, '& .MuiButton-root': {
-                            fontSize: '22px', mt: 4
+                            fontSize: '24px', mt: 4
                         },
                     }} >
                         <DialogTitle className="titlegreen-text">審核報工單</DialogTitle>

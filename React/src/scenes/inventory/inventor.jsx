@@ -132,7 +132,7 @@ const GridCard = () => {
             <Box sx={{ ml: 3 }}>
                 <Grid container spacing={2} >
                     {filteredCard.map((card) => (
-                        <Grid md={3} key={card.product_id} >
+                        <Grid md={4} key={card.product_id} >
                             <Card sx={{
                                 height: 245, '& .MuiButton-root': {
                                     fontSize: '20px'
@@ -141,16 +141,16 @@ const GridCard = () => {
                                 <Grid container spacing={2}>
                                     <Grid xs={6}>
                                         <CardContent>
-                                            <Typography component="div" variant="h4">
+                                            <Typography component="div" variant="h3">
                                                 {card.product_name}
                                             </Typography>
-                                            <Typography color="text.secondary" component="div" mt="15px" variant="h4">
+                                            <Typography color="text.secondary" component="div" mt="10px" variant="h3">
                                                 編號:{card.product_id}
                                             </Typography>
-                                            <Typography color="text.secondary" component="div" mt="15px" variant="h4">
+                                            <Typography color="text.secondary" component="div" mt="10px" variant="h3">
                                                 安全庫存量:{card.product_safe_amount}
                                             </Typography>
-                                            <Typography color="text.secondary" component="div" mt="15px" variant="h4" style={{ color: card.product_safe_amount - card.product_amount < 0 ? '#4cceac' : 'red' }}>
+                                            <Typography color="text.secondary" component="div" mt="10px" variant="h3" style={{ color: card.product_safe_amount - card.product_amount <= 0 ? '#4cceac' : 'red' }}>
                                                 目前庫存量:{card.product_amount}
                                             </Typography>
                                         </CardContent>

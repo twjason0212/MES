@@ -166,7 +166,7 @@ api.post("/login", (req, res) => {
         let token = jwt.sign(
           JSON.parse(JSON.stringify(setToken)),
           app.get("secret"),
-          { expiresIn: 60 * 60 * 24 }
+          { expiresIn: 60 * 60 * 1 }
         );
 
         res.json({
@@ -808,9 +808,9 @@ app.get("/product", function (req, res) {
 //修改產品(庫存)
 app.put("/product", function (req, res) {
   connection.query(
-    "update product set product_amount = ? where product_id =" +
+    "update product set product_amount = ? ,product_safe_amount = ?where product_id =" +
     req.body.product_id,
-    [req.body.product_amount]
+    [req.body.product_amount,req.body.product_safe_amount]
   );
   res.send("Update Finish");
 });

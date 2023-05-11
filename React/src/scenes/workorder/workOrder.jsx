@@ -89,9 +89,9 @@ const WorkOrder = () => {
                                         color: '#4cceac',
                                     }, '& .MuiInputLabel-filled': {
                                         color: '#4cceac',
-                                        fontSize: "22px"
+                                        fontSize: "24px"
                                     }, '& .MuiFilledInput-root': {
-                                        fontSize: '22px'
+                                        fontSize: '24px'
                                     }, "& > div": {
                                         gridColumn: isNonMobile ? undefined : "span 4"
                                     },
@@ -162,7 +162,7 @@ const WorkOrder = () => {
                                         />
                                     )}
                                     renderOption={(props, option) => (
-                                        <li {...props} style={{ fontSize: 22 }}>
+                                        <li {...props} style={{ fontSize: 24 }}>
                                             {option.product_name}
                                         </li>
                                     )}
@@ -203,7 +203,7 @@ const WorkOrder = () => {
                                 />
                             </Box>
 
-                            <Box style={{ display: 'flex', justifyContent: 'right' }} sx={{ '& .MuiButton-root': { fontSize: '22px', m: 3 } }}>
+                            <Box style={{ display: 'flex', justifyContent: 'right' }} sx={{ '& .MuiButton-root': { fontSize: '24px', m: 3 } }}>
                                 <Button type="submit" color="secondary" variant="contained" startIcon={<SaveAsIcon style={{ fontSize: 28 }} />}>儲存</Button>
                             </Box>
 

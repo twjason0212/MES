@@ -118,9 +118,9 @@ const OrdersTable = () => {
                         color: '#4cceac'
                     }, '& .MuiInputLabel-outlined': {
                         color: '#4cceac',
-                        fontSize: "22px"
+                        fontSize: "24px"
                     }, '& .MuiOutlinedInput-root': {
-                        fontSize: '22px'
+                        fontSize: '24px'
                     },
                 }}>
                     <TextField sx={{ width: '100%', m: 1 }}
@@ -147,7 +147,7 @@ const OrdersTable = () => {
             </Box>
             <Neworder2 setShouldUpdate={setShouldUpdate} />
             <TableContainer >
-                <Table sx={{ backgroundColor: colors.primary[400], mt: 3, '& .textcen': { fontSize: '22px', textAlign: "center" } }}>
+                <Table sx={{ backgroundColor: colors.primary[400], mt: 3, '& .textcen': { fontSize: '24px', textAlign: "center" } }}>
                     <TableHead sx={{
                         backgroundColor: colors.blueAccent[600], mt: 2,
                     }}>
@@ -184,35 +184,35 @@ const OrdersTable = () => {
                                     <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
                                         <Collapse in={collopen.includes(order.orderid)} timeout="auto" unmountOnExit>
                                             <AccordionSummary aria-controls="panel1c-content" id="panel1c-header">
-                                                <Typography variant="h4" sx={{ mt: 1, p: 1, backgroundColor: colors.blueAccent[700] }}>客戶資料</Typography>
+                                                <Typography variant="h3" sx={{ mt: 1, p: 1, backgroundColor: colors.blueAccent[700] }}>客戶資料</Typography>
                                             </AccordionSummary>
                                             <AccordionDetails>
                                                 <Grid container spacing={3} sx={{ ml: 3 }}>
                                                     <Grid xs={6}>
-                                                        <Typography variant='h4'>客戶名稱:{order.customername}</Typography>
+                                                        <Typography variant='h3'>客戶名稱:{order.customername}</Typography>
                                                     </Grid>
                                                     <Grid xs={6}>
-                                                        <Typography variant='h4'>客戶電話:{order.customerphone}</Typography>
+                                                        <Typography variant='h3'>客戶電話:{order.customerphone}</Typography>
                                                     </Grid>
                                                     <Grid xs={6}>
-                                                        <Typography variant='h4'>客戶e-mail: {order.customeremail}</Typography>
+                                                        <Typography variant='h3'>客戶e-mail: {order.customeremail}</Typography>
                                                     </Grid>
                                                     <Grid xs={6}>
 
-                                                        <Typography variant='h4'>客戶傳真:{order.customerfax}</Typography>
+                                                        <Typography variant='h3'>客戶傳真:{order.customerfax}</Typography>
                                                     </Grid>
                                                     <Grid xs={6}>
-                                                        <Typography variant='h4'>客戶地址:{order.customeraddress}</Typography>
+                                                        <Typography variant='h3'>客戶地址:{order.customeraddress}</Typography>
                                                     </Grid>
                                                 </Grid>
                                             </AccordionDetails>
                                             <AccordionSummary aria-controls="panel1c-content" id="panel1c-header">
-                                                <Typography variant="h4" sx={{ mt: 1, p: 1, backgroundColor: colors.blueAccent[700] }}>訂單資料</Typography>
+                                                <Typography variant="h3" sx={{ mt: 1, p: 1, backgroundColor: colors.blueAccent[700] }}>訂單資料</Typography>
                                             </AccordionSummary>
                                             <AccordionDetails>
                                                 <Table sx={{
-                                                    '& .MuiTableCell-body': { fontSize: '20px' },
-                                                    '& .MuiTableCell-head': { fontSize: '20px' }
+                                                    '& .MuiTableCell-body': { fontSize: '24px' },
+                                                    '& .MuiTableCell-head': { fontSize: '24px' }
                                                 }}>
                                                     <TableHead sx={{ backgroundColor: colors.blueAccent[700] }}>
                                                         <TableRow>
@@ -269,9 +269,9 @@ const OrdersTable = () => {
                     <Dialog open={clickOpen} onClose={handleClose} sx={{
                         '& .MuiTextField-root': { mt: 2 },
                         '& label.Mui-focused': { color: '#4cceac' },
-                        '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
-                        '& .MuiOutlinedInput-root': { fontSize: '22px' },
-                        '& .MuiButton-root': { fontSize: '22px' },
+                        '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "24px" },
+                        '& .MuiOutlinedInput-root': { fontSize: '24px' },
+                        '& .MuiButton-root': { fontSize: '24px' },
                     }}
                     >
                         <DialogTitle variant="h3" sx={{ color: colors.greenAccent[500] }}>編輯訂單</DialogTitle>

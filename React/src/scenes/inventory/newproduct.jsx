@@ -67,18 +67,18 @@ export default function Product({ setShouldUpdate }) {
                         color: '#4cceac',
                     }, '& .MuiInputLabel-outlined': {
                         color: '#4cceac',
-                        fontSize: "22px"
+                        fontSize: "24px"
                     }, '& .MuiOutlinedInput-root': {
-                        fontSize: '22px'
+                        fontSize: '24px'
                     }, '& .MuiButton-root': {
-                        fontSize: '22px',
+                        fontSize: '24px',
 
                     }, '& .MuiIconButton': {
-                        fontSize: '22px',
+                        fontSize: '24px',
                         color: '#4cceac',
                     },
                 }}>
-                <DialogTitle variant='h4' sx={{ color: colors.greenAccent[500], }}>新增產品資料</DialogTitle>
+                <DialogTitle variant='h3' sx={{ color: colors.greenAccent[500], }}>新增產品資料</DialogTitle>
                 <DialogContent>
                     <Formik
                         initialValues={{

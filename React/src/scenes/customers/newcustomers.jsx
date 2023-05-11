@@ -40,7 +40,7 @@ export default function NewCustomers({ handleAdd }) {
 
 
     return (
-        <Box sx={{ '& .MuiButton-root': { fontSize: '22px', mr: 2 } }}>
+        <Box sx={{ '& .MuiButton-root': { fontSize: '24px', mr: 2 } }}>
             <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                 <Button variant="contained" color="secondary" onClick={handleOpen} startIcon={<DomainAddIcon style={{ fontSize: 32 }} />}>
                     新增客戶
@@ -57,9 +57,9 @@ export default function NewCustomers({ handleAdd }) {
                     '& .MuiTextField-root': { m: 1 },
                     "& .titlegreen-text": { color: colors.greenAccent[500], fontSize: "24px", },
                     '& label.Mui-focused': { color: '#4cceac' },
-                    '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
-                    '& .MuiOutlinedInput-root': { fontSize: '22px' },
-                    '& .MuiButton-root': { fontSize: '22px' },
+                    '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "24px" },
+                    '& .MuiOutlinedInput-root': { fontSize: '24px' },
+                    '& .MuiButton-root': { fontSize: '24px' },
                 }}>
                 <DialogTitle className="titlegreen-text">新增客戶資料</DialogTitle>
                 <DialogContent>

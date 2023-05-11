@@ -115,7 +115,7 @@ function NewOrder({ setShouldUpdate }) {
                     新增成功!
                 </Alert>
             </Snackbar>
-            <Box style={{ display: 'flex', justifyContent: 'right' }} sx={{ '& .MuiButton-root': { fontSize: '22px', mr: 4 } }}>
+            <Box style={{ display: 'flex', justifyContent: 'right' }} sx={{ '& .MuiButton-root': { fontSize: '24px', mr: 4 } }}>
                 <Button variant="contained" color="secondary" onClick={handleClickOpen} startIcon={<NoteAddIcon style={{ fontSize: 28 }} />}>
                     新增訂單
                 </Button>
@@ -127,21 +127,21 @@ function NewOrder({ setShouldUpdate }) {
                     '& .MuiTableCell-root': { "borderBottom": "1px solid #696969;" },
                     "& .green-text": {
                         color: colors.greenAccent[200],
-                        fontSize: "22px",
+                        fontSize: "24px",
                     },
                     "& .titlegreen-text": {
                         color: colors.greenAccent[500],
-                        fontSize: "22px",
+                        fontSize: "24px",
                     },
                     '& label.Mui-focused': {
                         color: '#4cceac'
                     }, '& .MuiInputLabel-outlined': {
                         color: '#4cceac',
-                        fontSize: "22px"
+                        fontSize: "24px"
                     }, '& .MuiOutlinedInput-root': {
-                        fontSize: '22px'
+                        fontSize: '24px'
                     }, '& .MuiButton-root': {
-                        fontSize: '22px'
+                        fontSize: '24px'
                     }, 
 
                 }}
@@ -225,7 +225,7 @@ function NewOrder({ setShouldUpdate }) {
                                                 />
                                             )}
                                             renderOption={(props, option) => (
-                                                <li {...props} style={{ fontSize: 22 }}>
+                                                <li {...props} style={{ fontSize: 24 }}>
                                                     {option.customername}
                                                 </li>
                                             )}
@@ -296,7 +296,7 @@ function NewOrder({ setShouldUpdate }) {
                                                                     />
                                                                 )}
                                                                 renderOption={(props, option) => (
-                                                                    <li {...props} style={{ fontSize: 22 }}>
+                                                                    <li {...props} style={{ fontSize: 24 }}>
                                                                         {option.product_name}
                                                                     </li>
                                                                 )}

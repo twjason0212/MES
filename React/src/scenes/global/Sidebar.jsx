@@ -119,7 +119,7 @@ const Sidebar = () => {
           backgroundColor: "transparent !important",
         },
         "& .pro-inner-item": {
-          padding: "5px 35px 5px 20px !important",
+          padding: "5px 35px 5px 24px !important",
         },
         "& .pro-inner-item:hover": {
           color: "#868dfb !important",
@@ -137,7 +137,7 @@ const Sidebar = () => {
             onClick={() => setIsCollapsed(isCollapsed)}
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
             style={{
-              margin: "10px 0 20px 0",
+              margin: "10px 0 24px 0",
               color: colors.grey[100],
             }}
           >
@@ -185,7 +185,7 @@ const Sidebar = () => {
                 </ListItemIcon>
                 <ListItemText
                   primary="Home"
-                  primaryTypographyProps={{ fontSize: '20px' }}
+                  primaryTypographyProps={{ fontSize: '24px' }}
                 />
                 <Link to="/"></Link>
               </ListItemButton>
@@ -422,7 +422,7 @@ const Sidebar = () => {
                 <ListItemButton onClick={EmployeePersonalhandleClick}>
                   <ListItemText color={colors.grey[300]} sx={{ m: "15px 0 5px 0px" }}
                    primaryTypographyProps={{
-                    fontSize: 22,
+                    fontSize: 24,
                     fontWeight: 'medium',
                     color: '#4cceac'
                   }}
@@ -440,7 +440,7 @@ const Sidebar = () => {
                       </ListItemIcon>
                       <ListItemText
                         primary="基本資料"
-                        primaryTypographyProps={{ fontSize: '20px' }} />
+                        primaryTypographyProps={{ fontSize: '24px' }} />
                       <Link to="/employee"></Link>
                     </ListItemButton>
                   </List>
@@ -485,7 +485,7 @@ const Sidebar = () => {
                         <ChecklistIcon />
                       </ListItemIcon>
                       <ListItemText primary="打卡"
-                        primaryTypographyProps={{ fontSize: '20px' }}
+                        primaryTypographyProps={{ fontSize: '24px' }}
                       />
                       <Link to="/checkin"></Link>
                     </ListItemButton>
@@ -497,7 +497,7 @@ const Sidebar = () => {
                         <ChecklistIcon />
                       </ListItemIcon>
                       <ListItemText primary="出缺勤狀況"
-                        primaryTypographyProps={{ fontSize: '20px' }} />
+                        primaryTypographyProps={{ fontSize: '24px' }} />
                       <Link to="/attdatetime"></Link>
                     </ListItemButton>
                   </List>
@@ -508,7 +508,7 @@ const Sidebar = () => {
                     variant="h6"
                     color={colors.grey[300]}
                     sx={{ m: "15px 0 5px 0px" }}
-                    primaryTypographyProps={{ fontSize: '22px' ,
+                    primaryTypographyProps={{ fontSize: '24px' ,
                     fontWeight: 'medium',
                     color: '#4cceac'}}
                   >
@@ -526,7 +526,7 @@ const Sidebar = () => {
                           <FeedRoundedIcon />
                         </ListItemIcon>
                         <ListItemText primary="新增派工單"
-                          primaryTypographyProps={{ fontSize: '20px' }} />
+                          primaryTypographyProps={{ fontSize: '24px' }} />
                         <Link to="/workorder"></Link>
                       </ListItemButton>
                     </List>
@@ -539,7 +539,7 @@ const Sidebar = () => {
                           <FeedRoundedIcon />
                         </ListItemIcon>
                         <ListItemText primary="派工單"
-                          primaryTypographyProps={{ fontSize: '20px' }} />
+                          primaryTypographyProps={{ fontSize: '24px' }} />
                         <Link to="/workorderlist"></Link>
                       </ListItemButton>
                     </List>
@@ -552,7 +552,7 @@ const Sidebar = () => {
                           <FeedRoundedIcon />
                         </ListItemIcon>
                         <ListItemText primary="個人待辦工單"
-                          primaryTypographyProps={{ fontSize: '20px' }} />
+                          primaryTypographyProps={{ fontSize: '24px' }} />
                         <Link to="/pendingwork"></Link>
                       </ListItemButton>
                     </List>
@@ -565,7 +565,7 @@ const Sidebar = () => {
                           <FeedRoundedIcon />
                         </ListItemIcon>
                         <ListItemText primary="個人待辦工單"
-                          primaryTypographyProps={{ fontSize: '20px' }} />
+                          primaryTypographyProps={{ fontSize: '24px' }} />
                         <Link to="/pendingworkLeader"></Link>
                       </ListItemButton>
                     </List>
@@ -577,8 +577,8 @@ const Sidebar = () => {
                         <ListItemIcon>
                           <FeedRoundedIcon />
                         </ListItemIcon>
-                        <ListItemText primary="已完成工單列表"
-                          primaryTypographyProps={{ fontSize: '20px' }} />
+                        <ListItemText primary="已完成工單"
+                          primaryTypographyProps={{ fontSize: '24px' }} />
                         <Link to="/worlorderall"></Link>
                       </ListItemButton>
                     </List>
@@ -591,7 +591,7 @@ const Sidebar = () => {
                           <FactoryIcon />
                         </ListItemIcon>
                         <ListItemText primary="機台資訊"
-                          primaryTypographyProps={{ fontSize: '20px' }} />
+                          primaryTypographyProps={{ fontSize: '24px' }} />
                         <Link to="/factory"></Link>
                       </ListItemButton>
                     </List>
@@ -623,7 +623,7 @@ const Sidebar = () => {
                     color={colors.grey[300]}
                     sx={{ m: "15px 0 5px 0px" }}
                     primaryTypographyProps={{
-                      fontSize: 22,
+                      fontSize: 24,
                       fontWeight: 'medium',
                       color: '#4cceac'
                     }}
@@ -641,7 +641,7 @@ const Sidebar = () => {
                         <PeopleOutlinedIcon />
                       </ListItemIcon>
                       <ListItemText
-                        primaryTypographyProps={{fontSize: 20}}
+                        primaryTypographyProps={{fontSize: 24}}
                         primary="基本資料" />
                       <Link to="/employee"></Link>
                     </ListItemButton>
@@ -690,7 +690,7 @@ const Sidebar = () => {
                         <ChecklistIcon />
                       </ListItemIcon>
                       <ListItemText primary="打卡"
-                        primaryTypographyProps={{ fontSize: '20px' }} />
+                        primaryTypographyProps={{ fontSize: '24px' }} />
                       <Link to="/checkin"></Link>
                     </ListItemButton>
                   </List>
@@ -701,14 +701,14 @@ const Sidebar = () => {
                         <ChecklistIcon />
                       </ListItemIcon>
                       <ListItemText primary="出缺勤狀況"
-                        primaryTypographyProps={{ fontSize: '20px' }} />
+                        primaryTypographyProps={{ fontSize: '24px' }} />
                       <Link to="/attdatetime"></Link>
                     </ListItemButton>
                   </List>
                 </Collapse>
                 <ListItemButton onClick={HRManagehandleClick}>
                   <ListItemText
-                    primaryTypographyProps={{ fontSize: '22px',
+                    primaryTypographyProps={{ fontSize: '24px',
                     fontWeight: 'medium',
                     color: '#4cceac' }}
                     color={colors.grey[300]}
@@ -728,7 +728,7 @@ const Sidebar = () => {
                         <PersonAddIcon />
                       </ListItemIcon>
                       <ListItemText primary="新增員工資料"
-                        primaryTypographyProps={{ fontSize: '20px' }} />
+                        primaryTypographyProps={{ fontSize: '24px' }} />
                       <Link to='/form'></Link>
                     </ListItemButton>
                   </List>
@@ -739,7 +739,7 @@ const Sidebar = () => {
                         <PersonAddIcon />
                       </ListItemIcon>
                       <ListItemText primary="員工資料管理"
-                        primaryTypographyProps={{ fontSize: '20px' }} />
+                        primaryTypographyProps={{ fontSize: '24px' }} />
                       <Link to='/team'></Link>
                     </ListItemButton>
                   </List>
@@ -750,7 +750,7 @@ const Sidebar = () => {
                         <FeedRoundedIcon />
                       </ListItemIcon>
                       <ListItemText primary="員工出缺勤資料"
-                        primaryTypographyProps={{ fontSize: '20px' }} />
+                        primaryTypographyProps={{ fontSize: '24px' }} />
                       <Link to='/attendance'></Link>
                     </ListItemButton>
                   </List>
@@ -761,7 +761,7 @@ const Sidebar = () => {
                         <FeedRoundedIcon />
                       </ListItemIcon>
                       <ListItemText primary="請假單申請"
-                        primaryTypographyProps={{ fontSize: '20px' }} />
+                        primaryTypographyProps={{ fontSize: '24px' }} />
                       <Link to="/leave"></Link>
                     </ListItemButton>
                   </List>
@@ -772,7 +772,7 @@ const Sidebar = () => {
                         <FeedRoundedIcon />
                       </ListItemIcon>
                       <ListItemText primary="加班單申請"
-                        primaryTypographyProps={{ fontSize: '20px' }} />
+                        primaryTypographyProps={{ fontSize: '24px' }} />
                       <Link to="/overtime"></Link>
                     </ListItemButton>
                   </List>
@@ -789,7 +789,7 @@ const Sidebar = () => {
                      
                       color={colors.grey[300]}
                       sx={{ m: "15px 0 5px 0px" }}
-                      primaryTypographyProps={{ fontSize: '22px' ,
+                      primaryTypographyProps={{ fontSize: '24px' ,
                       fontWeight: 'medium',
                       color: '#4cceac'}}
 
@@ -807,7 +807,7 @@ const Sidebar = () => {
                           <PeopleOutlinedIcon />
                         </ListItemIcon>
                         <ListItemText
-                          primaryTypographyProps={{ fontSize: '20px' }}
+                          primaryTypographyProps={{ fontSize: '24px' }}
                           primary="基本資料" />
                         <Link to="/employee"></Link>
                       </ListItemButton>
@@ -818,7 +818,7 @@ const Sidebar = () => {
                         <ListItemIcon>
                           <ChecklistIcon />
                         </ListItemIcon>
-                        <ListItemText primary="打卡" primaryTypographyProps={{ fontSize: '20px' }}/>
+                        <ListItemText primary="打卡" primaryTypographyProps={{ fontSize: '24px' }}/>
                         <Link to="/checkin"></Link>
                       </ListItemButton>
                     </List>
@@ -828,7 +828,7 @@ const Sidebar = () => {
                         <ListItemIcon>
                           <ChecklistIcon />
                         </ListItemIcon>
-                        <ListItemText primary="出缺勤狀況" primaryTypographyProps={{ fontSize: '20px' }}/>
+                        <ListItemText primary="出缺勤狀況" primaryTypographyProps={{ fontSize: '24px' }}/>
                         <Link to="/attdatetime"></Link>
                       </ListItemButton>
                     </List>
@@ -870,7 +870,7 @@ const Sidebar = () => {
                     <ListItemText
                       color={colors.grey[300]}
                       sx={{ m: "15px 0 5px 0px" }}
-                      primaryTypographyProps={{ fontSize: '22px' ,
+                      primaryTypographyProps={{ fontSize: '24px' ,
                       fontWeight: 'medium',
                       color: '#4cceac'}}
                     >
@@ -885,7 +885,7 @@ const Sidebar = () => {
                         <ListItemIcon>
                           <FeedRoundedIcon />
                         </ListItemIcon>
-                        <ListItemText primary="客戶管理" primaryTypographyProps={{ fontSize: '20px' }}/>
+                        <ListItemText primary="客戶管理" primaryTypographyProps={{ fontSize: '24px' }}/>
                         <Link to="/customers"></Link>
                       </ListItemButton>
                     </List>
@@ -894,7 +894,7 @@ const Sidebar = () => {
                         <ListItemIcon>
                           <FeedRoundedIcon />
                         </ListItemIcon>
-                        <ListItemText primary="訂單管理" primaryTypographyProps={{ fontSize: '20px' }}/>
+                        <ListItemText primary="訂單管理" primaryTypographyProps={{ fontSize: '24px' }}/>
                         <Link to="/order"></Link>
                       </ListItemButton>
                     </List>
@@ -903,7 +903,7 @@ const Sidebar = () => {
                         <ListItemIcon>
                           <FactoryIcon />
                         </ListItemIcon>
-                        <ListItemText primary="產品管理" primaryTypographyProps={{ fontSize: '20px' }}/>
+                        <ListItemText primary="產品管理" primaryTypographyProps={{ fontSize: '24px' }}/>
                         <Link to="/inventory"></Link>
                       </ListItemButton>
                     </List>
@@ -938,7 +938,7 @@ const Sidebar = () => {
                   <ListItemText
                     color={colors.grey[300]}
                     sx={{ m: "15px 0 5px 0px" }}
-                    primaryTypographyProps={{ fontSize: '22px' ,
+                    primaryTypographyProps={{ fontSize: '24px' ,
                     fontWeight: 'medium',
                     color: '#4cceac'}}
                   >
@@ -955,7 +955,7 @@ const Sidebar = () => {
                         <PeopleOutlinedIcon />
                       </ListItemIcon>
                       <ListItemText
-                        primaryTypographyProps={{fontSize: 20, }}
+                        primaryTypographyProps={{fontSize: 24, }}
                         primary="基本資料" />
                       <Link to="/employee"></Link>
                     </ListItemButton>
@@ -966,7 +966,7 @@ const Sidebar = () => {
                       <ListItemIcon>
                         <ChecklistIcon />
                       </ListItemIcon>
-                      <ListItemText primary="打卡" primaryTypographyProps={{ fontSize: '20px' }}/>
+                      <ListItemText primary="打卡" primaryTypographyProps={{ fontSize: '24px' }}/>
                       <Link to="/checkin"></Link>
                     </ListItemButton>
                   </List>
@@ -976,7 +976,7 @@ const Sidebar = () => {
                       <ListItemIcon>
                         <ChecklistIcon />
                       </ListItemIcon>
-                      <ListItemText primary="出缺勤狀況" primaryTypographyProps={{ fontSize: '20px' }}/>
+                      <ListItemText primary="出缺勤狀況" primaryTypographyProps={{ fontSize: '24px' }}/>
                       <Link to="/attdatetime"></Link>
                     </ListItemButton>
                   </List>
@@ -1018,7 +1018,7 @@ const Sidebar = () => {
                   <ListItemText
                     color={colors.grey[300]}
                     sx={{ m: "15px 0 5px 0px" }}
-                    primaryTypographyProps={{ fontSize: '22px' ,
+                    primaryTypographyProps={{ fontSize: '24px' ,
                     fontWeight: 'medium',
                     color: '#4cceac'}}
                   >
@@ -1034,7 +1034,7 @@ const Sidebar = () => {
                       <ListItemIcon>
                         <FeedRoundedIcon />
                       </ListItemIcon>
-                      <ListItemText primary="數據面板" primaryTypographyProps={{ fontSize: '20px' }}/>
+                      <ListItemText primary="數據面板" primaryTypographyProps={{ fontSize: '24px' }}/>
                       <Link to="/dashboard"></Link>
                     </ListItemButton>
                   </List>
@@ -1044,7 +1044,7 @@ const Sidebar = () => {
                       <ListItemIcon>
                         <PersonAddIcon />
                       </ListItemIcon>
-                      <ListItemText primary="員工資料管理" primaryTypographyProps={{ fontSize: '20px' }}/>
+                      <ListItemText primary="員工資料管理" primaryTypographyProps={{ fontSize: '24px' }}/>
                       <Link to='/team'></Link>
                     </ListItemButton>
                   </List>
@@ -1054,7 +1054,7 @@ const Sidebar = () => {
                       <ListItemIcon>
                         <FeedRoundedIcon />
                       </ListItemIcon>
-                      <ListItemText primary="員工出缺勤資料" primaryTypographyProps={{ fontSize: '20px' }}/>
+                      <ListItemText primary="員工出缺勤資料" primaryTypographyProps={{ fontSize: '24px' }}/>
                       <Link to='/attendance'></Link>
                     </ListItemButton>
                   </List>
@@ -1064,7 +1064,7 @@ const Sidebar = () => {
                       <ListItemIcon>
                         <FeedRoundedIcon />
                       </ListItemIcon>
-                      <ListItemText primary="客戶管理" primaryTypographyProps={{ fontSize: '20px' }}/>
+                      <ListItemText primary="客戶管理" primaryTypographyProps={{ fontSize: '24px' }}/>
                       <Link to="/customers"></Link>
                     </ListItemButton>
                   </List>
@@ -1074,7 +1074,7 @@ const Sidebar = () => {
                       <ListItemIcon>
                         <FeedRoundedIcon />
                       </ListItemIcon>
-                      <ListItemText primary="訂單管理" primaryTypographyProps={{ fontSize: '20px' }}/>
+                      <ListItemText primary="訂單管理" primaryTypographyProps={{ fontSize: '24px' }}/>
                       <Link to="/order"></Link>
                     </ListItemButton>
                   </List>
@@ -1084,7 +1084,7 @@ const Sidebar = () => {
                       <ListItemIcon>
                         <FactoryIcon />
                       </ListItemIcon>
-                      <ListItemText primary="產品管理" primaryTypographyProps={{ fontSize: '20px' }}/>
+                      <ListItemText primary="產品管理" primaryTypographyProps={{ fontSize: '24px' }}/>
                       <Link to="/inventory"></Link>
                     </ListItemButton>
                   </List>
