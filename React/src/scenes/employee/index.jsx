@@ -24,6 +24,7 @@ const MyCard = () => {
     const [depts, setDepts] = useState([]);
     // const department = () => map((dep) => ({ value: dep.dept_name, label: dep.dept_name }), depts);
     const [users, setUsers] = useState([]);
+    const [clickedRow, setClickedRow] = useState(null);
 
     const [userIsLogin, setUserIsLogin] = useState(false)
     useEffect(() => {
@@ -96,10 +97,10 @@ const MyCard = () => {
             <Formik
                 onSubmit={handleFormSubmit}
                 initialValues={iniValues}
-                validationSchema={yup.object({
-                    email: yup.string().email('請輸入正確的電子郵件格式'),
-                    tel: yup.string().max(15)
-                })}
+            // validationSchema={yup.object({
+            //     email: yup.string().email('請輸入正確的電子郵件格式'),
+            //     tel: yup.string().max(15)
+            // })}
             >
                 {({ handleBlur, handleSubmit, handleChange, handleReset, values, errors, touched }) => (
                     <Box component={Form} onSubmit={handleSubmit}>
@@ -109,7 +110,12 @@ const MyCard = () => {
                             type="text"
                             label="姓名"
                             onBlur={handleBlur}
-                            onChange={handleChange}
+                            onChange={(event) =>
+                                setClickedRow({
+                                    ...users,
+                                    employee_name: event.target.value,
+                                })
+                            }
                             value={users.employee_name}
                             name="name"
                             error={!!touched.name && !!errors.name}
@@ -144,27 +150,6 @@ const MyCard = () => {
                                 gridColumn: "span 2",
                             }}
                         />
-                        {/* <TextField
-                            // fullWidth
-                            // variant="filled"
-                            type="password"
-                            label="密碼"
-                            onBlur={handleBlur}
-                            onChange={handleChange}
-                            value={users.employee_pwd}
-                            name="password"
-                            error={!!touched.password && !!errors.password}
-                            helperText={touched.password && errors.password}
-                            sx={{
-                                width: '100%',
-                                m: 1,
-                                '& label.Mui-focused': { color: '#4cceac', },
-                                '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
-                                '& .MuiOutlinedInput-root': { fontSize: '22px' },
-                                gridColumn: "span 2",
-                            }}
-                        /> */}
-
                         <TextField
                             // fullWidth
                             // variant="filled"
@@ -210,7 +195,7 @@ const MyCard = () => {
                             InputProps={{
                                 readOnly: true,
                             }}
-                            name="startwork"
+                            name="startwork_time"
                             label="報到日期"
                             value={users.startwork_time}
                             // onChange={handleChange}
@@ -222,31 +207,7 @@ const MyCard = () => {
                                 '& .MuiOutlinedInput-root': { fontSize: '22px' },
                             }}
                         />
-                        {/* <FormControl fullWidth>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                value={users.dept_name}
-                                label="選擇部門"
-                                name="dept"
-                                onChange={handleChange}
-                                sx={{
-                                    width: '100%',
-                                    m: 1,
-                                    '& .MuiInputBase-input': { fontSize: 22, },
-                                    '& .MuiInputBase-outlined': { color: '#00FFD5', fontSize: "22px" },
-                                    '& .MuiInputBase-root': { fontSize: '22px' },
-                                    gridColumn: "span 2",
-                                }}
-                            >
-                                {depts.map((dep, index) => (
-                                    <MenuItem key={index} value={dep.id}>
-                                        {dep.dept_name}
-                                    </MenuItem>
-                                ))}
 
-                            </Select>
-                        </FormControl> */}
                         <TextField
                             // fullWidth
                             // variant="filled"
@@ -269,7 +230,7 @@ const MyCard = () => {
                         />
 
                         {/* <Button type="submit" onClick={handleReset} >建立</Button> */}
-                        <Button variant='contained' type="submit" color='primary'
+                        {/* <Button variant='contained' type="submit" color='primary'
                             style={{ fontSize: '22px', backgroundColor: "#21b6ae" }}
                             sx={{
                                 width: '100%',
@@ -280,7 +241,7 @@ const MyCard = () => {
                                 gridColumn: "span 2",
                             }}>
                             確認資料
-                        </Button>
+                        </Button> */}
                     </Box>
 
                 )
@@ -313,7 +274,7 @@ const iniValues = {
     account: "",
     email: "",
     tel: "",
-    password: "",
+    startwork_time: "",
     dept: "選擇部門",
 };
 

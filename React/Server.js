@@ -273,7 +273,7 @@ app.get("/employee/:id", function (req, res) {
   console.log("/employee/:id", req.params.id);
   connection.query(
     `SELECT employee_id, employee.employee_account, employee.employee_name, employee_pwd,
-    department.dept_name, employee.employee_tel, employee.employee_email, role.role_name, startwork_time
+    department.dept_name, employee.employee_tel, employee.employee_email, role.role_name, employee.startwork_time
     FROM employee
     LEFT JOIN role ON employee.employee_role = role.id 
     LEFT JOIN department ON employee.department = department.id
@@ -291,14 +291,14 @@ app.get("/employee/:id", function (req, res) {
 app.get("/employee/:account", function (req, res) {
   console.log("/employee/:account", req.params.account);
   connection.query(`SELECT employee_id, employee.employee_account, employee.employee_name, employee_pwd,
-    department.dept_name, employee.employee_tel, employee.employee_email, role.role_name, startwork_time
+    department.dept_name, employee.employee_tel, employee.employee_email, employee.startwork_time
     FROM employee
     LEFT JOIN role ON employee.employee_role = role.id 
     LEFT JOIN department ON employee.department = department.id
       WHERE employee_account = '`+ req.params.account + `'`, function (error, data) {
     // connection.query("select id,EmployeeName,EmployeeId,DATE_FORMAT(starttime, '%Y-%m-%d %H:%i') as starttime,DATE_FORMAT(endtime, '%Y-%m-%d %H:%i') as endtime,holiday from att", function (error, data) {
     res.send(JSON.stringify(data))
-    console.log(data);
+    console.log("acc", data);
   })
 })
 
@@ -346,8 +346,8 @@ app.post("/employee/create", function (req, res) {
     console.log("data count:", data[0].count);
     if (data[0].count === 0) {
       connection.query(
-        `insert into employee (employee_account, employee_pwd, employee_name, employee_tel, employee_email, employee_status, department) 
-                 values (?,?,?,?,?,1,?)`,
+        `insert into employee (employee_account, employee_pwd, employee_name, employee_tel, employee_email, employee_status, department,startwork_time) 
+                 values (?,?,?,?,?,1,?,NOW())`,
         [
           req.body.account,
           paswod,
@@ -373,14 +373,12 @@ app.put("/employee/update", function (req, res) {
   console.log(req.body.employee_id);
   console.log(req.body);
   connection.query(
-    `update employee set employee_account = ?, employee_name = ?, employee_tel = ?, employee_email = ?, startwork_time = ? where employee_id = ` +
+    `update employee set employee_name = ?, employee_tel = ?, employee_email = ? where employee_id = ` +
     req.body.employee_id,
     [
-      req.body.employee_account,
       req.body.employee_name,
       req.body.employee_tel,
       req.body.employee_email,
-      req.body.startwork_time,
     ]
   );
 });

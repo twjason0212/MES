@@ -34,7 +34,7 @@ const Team = () => {
       .catch(error => {
         console.error(error);
       });
-
+    console.log("model", row);
     //將剛選的員工資訊設定回監控的clickedRow
     setClickedRow(row);
     //將Dialog開啟
@@ -357,6 +357,7 @@ const Team = () => {
                 '& .MuiOutlinedInput-root': { fontSize: '22px' },
               }}
             />
+
 
             <Button variant="contained" onClick={() => handleSaveClick(clickedRow)} style={{ fontSize: '22px', backgroundColor: "#21b6ae" }}>
               儲存
