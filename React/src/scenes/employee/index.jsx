@@ -107,6 +107,7 @@ const MyCard = () => {
                         <TextField
                             // fullWidth
                             // variant="filled"
+                            InputLabelProps={{ shrink: true }}
                             type="text"
                             label="姓名"
                             onBlur={handleBlur}
@@ -132,6 +133,7 @@ const MyCard = () => {
                         <TextField
                             // fullWidth
                             // variant="filled"
+                            InputLabelProps={{ shrink: true }}
                             disabled
                             type="text"
                             label="帳號"
@@ -153,6 +155,7 @@ const MyCard = () => {
                         <TextField
                             // fullWidth
                             // variant="filled"
+                            InputLabelProps={{ shrink: true }}
                             type="text"
                             label="電話"
                             onBlur={handleBlur}
@@ -173,6 +176,7 @@ const MyCard = () => {
                         <TextField
                             // fullWidth
                             // variant="filled"
+                            InputLabelProps={{ shrink: true }}
                             type="text"
                             label="電子信箱"
                             onBlur={handleBlur}
@@ -191,6 +195,7 @@ const MyCard = () => {
                             }}
                         />
                         <TextField
+                            InputLabelProps={{ shrink: true }}
                             disabled
                             InputProps={{
                                 readOnly: true,
@@ -211,6 +216,7 @@ const MyCard = () => {
                         <TextField
                             // fullWidth
                             // variant="filled"
+                            InputLabelProps={{ shrink: true }}
                             type="text"
                             label="部門"
                             onBlur={handleBlur}
