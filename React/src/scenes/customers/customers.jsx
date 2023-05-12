@@ -1,6 +1,6 @@
 import {
     TableContainer, TableHead, TextField, Table, Typography, TableCell, TableRow,
-    TableBody, Box, Grid, Button, Dialog, DialogTitle, DialogContent, useTheme, AccordionSummary, AccordionDetails, Collapse
+    TableBody, Box, Grid, Button, Dialog, DialogTitle, DialogContent, useTheme, AccordionSummary, AccordionDetails, Collapse, InputAdornment, IconButton, Alert, Snackbar
 } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
@@ -8,6 +8,9 @@ import NewCustomers from './newcustomers';
 import Header from "../../components/Header";
 import { tokens } from "../../theme";
 import withAuth from "../../components/withAuth";
+import EditIcon from '@mui/icons-material/Edit';
+import SaveAsIcon from '@mui/icons-material/SaveAs';
+import { Search as SearchIcon } from "@mui/icons-material";
 
 const Newcust = () => {
     const theme = useTheme();
@@ -61,6 +64,7 @@ const Newcust = () => {
             row.customerid === ncustomers.customerid ? ncustomers : row);
         setCustomers(update);
         setOpen(false);
+        setAlertOpen(true);
     }
 
     const handleAdd = async () => {
@@ -96,6 +100,14 @@ const Newcust = () => {
     }, []);
 
 
+    const [alertOpen, setAlertOpen] = useState(false)
+    const handleAlertClose = () => {
+        setAlertOpen(false)
+    };
+
+
+
+
     return (
 
         <Box m="20px" sx={{
@@ -110,16 +122,31 @@ const Newcust = () => {
                 <Grid container alignItems="center" sx={{
                     '& .MuiTextField-root': { mt: 2 },
                     '& label.Mui-focused': { color: '#4cceac' },
-                    '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
-                    '& .MuiOutlinedInput-root': { fontSize: '22px' },
+                    '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "24px" },
+                    '& .MuiOutlinedInput-root': { fontSize: '24px' },
                 }}>
-                    <Grid item xs={6}>
-                        <TextField sx={{ m: 1, mr: 2 }}
-                            name="customername"
-                            label="客戶名稱"
-                            value={filter.customername}
-                            onChange={handleSearch}
-                        />
+                    <Grid item xs={6} >
+                        <Box sx={{
+                        width: '30%', backgroundColor: colors.primary[400],pb:1
+                    }}>
+                            <TextField sx={{ m: 1, mr: 2 }}
+                                name="customername"
+                                label="搜索客戶"
+                                value={filter.customername}
+                                onChange={handleSearch}
+                                InputProps={{
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                aria-label="search"
+                                            >
+                                                <SearchIcon style={{ fontSize: 28 }} />
+                                            </IconButton>
+                                        </InputAdornment>
+                                    )
+                                }}
+                            />
+                        </Box>
                     </Grid>
                     <Grid item xs={6}>
                         <Box display="flex" justifyContent="flex-end">
@@ -127,9 +154,14 @@ const Newcust = () => {
                         </Box>
                     </Grid>
                 </Grid>
+                <Snackbar open={alertOpen} autoHideDuration={1500} onClose={handleAlertClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}  >
+                    <Alert onClose={handleAlertClose} icon={false} sx={{ width: '100%', fontSize: 20, color: 'black', backgroundColor: '#4cceac' }}>
+                        修改成功!
+                    </Alert>
+                </Snackbar>
                 <Table sx={{ backgroundColor: colors.primary[400], mt: 3, }}>
                     <TableHead sx={{
-                        backgroundColor: colors.blueAccent[700], mt: 2, '& .MuiTableCell-root': { fontSize: '22px', textAlign: "center" }
+                        backgroundColor: colors.blueAccent[700], mt: 2, '& .MuiTableCell-root': { fontSize: '24px', textAlign: "center" }
                     }}>
                         <TableRow>
                             <TableCell>ID</TableCell>
@@ -145,7 +177,7 @@ const Newcust = () => {
                         {filtercustomer.map((customer) => (
                             <React.Fragment key={customer.customerid}>
                                 <TableRow onClick={() => handleCollClick(customer.customerid)}
-                                    sx={{ '& .MuiTableCell-root': { fontSize: '20px', textAlign: "center" } }}>
+                                    sx={{ '& .MuiTableCell-root': { fontSize: '24px', textAlign: "center" } }}>
                                     <TableCell >{customer.customerid}</TableCell>
                                     <TableCell>{customer.customername}</TableCell>
                                     <TableCell>{customer.customerphone}</TableCell>
@@ -153,8 +185,8 @@ const Newcust = () => {
                                     {/* <TableCell>{customer.customeraddress}</TableCell>
                             <TableCell>{customer.customerfax}</TableCell> */}
                                     <TableCell>
-                                        <Button variant="contained" color="secondary" sx={{ fontSize: '20px', textAlign: "center" }}
-                                            onClick={() => handleClick(customer)}>
+                                        <Button variant="contained" color="secondary" sx={{ fontSize: '24px', textAlign: "center" }}
+                                            onClick={() => handleClick(customer)} startIcon={<EditIcon style={{ fontSize: 28 }} />}>
                                             編輯
                                         </Button>
                                     </TableCell>
@@ -163,11 +195,11 @@ const Newcust = () => {
                                     <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={5}>
                                         <Collapse in={collopen.includes(customer.customerid)} timeout="auto" unmountOnExit>
                                             <AccordionSummary aria-controls="panel1c-content" id="panel1c-header">
-                                                <Typography variant="h4" sx={{ mt: 1, p: 1, backgroundColor: colors.blueAccent[700] }}>客戶資料</Typography>
+                                                <Typography variant="h3" sx={{ mt: 1, p: 1, backgroundColor: colors.blueAccent[700] }}>客戶資料</Typography>
                                             </AccordionSummary>
                                             <AccordionDetails sx={{ ml: 3 }}>
-                                                <Typography variant="h4" sx={{ mb: 1 }}>客戶地址:{customer.customeraddress}</Typography>
-                                                <Typography variant="h4">客戶傳真:{customer.customerfax}</Typography>
+                                                <Typography variant="h3" sx={{ mb: 1 }}>客戶地址:{customer.customeraddress}</Typography>
+                                                <Typography variant="h3">客戶傳真:{customer.customerfax}</Typography>
                                             </AccordionDetails>
                                         </Collapse>
                                     </TableCell>
@@ -182,11 +214,11 @@ const Newcust = () => {
                     <Dialog open={open} onClose={handleClose} sx={{
                         '& .MuiTextField-root': { mt: 2 },
                         '& label.Mui-focused': { color: '#4cceac' },
-                        '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
-                        '& .MuiOutlinedInput-root': { fontSize: '22px' },
-                        '& .MuiButton-root': { fontSize: '22px' },
+                        '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "24px" },
+                        '& .MuiOutlinedInput-root': { fontSize: '24px' },
+                        '& .MuiButton-root': { fontSize: '24px' },
                     }} >
-                        <DialogTitle variant="h4" sx={{ color: colors.greenAccent[500] }}>編輯客戶資料</DialogTitle>
+                        <DialogTitle variant="h3" sx={{ color: colors.greenAccent[500] }}>編輯客戶資料</DialogTitle>
                         <DialogContent sx={{ ml: 2 }}>
                             <TextField
                                 label="客戶ID"
@@ -247,7 +279,7 @@ const Newcust = () => {
                                     })
                                 }
                             />
-                            <Button fullWidth sx={{ mt: 2 }} variant="contained" type="submit" color="info" onClick={() => handleSave(ncustomers)}>
+                            <Button fullWidth sx={{ mt: 2 }} variant="contained" type="submit" color="info" onClick={() => handleSave(ncustomers)} startIcon={<SaveAsIcon style={{ fontSize: 28 }} />}>
                                 儲存
                             </Button>
                         </DialogContent>

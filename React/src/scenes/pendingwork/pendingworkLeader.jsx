@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {
     Box, TableContainer, TableHead, TableRow, TableCell, TableBody, Table, Button
-    , Dialog, DialogContent, TextField, useTheme, DialogTitle
+    , Dialog, DialogContent, TextField, useTheme, DialogTitle, Snackbar, Alert
 } from "@mui/material";
 import axios from "axios";
 import withAuth from "../../components/withAuth";
@@ -10,6 +10,8 @@ import { tokens } from "../../theme";
 import Grid from '@mui/material/Unstable_Grid2';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
+import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
+import SaveAsIcon from '@mui/icons-material/SaveAs';
 
 const PendingWorkLeader = () => {
 
@@ -60,17 +62,30 @@ const PendingWorkLeader = () => {
         console.log(data)
     }
 
+    const [alertOpen, setAlertOpen] = useState(false)
+
+    const handleAlertClose = () => {
+        setAlertOpen(false)
+    };
+
+
+
 
 
     return (
         <Box m="20px" >
+            <Snackbar open={alertOpen} autoHideDuration={3000} onClose={handleAlertClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}  >
+                <Alert onClose={handleAlertClose} icon={false} sx={{ width: '100%', fontSize: 20, color: 'black', backgroundColor: '#4cceac' }}>
+                    審核完成!
+                </Alert>
+            </Snackbar>
 
-            <Header title="待辦工單" />
+            <Header title="個人待辦工單" subtitle="尚待處理之工單" />
             <TableContainer m="40px 0 0 0">
                 <Table sx={{ backgroundColor: colors.primary[400], mt: 3, }}>
                     <TableHead sx={{
                         backgroundColor: colors.blueAccent[700], mt: 2,
-                        '& .MuiTableCell-root': { fontSize: '22px', textAlign: "center" }
+                        '& .MuiTableCell-root': { fontSize: '24px', textAlign: "center" }
                     }}>
                         <TableRow>
                             <TableCell>派工單號</TableCell>
@@ -84,7 +99,7 @@ const PendingWorkLeader = () => {
                     <TableBody>
                         {pendingwork.map((order) => (
                             <React.Fragment key={order.work_order_id}>
-                                <TableRow sx={{ '& .MuiTableCell-root': { fontSize: '20px', textAlign: "center" } }}>
+                                <TableRow sx={{ '& .MuiTableCell-root': { fontSize: '24px', textAlign: "center" } }}>
                                     <TableCell>{order.work_order_id}</TableCell>
                                     <TableCell>{order.product_name}</TableCell>
                                     <TableCell>{new Date(order.process_date).toLocaleString('zh-TW', {
@@ -98,8 +113,8 @@ const PendingWorkLeader = () => {
                                     <TableCell>{order.tar_process_amount}</TableCell>
                                     <TableCell>{order.work_order_status_name}</TableCell>
                                     <TableCell>
-                                        <Button variant="contained" color="secondary" sx={{ fontSize: '20px', textAlign: "center" }}
-                                            onClick={() => handlePeClick(order)}>
+                                        <Button variant="contained" color="secondary" sx={{ fontSize: '24px', textAlign: "center" }}
+                                            onClick={() => handlePeClick(order)} startIcon={<AssignmentTurnedInIcon style={{ fontSize: 28 }} />}>
                                             審核
                                         </Button>
                                     </TableCell>
@@ -111,18 +126,18 @@ const PendingWorkLeader = () => {
 
                 {rependingwork && (
                     <Dialog open={open} onClose={handleClose} sx={{
-                        "& .titlegreen-text": { color: colors.greenAccent[500], fontSize: "22px", },
+                        "& .titlegreen-text": { color: colors.greenAccent[500], fontSize: "24px", },
                         '& .MuiTextField-root': { m: 1 },
                         '& label.Mui-focused': {
                             color: '#4cceac'
                         }, '& .MuiInputLabel-outlined': {
                             color: '#4cceac',
-                            fontSize: "22px",
+                            fontSize: "24px",
 
                         }, '& .MuiOutlinedInput-root': {
-                            fontSize: '22px'
+                            fontSize: '24px'
                         }, '& .MuiButton-root': {
-                            fontSize: '22px', mt: 4
+                            fontSize: '24px', mt: 4
                         },
                     }} >
                         <DialogTitle className="titlegreen-text">審核報工單</DialogTitle>
@@ -248,8 +263,8 @@ const PendingWorkLeader = () => {
                                                 />
                                             </Grid>
                                         </Grid>
-                                        <Button fullWidth sx={{ mt: 2 }} variant="contained" type="submit" color="info" >
-                                            儲存
+                                        <Button fullWidth sx={{ mt: 2 }} variant="contained" type="submit" color="info" startIcon={<SaveAsIcon style={{fontSize:28}} />} >
+                                            審核完成
                                         </Button>
                                     </Box>
                                 )}

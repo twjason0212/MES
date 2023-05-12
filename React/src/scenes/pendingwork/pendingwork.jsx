@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {
     Box, TableContainer, TableHead, TableRow, TableCell, TableBody, Table, Button
-    , Dialog, DialogContent, TextField, useTheme, DialogTitle
+    , Dialog, DialogContent, TextField, useTheme, DialogTitle, Snackbar, Alert
 } from "@mui/material";
 import axios from "axios";
 import withAuth from "../../components/withAuth";
@@ -10,6 +10,8 @@ import { tokens } from "../../theme";
 import Grid from '@mui/material/Unstable_Grid2';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
+import NoteAltIcon from '@mui/icons-material/NoteAlt';
+import SaveAsIcon from '@mui/icons-material/SaveAs';
 
 const PendingWork = () => {
 
@@ -62,6 +64,7 @@ const PendingWork = () => {
                                     finish_date: ''
                                 }));
                                 setPendingwork(updatedData);
+                                setAlertOpen(true);
                             })
                             .catch(error => {
                                 console.log(error);
@@ -79,17 +82,28 @@ const PendingWork = () => {
         console.log(data)
     }
 
+    const [alertOpen, setAlertOpen] = useState(false)
+
+    const handleAlertClose = () => {
+        setAlertOpen(false)
+    };
+
+
 
 
     return (
         <Box m="20px" >
-
-            <Header title="待辦工單" />
+            <Snackbar open={alertOpen} autoHideDuration={3000} onClose={handleAlertClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}  >
+                <Alert onClose={handleAlertClose} icon={false} sx={{ width: '100%', fontSize: 20, color: 'black', backgroundColor: '#4cceac' }}>
+                    報工成功!
+                </Alert>
+            </Snackbar>
+            <Header title="個人待辦工單" subtitle="尚待處理之工單" />
             <TableContainer m="40px 0 0 0">
                 <Table sx={{ backgroundColor: colors.primary[400], mt: 3, }}>
                     <TableHead sx={{
                         backgroundColor: colors.blueAccent[700], mt: 2,
-                        '& .MuiTableCell-root': { fontSize: '22px', textAlign: "center" }
+                        '& .MuiTableCell-root': { fontSize: '24px', textAlign: "center" }
                     }}>
                         <TableRow>
                             <TableCell>派工單號</TableCell>
@@ -103,7 +117,7 @@ const PendingWork = () => {
                     <TableBody>
                         {pendingwork.map((order) => (
                             <React.Fragment key={order.work_order_id}>
-                                <TableRow sx={{ '& .MuiTableCell-root': { fontSize: '20px', textAlign: "center" } }}>
+                                <TableRow sx={{ '& .MuiTableCell-root': { fontSize: '24px', textAlign: "center" } }}>
                                     <TableCell>{order.work_order_id}</TableCell>
                                     <TableCell>{order.product_name}</TableCell>
                                     <TableCell>{new Date(order.process_date).toLocaleString('zh-TW', {
@@ -117,8 +131,8 @@ const PendingWork = () => {
                                     <TableCell>{order.tar_process_amount}</TableCell>
                                     <TableCell>{order.work_order_status_name}</TableCell>
                                     <TableCell>
-                                        <Button variant="contained" color="secondary" sx={{ fontSize: '20px', textAlign: "center" }}
-                                            onClick={() => handlePeClick(order)}>
+                                        <Button variant="contained" color="secondary" sx={{ fontSize: '24px', textAlign: "center" }}
+                                            onClick={() => handlePeClick(order)} startIcon={<NoteAltIcon style={{ fontSize: 28 }} />} >
                                             報工
                                         </Button>
                                     </TableCell>
@@ -130,30 +144,30 @@ const PendingWork = () => {
 
                 {rependingwork && (
                     <Dialog open={open} onClose={handleClose} sx={{
-                        "& .titlegreen-text": { color: colors.greenAccent[500], fontSize: "22px", },
+                        "& .titlegreen-text": { color: colors.greenAccent[500], fontSize: "24px", },
                         '& .MuiTextField-root': { m: 1 },
                         '& label.Mui-focused': {
                             color: '#4cceac'
                         }, '& .MuiInputLabel-outlined': {
                             color: '#4cceac',
-                            fontSize: "22px",
+                            fontSize: "24px",
 
                         }, '& .MuiOutlinedInput-root': {
-                            fontSize: '22px'
+                            fontSize: '24px'
                         }, '& .MuiButton-root': {
-                            fontSize: '22px', mt: 4
+                            fontSize: '24px', mt: 4
                         },
                     }} >
                         <DialogTitle className="titlegreen-text">填寫報工單</DialogTitle>
                         <DialogContent>
                             <Formik
                                 initialValues={{
-                                    id:rependingwork.id,
+                                    id: rependingwork.id,
                                     work_order_id: rependingwork.work_order_id,
                                     process_date: rependingwork.process_date,
                                     product_name: rependingwork.product_name,
                                     tar_process_amount: rependingwork.tar_process_amount,
-                                    machine_uuid:rependingwork.machine_uuid,
+                                    machine_uuid: rependingwork.machine_uuid,
                                     work_order_executor: rependingwork.work_order_executor,
                                     real_process_amount: '',
                                     defect_process_amount: '',
@@ -173,6 +187,7 @@ const PendingWork = () => {
                                 onSubmit={(values) => {
                                     handleSave(values);
                                     handleClose();
+                                    
                                 }}
                             >
                                 {({ handleSubmit, handleChange, setFieldValue, values, errors, touched }) => (
@@ -251,7 +266,7 @@ const PendingWork = () => {
                                                     fullWidth
                                                     onChange={(e) => {
                                                         setFieldValue("real_process_amount", e.target.value);
-                                                      }}
+                                                    }}
                                                     error={touched.real_process_amount && Boolean(errors.real_process_amount)}
                                                     helperText={touched.real_process_amount && errors.real_process_amount}
                                                 />
@@ -263,7 +278,7 @@ const PendingWork = () => {
                                                     fullWidth
                                                     onChange={(e) => {
                                                         setFieldValue("defect_process_amount", e.target.value);
-                                                      }}
+                                                    }}
                                                     error={touched.defect_process_amount && Boolean(errors.defect_process_amount)}
                                                     helperText={touched.defect_process_amount && errors.defect_process_amount}
                                                 />
@@ -277,13 +292,13 @@ const PendingWork = () => {
                                                     InputLabelProps={{ shrink: true }}
                                                     onChange={(e) => {
                                                         setFieldValue("finish_date", e.target.value);
-                                                      }}
+                                                    }}
                                                     error={touched.finish_date && Boolean(errors.finish_date)}
                                                     helperText={touched.finish_date && errors.finish_date}
                                                 />
                                             </Grid>
                                         </Grid>
-                                        <Button fullWidth sx={{ mt: 2 }} variant="contained" type="submit" color="info" >
+                                        <Button fullWidth sx={{ mt: 2 }} variant="contained" type="submit" color="info" startIcon={<SaveAsIcon style={{ fontSize: 28 }} />} >
                                             儲存
                                         </Button>
                                     </Box>

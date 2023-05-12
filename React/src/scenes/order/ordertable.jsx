@@ -5,6 +5,9 @@ import axios from 'axios';
 import { tokens } from "../../theme";
 import Neworder2 from './neworder2.jsx';
 import Grid from '@mui/material/Unstable_Grid2';
+import EditIcon from '@mui/icons-material/Edit';
+import SaveAsIcon from '@mui/icons-material/SaveAs';
+
 function getDaysDiff(date1, date2) {
     const timeDiff = date2.getTime() - date1.getTime();
     const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
@@ -115,10 +118,9 @@ const OrdersTable = () => {
                         color: '#4cceac'
                     }, '& .MuiInputLabel-outlined': {
                         color: '#4cceac',
-                        fontSize: "22px",
-                        pl: 2
+                        fontSize: "24px"
                     }, '& .MuiOutlinedInput-root': {
-                        fontSize: '22px'
+                        fontSize: '24px'
                     },
                 }}>
                     <TextField sx={{ width: '100%', m: 1 }}
@@ -145,7 +147,7 @@ const OrdersTable = () => {
             </Box>
             <Neworder2 setShouldUpdate={setShouldUpdate} />
             <TableContainer >
-                <Table sx={{ backgroundColor: colors.primary[400], mt: 3, '& .textcen': { fontSize: '22px', textAlign: "center" } }}>
+                <Table sx={{ backgroundColor: colors.primary[400], mt: 3, '& .textcen': { fontSize: '24px', textAlign: "center" } }}>
                     <TableHead sx={{
                         backgroundColor: colors.blueAccent[600], mt: 2,
                     }}>
@@ -170,9 +172,9 @@ const OrdersTable = () => {
                                     <TableCell className='textcen'>{order.orderdate}</TableCell>
                                     <TableCell className='textcen'>{order.deliverydate}</TableCell>
                                     <TableCell className='textcen'>{order.orderstate_name}</TableCell>
-                                    <TableCell className='textcen'>{getDaysDiff(new Date(), new Date(order.deliverydate)) < 0 ? '-' : getDaysDiff(new Date(), new Date(order.deliverydate))}天</TableCell>
+                                    <TableCell className='textcen'>{getDaysDiff(new Date(), new Date(order.deliverydate)) < 0 ? '-' : `${getDaysDiff(new Date(), new Date(order.deliverydate))}天`}</TableCell>
                                     <TableCell className='textcen'>
-                                        <Button variant="contained" size='large' className='textcen' color="secondary" onClick={() => handleRowClick(order)}>
+                                        <Button variant="contained" size='large' className='textcen' color="secondary" onClick={() => handleRowClick(order)} startIcon={<EditIcon style={{fontSize:28}} />}>
                                             編輯
                                         </Button>
 
@@ -182,35 +184,35 @@ const OrdersTable = () => {
                                     <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
                                         <Collapse in={collopen.includes(order.orderid)} timeout="auto" unmountOnExit>
                                             <AccordionSummary aria-controls="panel1c-content" id="panel1c-header">
-                                                <Typography variant="h4" sx={{ mt: 1, p: 1, backgroundColor: colors.blueAccent[700] }}>客戶資料</Typography>
+                                                <Typography variant="h3" sx={{ mt: 1, p: 1, backgroundColor: colors.blueAccent[700] }}>客戶資料</Typography>
                                             </AccordionSummary>
                                             <AccordionDetails>
                                                 <Grid container spacing={3} sx={{ ml: 3 }}>
                                                     <Grid xs={6}>
-                                                        <Typography variant='h4'>客戶名稱:{order.customername}</Typography>
+                                                        <Typography variant='h3'>客戶名稱:{order.customername}</Typography>
                                                     </Grid>
                                                     <Grid xs={6}>
-                                                        <Typography variant='h4'>客戶電話:{order.customerphone}</Typography>
+                                                        <Typography variant='h3'>客戶電話:{order.customerphone}</Typography>
                                                     </Grid>
                                                     <Grid xs={6}>
-                                                        <Typography variant='h4'>客戶e-mail: {order.customeremail}</Typography>
+                                                        <Typography variant='h3'>客戶e-mail: {order.customeremail}</Typography>
                                                     </Grid>
                                                     <Grid xs={6}>
 
-                                                        <Typography variant='h4'>客戶傳真:{order.customerfax}</Typography>
+                                                        <Typography variant='h3'>客戶傳真:{order.customerfax}</Typography>
                                                     </Grid>
                                                     <Grid xs={6}>
-                                                        <Typography variant='h4'>客戶地址:{order.customeraddress}</Typography>
+                                                        <Typography variant='h3'>客戶地址:{order.customeraddress}</Typography>
                                                     </Grid>
                                                 </Grid>
                                             </AccordionDetails>
                                             <AccordionSummary aria-controls="panel1c-content" id="panel1c-header">
-                                                <Typography variant="h4" sx={{ mt: 1, p: 1, backgroundColor: colors.blueAccent[700] }}>訂單資料</Typography>
+                                                <Typography variant="h3" sx={{ mt: 1, p: 1, backgroundColor: colors.blueAccent[700] }}>訂單資料</Typography>
                                             </AccordionSummary>
                                             <AccordionDetails>
                                                 <Table sx={{
-                                                    '& .MuiTableCell-body': { fontSize: '20px' },
-                                                    '& .MuiTableCell-head': { fontSize: '20px' }
+                                                    '& .MuiTableCell-body': { fontSize: '24px' },
+                                                    '& .MuiTableCell-head': { fontSize: '24px' }
                                                 }}>
                                                     <TableHead sx={{ backgroundColor: colors.blueAccent[700] }}>
                                                         <TableRow>
@@ -267,9 +269,9 @@ const OrdersTable = () => {
                     <Dialog open={clickOpen} onClose={handleClose} sx={{
                         '& .MuiTextField-root': { mt: 2 },
                         '& label.Mui-focused': { color: '#4cceac' },
-                        '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
-                        '& .MuiOutlinedInput-root': { fontSize: '22px' },
-                        '& .MuiButton-root': { fontSize: '22px' },
+                        '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "24px" },
+                        '& .MuiOutlinedInput-root': { fontSize: '24px' },
+                        '& .MuiButton-root': { fontSize: '24px' },
                     }}
                     >
                         <DialogTitle variant="h3" sx={{ color: colors.greenAccent[500] }}>編輯訂單</DialogTitle>
@@ -295,7 +297,7 @@ const OrdersTable = () => {
                                 onChange={(event) =>
                                     setOrderData({
                                         ...orderdata,
-                                        changdate: event.target.value,
+                                        deliverydate: event.target.value,
                                     })
                                 }
                             />
@@ -357,8 +359,8 @@ const OrdersTable = () => {
                                 <MenuItem value={3}>已結單</MenuItem>
                             </Select> */}
                             <DialogActions sx={{ mt: 2 }}>
-                                <Button variant="contained" onClick={handleClose} color="error">取消</Button>
-                                <Button variant="contained" type="submit" color="info" onClick={() => handleSaveClick(orderdata)}>
+                                
+                                <Button variant="contained" type="submit" color="info" fullWidth onClick={() => handleSaveClick(orderdata)} startIcon={<SaveAsIcon style={{fontSize:28}} />}>
                                     儲存
                                 </Button>
                             </DialogActions>
