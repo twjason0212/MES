@@ -253,7 +253,7 @@ const Sidebar = () => {
                         <FeedRoundedIcon />
                       </ListItemIcon>
                       <ListItemText primary="新增員工" />
-                      <Link to="/form"></Link>
+                      <Link to="/employee"></Link>
                     </ListItemButton>
                   </List>
                 </>
@@ -662,7 +662,7 @@ const Sidebar = () => {
                         primaryTypographyProps={{ fontSize: 20 }}
                         primary="基本資料"
                       />
-                      <Link to="/form"></Link>
+                      <Link to="/employee"></Link>
                     </ListItemButton>
                   </List>
 
@@ -754,7 +754,7 @@ const Sidebar = () => {
                         primary="新增員工資料"
                         primaryTypographyProps={{ fontSize: "20px" }}
                       />
-                      <Link to="/form"></Link>
+                      <Link to="/employee"></Link>
                     </ListItemButton>
                   </List>
 
@@ -1002,7 +1002,7 @@ const Sidebar = () => {
                         primaryTypographyProps={{ fontSize: 20 }}
                         primary="基本資料"
                       />
-                      <Link to="/form"></Link>
+                      <Link to="/employee"></Link>
                     </ListItemButton>
                   </List>
 
