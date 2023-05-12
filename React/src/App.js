@@ -19,7 +19,7 @@ import Inventory from "./scenes/inventory/inventor";
 import Order from "./scenes/order/order";
 import Attendance from "./scenes/attendance/attendance";
 import Customers from "./scenes/customers/customers";
-import WorkOrder from './scenes/workorder/workOrder';
+import WorkOrder from "./scenes/workorder/workOrder";
 import WorkOrderList from "./scenes/workorderlist/workorderlist";
 import Attdatetime from "./scenes/attdatetime/attdatetime";
 import Checkin from "./scenes/checkin/checkin";
@@ -27,7 +27,6 @@ import PendingWork from "./scenes/pendingwork/pendingwork";
 import PendingWorkLeader from "./scenes/pendingwork/pendingworkLeader";
 import WorlOrderAll from "./scenes/workorder/worlorderall";
 import MyCard from "./scenes/employee";
-
 
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
@@ -38,7 +37,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const Layout = (props) => {
-    const isLoggedIn = window.sessionStorage.getItem('res');
+    const isLoggedIn = window.sessionStorage.getItem("res");
     return (
       <>
         {isLoggedIn && <Sidebar isSidebar={props.isSidebar} />}
@@ -50,14 +49,14 @@ function App() {
   };
 
   const LoginLayout = (props) => {
-    const isLoggedIn = window.sessionStorage.getItem('res');
+    const isLoggedIn = window.sessionStorage.getItem("res");
 
     if (!isLoggedIn) {
-
       return (
         <main className="content" >
           <Login />
-        </main>);
+        </main>
+      );
     } else {
       return (
         <>
@@ -69,13 +68,7 @@ function App() {
         </>
       );
     }
-
   };
-
-
-
-
-
 
   return (
     <ColorModeContext.Provider value={colorMode}>
@@ -120,8 +113,6 @@ function App() {
 }
 
 export default App;
-
-
 
 // {isLoggedIn && <Sidebar isSidebar={isSidebar} />}
 //       <main className="content">

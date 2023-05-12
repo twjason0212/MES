@@ -199,7 +199,7 @@ const Dashboard = () => {
         >
           <StatBox
             title={hunOrderFinishRate + "%"}
-            subtitle="訂單狀態"
+            subtitle="訂單完成進度"
             progress={orderFinishRate}
             increase={orderFinish.orderFinishNum + "/" + allOrd.allOrderNum}
             icon={
