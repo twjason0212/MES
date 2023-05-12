@@ -131,11 +131,11 @@ const Team = () => {
   };
 
   const columns = [
-    { field: 'employee_id', headerName: 'Id', width: 90 },
+    { field: 'employee_id', headerName: 'Id', width: 60 },
     {
       field: 'employee_account',
       headerName: '員工帳號',
-      width: 150,
+      width: 200,
       editable: true,
     },
     {
@@ -217,24 +217,25 @@ const Team = () => {
 
 
   return (
-    <TableContainer>
-      <Header title="TEAM" subtitle="Managing the Team Members" />
-      <div>
-        <div style={{ display: 'flex', justifyContent: 'Space-evenly', padding: '10px' }}>
-          <TextField
-            name="Employee Name"
-            label="員工姓名"
-            //value={filter.EmployeeName}
-            onChange={handleChange}
-            sx={{
-              width: '100%',
-              m: 1,
-              '& label.Mui-focused': { color: '#4cceac', },
-              '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
-              '& .MuiOutlinedInput-root': { fontSize: '22px' },
-            }}
-          />
-          {/* <TextField
+    <Box m="20px">
+      <TableContainer>
+        <Header title="員工資料" subtitle="員工資料清單" />
+        <div>
+          <div style={{ display: 'flex', justifyContent: 'Space-evenly', padding: '10px' }}>
+            <TextField
+              name="Employee Name"
+              label="員工姓名"
+              //value={filter.EmployeeName}
+              onChange={handleChange}
+              sx={{
+                width: '100%',
+                m: 1,
+                '& label.Mui-focused': { color: '#4cceac', },
+                '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
+                '& .MuiOutlinedInput-root': { fontSize: '22px' },
+              }}
+            />
+            {/* <TextField
             name="startwork"
             label="報到日期"
             type="month"
@@ -250,122 +251,123 @@ const Team = () => {
             }}
           /> */}
 
+          </div>
         </div>
-      </div>
-      <Box sx={{ height: 600, width: '100%' }}>
-        <DataGrid
-          rows={users}
-          columns={columns}
-          getRowId={(user) => user.employee_id}
-          initialState={{
-            pagination: {
-              paginationModel: {
-                pageSize: 5,
+        <Box sx={{ height: 600, width: '100%' }}>
+          <DataGrid
+            rows={users}
+            columns={columns}
+            getRowId={(user) => user.employee_id}
+            initialState={{
+              pagination: {
+                paginationModel: {
+                  pageSize: 5,
+                },
               },
-            },
-          }}
-          pageSizeOptions={[5]}
-          checkboxSelection
-          disableRowSelectionOnClick
-          sx={{
-            boxShadow: 2,
-            border: 2,
-            fontSize: 22,
-            borderColor: "primary.light",
-            "& .MuiDataGrid-cell:hover": {
-              color: "primary.main"
-            }
-          }}
-        />
-      </Box>
-
-      {clickedRow && (
-        <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>修改資料</DialogTitle>
-          <DialogContent>
-            <TextField
-              label="員工姓名"
-              defaultValue={clickedRow.employee_name}
-              fullWidth
-              onChange={(event) =>
-                setClickedRow({
-                  ...clickedRow,
-                  employee_name: event.target.value,
-                })
+            }}
+            pageSizeOptions={[5]}
+            checkboxSelection
+            disableRowSelectionOnClick
+            sx={{
+              boxShadow: 2,
+              border: 2,
+              fontSize: 22,
+              borderColor: "primary.light",
+              "& .MuiDataGrid-cell:hover": {
+                color: "primary.main"
               }
-              sx={{
-                width: '100%',
-                m: 1,
-                '& label.Mui-focused': { color: '#4cceac', },
-                '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
-                '& .MuiOutlinedInput-root': { fontSize: '22px' },
-              }}
-            />
-            <TextField
-              label="帳號"
-              disabled
-              defaultValue={clickedRow.employee_account}
-              fullWidth
-              onChange={(event) =>
-                setClickedRow({
-                  ...clickedRow,
-                  employee_account: event.target.value,
-                })
-              }
-              sx={{
-                width: '100%',
-                m: 1,
-                '& label.Mui-focused': { color: '#4cceac', },
-                '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
-                '& .MuiOutlinedInput-root': { fontSize: '22px' },
-              }}
-            />
+            }}
+          />
+        </Box>
 
-            <TextField
-              label="電話"
-              defaultValue={clickedRow.employee_tel}
-              fullWidth
-              onChange={(event) =>
-                setClickedRow({
-                  ...clickedRow,
-                  employee_tel: event.target.value,
-                })
-              }
-              sx={{
-                width: '100%',
-                m: 1,
-                '& label.Mui-focused': { color: '#4cceac', },
-                '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
-                '& .MuiOutlinedInput-root': { fontSize: '22px' },
-              }}
-            />
-            <TextField
-              label="信箱"
-              defaultValue={clickedRow.employee_email}
-              fullWidth
-              onChange={(event) =>
-                setClickedRow({
-                  ...clickedRow,
-                  employee_email: event.target.value,
-                })
-              }
-              sx={{
-                width: '100%',
-                m: 1,
-                '& label.Mui-focused': { color: '#4cceac', },
-                '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
-                '& .MuiOutlinedInput-root': { fontSize: '22px' },
-              }}
-            />
+        {clickedRow && (
+          <Dialog open={open} onClose={handleClose}>
+            <DialogTitle>修改資料</DialogTitle>
+            <DialogContent>
+              <TextField
+                label="員工姓名"
+                defaultValue={clickedRow.employee_name}
+                fullWidth
+                onChange={(event) =>
+                  setClickedRow({
+                    ...clickedRow,
+                    employee_name: event.target.value,
+                  })
+                }
+                sx={{
+                  width: '100%',
+                  m: 1,
+                  '& label.Mui-focused': { color: '#4cceac', },
+                  '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
+                  '& .MuiOutlinedInput-root': { fontSize: '22px' },
+                }}
+              />
+              <TextField
+                label="帳號"
+                disabled
+                defaultValue={clickedRow.employee_account}
+                fullWidth
+                onChange={(event) =>
+                  setClickedRow({
+                    ...clickedRow,
+                    employee_account: event.target.value,
+                  })
+                }
+                sx={{
+                  width: '100%',
+                  m: 1,
+                  '& label.Mui-focused': { color: '#4cceac', },
+                  '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
+                  '& .MuiOutlinedInput-root': { fontSize: '22px' },
+                }}
+              />
+
+              <TextField
+                label="電話"
+                defaultValue={clickedRow.employee_tel}
+                fullWidth
+                onChange={(event) =>
+                  setClickedRow({
+                    ...clickedRow,
+                    employee_tel: event.target.value,
+                  })
+                }
+                sx={{
+                  width: '100%',
+                  m: 1,
+                  '& label.Mui-focused': { color: '#4cceac', },
+                  '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
+                  '& .MuiOutlinedInput-root': { fontSize: '22px' },
+                }}
+              />
+              <TextField
+                label="信箱"
+                defaultValue={clickedRow.employee_email}
+                fullWidth
+                onChange={(event) =>
+                  setClickedRow({
+                    ...clickedRow,
+                    employee_email: event.target.value,
+                  })
+                }
+                sx={{
+                  width: '100%',
+                  m: 1,
+                  '& label.Mui-focused': { color: '#4cceac', },
+                  '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "22px" },
+                  '& .MuiOutlinedInput-root': { fontSize: '22px' },
+                }}
+              />
 
 
-            <Button variant="contained" onClick={() => handleSaveClick(clickedRow)} style={{ fontSize: '22px', backgroundColor: "#21b6ae" }}>
-              儲存
-            </Button>
-          </DialogContent>
-        </Dialog>
-      )}
-    </TableContainer>
+              <Button variant="contained" onClick={() => handleSaveClick(clickedRow)} style={{ fontSize: '22px', backgroundColor: "#21b6ae" }}>
+                儲存
+              </Button>
+            </DialogContent>
+          </Dialog>
+        )}
+      </TableContainer>
+    </Box>
   );
 };
 
