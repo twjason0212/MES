@@ -8,34 +8,57 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Box, Button } from '@mui/material';
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
+import axios from 'axios';
 import withAuth from "../../components/withAuth";
 
- const OvertimeFormik = () => {
+const OvertimeFormik = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
 
 
     const valuesSchema = Yup.object().shape({
-        uid: Yup.number().required("請輸入員工編號").positive().integer(),
+        employee_account: Yup.string().required("請輸入員工編號"),
         department: Yup.string().required("請輸入申請部門"),
         start_time: Yup.string().required("請輸入開始時間"),
         end_time: Yup.string().required("請輸入結束時間"),
-        total_time: Yup.string().required("請輸入加班總時數"),
+        // total_time: Yup.string().required("請輸入加班總時數"),
         cause: Yup.string().required("請輸入加班事由")
     })
     const initialValues = {
-        uid: 1,
-        department: "",
-        overtime_type: "week",
+        employee_account: 1,
+        department: 1,
+        // overtime_type: "week",
         start_date: "",
         start_time: "",
         end_time: "",
-        total_time: "",
+        // total_time: "",
         cause: ""
 
     }
-    const handleFormSubmit = (values) => {
+    const handleFormSubmit = async (values) => {
         console.log(values);
-    };
+        // 連接資料庫
+        // const formData = { employee_account, department, type, start_time, end_time, cause};
+        // const formDataJson = JSON.stringify(formData);
+        // console.log(formDataJson);
+
+        try {
+            await axios.post('http://localhost:3702/overtime', values, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            alert('新增成功');
+            // alert(formDataJson)
+
+        } catch (error) {
+            console.error(error.data);
+            console.log(error.response, '-------')
+            alert('Error submitting form data');
+        }
+    }
+    // const handleFormSubmit = (values) => {
+    //     console.log(values);
+    // };
     // const [overtime_type, setType] = React.useState(overtime_type);
     // console.log(useState);
 
@@ -47,7 +70,7 @@ import withAuth from "../../components/withAuth";
 
     return (
         <Box m="20px">
-            <Header title="OVERTIME" subtitle="over time" />
+            <Header title="加班單申請" />
 
             <Formik
                 initialValues={initialValues}
@@ -79,36 +102,48 @@ import withAuth from "../../components/withAuth";
                                 fullWidth
                                 variant="filled"
                                 type="text"
-                                name="uid"
-                                label="員工編號"
+                                name="employee_account"
+                                label="員工工號"
                                 onBlur={handleBlur}
                                 onChange={handleChange}
-                                value={values.uid}
-                                error={!!touched.uid && !!errors.uid}
-                                helperText={touched.uid && errors.uid}
-                                sx={{ gridColumn: "span 2" }}
+                                value={values.employee_account}
+                                error={!!touched.employee_account && !!errors.employee_account}
+                                helperText={touched.employee_account && errors.employee_account}
+                                sx={{
+                                    gridColumn: "span 2", '& label.Mui-focused': { color: '#4cceac', },
+                                    '& .MuiInputLabel-filled': { color: '#4cceac', fontSize: "22px" },
+                                    '& .MuiFilledInput-root': { fontSize: '22px' }, '& .MuiInputLabel-filled': { color: '#4cceac', fontSize: "22px" }, '& .MuiFilledInput-root': { fontSize: '22px' }
+                                }}
                             />
-                            {touched.uid && errors.uid ? (
-                                <ErrorMessage className="error-text" style={{ color: 'red' }}>{errors.uid}</ErrorMessage>
-                            ) : null}
-                            <TextField
-                                fullWidth
-                                variant="filled"
-                                type="text"
-                                label="申請部門"
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                value={values.department}
-                                name="department"
-                                error={!!touched.department && !!errors.department}
-                                helperText={touched.department && errors.department}
-                                sx={{ gridColumn: "span 2" }}
-                            />
-                            {touched.department && errors.department ? (
-                                <ErrorMessage className="error-text" style={{ color: 'red' }}>{errors.department}</ErrorMessage>
+                            {touched.employee_account && errors.employee_account ? (
+                                <ErrorMessage className="error-text" style={{ color: 'red' }}>{errors.employee_account}</ErrorMessage>
                             ) : null}
 
-                            <Select
+                            <TextField
+                                label="加班部門"
+                                select
+                                fullWidth
+                                variant="filled"
+                                name="department"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.department}
+                                error={!!touched.department && !!errors.department}
+                                helperText={touched.department && errors.department}
+                                sx={{
+                                    gridColumn: "span 2", '& label.Mui-focused': { color: '#4cceac', },
+                                    '& .MuiInputLabel-filled': { color: '#4cceac', fontSize: "22px" },
+                                    '& .MuiFilledInput-root': { fontSize: '22px' }, '& .MuiInputLabel-filled': { color: '#4cceac', fontSize: "22px" }, '& .MuiFilledInput-root': { fontSize: '22px' }
+                                }}
+
+                            >
+                                <MenuItem value={1}><em>人事部</em></MenuItem>
+                                <MenuItem value={2}>生產部</MenuItem>
+                                <MenuItem value={3}>業務部</MenuItem>
+                                <MenuItem value={4}>管理部</MenuItem>
+                            </TextField>
+
+                            {/* <Select
                                 fullWidth
                                 variant="filled"
                                 type='text'
@@ -124,38 +159,27 @@ import withAuth from "../../components/withAuth";
                             >
                                 <MenuItem value="week"><em>平日加班</em></MenuItem>
                                 <MenuItem value="weekend">假日加班</MenuItem>
-                            </Select><p />
+                            </Select><p /> */}
 
-                            <LocalizationProvider
-                                dateAdapter={AdapterDayjs}
-                            >
-                                <DatePicker
-                                    fullWidth
-                                    variant="filled"
-                                    type="date"
-                                    name="start_date"
-                                    label="加班日期"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.start_date}
-                                    error={!!touched.start_date && !!errors.start_date}
-                                    helperText={touched.start_date && errors.start_date}
-                                    sx={{ gridColumn: "span 2" }}
-                                />
-                            </LocalizationProvider>
+
 
                             <TextField
                                 fullWidth
                                 variant="filled"
-                                type="time"
+                                type="datetime-local"
                                 name="start_time"
                                 label="開始時間"
+                                InputLabelProps={{ shrink: true }}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.start_time}
                                 error={touched.start_time && errors.start_time}
                                 helperText={touched.start_time && errors.start_time}
-                                sx={{ gridColumn: "span 2" }}
+                                sx={{
+                                    gridColumn: "span 2", '& label.Mui-focused': { color: '#4cceac', },
+                                    '& .MuiInputLabel-filled': { color: '#4cceac', fontSize: "22px" },
+                                    '& .MuiFilledInput-root': { fontSize: '22px' }, '& .MuiInputLabel-filled': { color: '#4cceac', fontSize: "22px" }, '& .MuiFilledInput-root': { fontSize: '22px' }
+                                }}
                             />
                             {touched.start_time && errors.start_time ? (
                                 <ErrorMessage className="error-text" style={{ color: 'red' }}>{errors.start_time}</ErrorMessage>
@@ -165,22 +189,27 @@ import withAuth from "../../components/withAuth";
                             <TextField
                                 fullWidth
                                 variant="filled"
-                                type="time"
+                                type="datetime-local"
                                 name="end_time"
                                 label="結束時間"
+                                InputLabelProps={{ shrink: true }}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.end_time}
                                 error={touched.end_time && errors.end_time}
                                 helperText={touched.end_time && errors.end_time}
-                                sx={{ gridColumn: "span 2" }}
+                                sx={{
+                                    gridColumn: "span 2", '& label.Mui-focused': { color: '#4cceac', },
+                                    '& .MuiInputLabel-filled': { color: '#4cceac', fontSize: "22px" },
+                                    '& .MuiFilledInput-root': { fontSize: '22px' }, '& .MuiInputLabel-filled': { color: '#4cceac', fontSize: "22px" }, '& .MuiFilledInput-root': { fontSize: '22px' }
+                                }}
                             />
                             {touched.end_time && errors.end_time ? (
                                 <ErrorMessage className="error-text" style={{ color: 'red' }}>{errors.end_time}</ErrorMessage>
                             ) : null}
 
 
-                            <TextField
+                            {/* <TextField
                                 fullWidth
                                 variant="filled"
                                 type="number"
@@ -196,7 +225,7 @@ import withAuth from "../../components/withAuth";
                             {touched.total_time && errors.total_time ? (
                                 <ErrorMessage className="error-text" style={{ color: 'red' }}>{errors.total_time}</ErrorMessage>
                             ) : null}
-                            <p />
+                            <p /> */}
                             <TextField
                                 fullWidth
                                 variant="filled"
@@ -211,7 +240,12 @@ import withAuth from "../../components/withAuth";
                                 value={values.cause}
                                 error={touched.cause && errors.cause}
                                 helperText={touched.cause && errors.cause}
-                                sx={{ gridColumn: "span 2" }}>
+                                sx={{
+                                    gridColumn: "span 2", '& label.Mui-focused': { color: '#4cceac', },
+                                    '& .MuiInputLabel-filled': { color: '#4cceac', fontSize: "22px" },
+                                    '& .MuiFilledInput-root': { fontSize: '22px' }, '& .MuiInputLabel-filled': { color: '#4cceac', fontSize: "22px" }, '& .MuiFilledInput-root': { fontSize: '22px' }
+                                }}
+                            >
                             </TextField>
                             {touched.cause && errors.cause ? (
                                 <ErrorMessage className="error-text" style={{ color: 'red' }}>{errors.cause}</ErrorMessage>
@@ -219,8 +253,8 @@ import withAuth from "../../components/withAuth";
                             <p />
                         </Box>
                         <Box display="flex" justifyContent="end" mt="20px">
-                            <Button type="submit" color="secondary" variant="contained">
-                                Create the form
+                            <Button type="submit" color="secondary" variant="contained" sx={{ fontSize: "22px" }}>
+                                新增加班單
                             </Button>
                         </Box>
                     </form>

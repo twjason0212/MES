@@ -16,7 +16,7 @@ const Order = () => {
         <React.Fragment>
             <Box m="20px">
                 <Header title="訂單總覽" />
-                <Box m="40px 0 0 0" 
+                <Box m="40px 0 0 0"
                     sx={{
                         "& .green-text": {
                             color: colors.greenAccent[300],
@@ -36,14 +36,14 @@ const Order = () => {
                             gridRow="span 2"
                             backgroundColor={colors.primary[400]}
                             p="30px" className="bgColor">
-                            <div className="green-text">訂單分布</div>
+                            <div className="green-text">今年各季度訂單數量</div>
                             <Pie2 />
                         </Box>
                         <Box gridColumn="span 6"
                             gridRow="span 2"
                             backgroundColor={colors.primary[400]}
                             p="30px" className="bgColor">
-                            <div className="green-text">產品分布</div>
+                            <div className="green-text">今年各產品銷售數量</div>
                             <Pie />
                         </Box>
                     </Box>

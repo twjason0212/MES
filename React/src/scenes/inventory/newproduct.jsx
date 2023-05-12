@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
+import {Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Box}from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
-import { useTheme, InputAdornment } from '@mui/material';
+import { useTheme, InputAdornment, Snackbar, Alert } from '@mui/material';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { tokens } from "../../theme";
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+import IconButton from '@mui/material/IconButton';
+import SaveAsIcon from '@mui/icons-material/SaveAs';
 
-export default function Product() {
+export default function Product({ setShouldUpdate }) {
     const [opennew, setopennew] = useState(false);
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
+    const [alertOpen, setAlertOpen] = useState(false)
 
     const handleOpennew = () => {
         setopennew(true);
@@ -36,8 +35,15 @@ export default function Product() {
             console.log(response.data);
         });
         setSubmitting(false);
+        setShouldUpdate(true);
+        setAlertOpen(true);
         handleClosenew();
     };
+
+
+    const handleAlertClose = () => {
+        setAlertOpen(false)
+      };
 
 
 
@@ -45,9 +51,15 @@ export default function Product() {
 
     return (
         <Box sx={{ '& .MuiButton-root': { fontSize: '22px', mr: 4 } }}>
-            <Button variant="contained" color="secondary" onClick={handleOpennew}>
-                新增產品資料
+            <Button variant="contained" color="secondary" onClick={handleOpennew} startIcon={<AddCircleOutlineIcon style={{ fontSize: 28 }} />}
+            >
+                新增產品
             </Button>
+            <Snackbar open={alertOpen} autoHideDuration={3000} onClose={handleAlertClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}  >
+                <Alert onClose={handleAlertClose} icon={false} sx={{ width: '100%', fontSize: 20, color: 'black', backgroundColor: '#4cceac' }}>
+                    新增成功!!
+                </Alert>
+            </Snackbar>
             <Dialog open={opennew} onClose={handleClosenew}
                 sx={{
                     '& .MuiTextField-root': { mt: 2 },
@@ -55,14 +67,18 @@ export default function Product() {
                         color: '#4cceac',
                     }, '& .MuiInputLabel-outlined': {
                         color: '#4cceac',
-                        fontSize: "22px"
+                        fontSize: "24px"
                     }, '& .MuiOutlinedInput-root': {
-                        fontSize: '22px'
+                        fontSize: '24px'
                     }, '& .MuiButton-root': {
-                        fontSize: '22px'
+                        fontSize: '24px',
+
+                    }, '& .MuiIconButton': {
+                        fontSize: '24px',
+                        color: '#4cceac',
                     },
                 }}>
-                <DialogTitle variant='h4' sx={{ color: colors.greenAccent[500], }}>新增產品資料</DialogTitle>
+                <DialogTitle variant='h3' sx={{ color: colors.greenAccent[500], }}>新增產品資料</DialogTitle>
                 <DialogContent>
                     <Formik
                         initialValues={{
@@ -104,12 +120,12 @@ export default function Product() {
                                             InputProps={{
                                                 endAdornment: (
                                                     <InputAdornment position="start">
-                                                        <Button
+                                                        <IconButton
                                                             variant="contained"
                                                             component="label"
                                                             disableElevation
                                                         >
-                                                            上傳
+
                                                             <input
                                                                 type="file"
                                                                 hidden
@@ -117,7 +133,8 @@ export default function Product() {
                                                                     setFieldValue('photo_url', event.currentTarget.files[0]);
                                                                 }}
                                                             />
-                                                        </Button>
+                                                            <AddAPhotoIcon style={{ fontSize: 32, color: '#4cceac' }} />
+                                                        </IconButton>
                                                     </InputAdornment>
                                                 ),
                                             }}
@@ -152,9 +169,9 @@ export default function Product() {
                                         )} */}
                                     </Grid>
                                 </Grid>
-                                <DialogActions sx={{mt:2}}>
-                                    <Button onClick={handleClosenew} variant="contained" color="error">取消</Button>
-                                    <Button type="submit" variant="contained" color="info">儲存</Button>
+                                <DialogActions sx={{ mt: 2 }}>
+                                    <Button variant="contained" color="info" type="submit" fullWidth startIcon={<SaveAsIcon style={{ fontSize: 28 }} />}
+                                    >儲存</Button>
                                 </DialogActions>
                             </Box>
                         )}

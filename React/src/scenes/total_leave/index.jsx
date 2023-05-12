@@ -73,9 +73,9 @@ const TotalLeave = () => {
     return (
         <Box m="20px">
             <Header title="TotalLeave" subtitle="Total_leave" />
-            
-                <MaterialReactTable columns={columns} data={data} />;
-            
+
+            <MaterialReactTable columns={columns} data={data} />;
+
         </Box>
     )
 };

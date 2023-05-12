@@ -7,18 +7,22 @@ import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Unstable_Grid2';
-import {useTheme }from '@mui/material';
+import { useTheme,  Snackbar, Alert} from '@mui/material';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { tokens } from "../../theme";
+import DomainAddIcon from '@mui/icons-material/DomainAdd';
+import SaveAsIcon from '@mui/icons-material/SaveAs';
+
 
 export default function NewCustomers({ handleAdd }) {
     const [open, setopen] = useState(false);
 
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-
+    const [alertOpen, setAlertOpen] = useState(false)
+    
 
     const handleOpen = () => {
         setopen(true);
@@ -28,24 +32,34 @@ export default function NewCustomers({ handleAdd }) {
         setopen(false);
     }
 
+    const handleAlertClose = () => {
+        setAlertOpen(false)
+      };
 
-
+      
 
 
     return (
-        <Box sx={{ '& .MuiButton-root': { fontSize: '22px', mr: 2 } }}>
-            <Box sx={{display:'flex',justifyContent:'flex-end'}}>
-                <Button variant="contained" color="secondary" onClick={handleOpen}>
+        <Box sx={{ '& .MuiButton-root': { fontSize: '24px', mr: 2 } }}>
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <Button variant="contained" color="secondary" onClick={handleOpen} startIcon={<DomainAddIcon style={{ fontSize: 32 }} />}>
                     新增客戶
                 </Button>
             </Box>
+
+            <Snackbar open={alertOpen} autoHideDuration={1500} onClose={handleAlertClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}  >
+                <Alert onClose={handleAlertClose} icon={false} sx={{ width: '100%', fontSize: 20, color: 'black', backgroundColor: '#4cceac' }}>
+                    新增成功!!
+                </Alert>
+            </Snackbar>
             <Dialog open={open} onClose={handleClose}
-                sx={{ '& .MuiTextField-root': { m: 1 }, 
-                "& .titlegreen-text": {color: colors.greenAccent[500],fontSize: "24px",},
-                '& label.Mui-focused': {color: '#4cceac'}, 
-                '& .MuiInputLabel-outlined': {color: '#4cceac',fontSize: "22px"}, 
-                '& .MuiOutlinedInput-root': {fontSize: '22px'}, 
-                '& .MuiButton-root': {fontSize: '22px'},
+                sx={{
+                    '& .MuiTextField-root': { m: 1 },
+                    "& .titlegreen-text": { color: colors.greenAccent[500], fontSize: "24px", },
+                    '& label.Mui-focused': { color: '#4cceac' },
+                    '& .MuiInputLabel-outlined': { color: '#4cceac', fontSize: "24px" },
+                    '& .MuiOutlinedInput-root': { fontSize: '24px' },
+                    '& .MuiButton-root': { fontSize: '24px' },
                 }}>
                 <DialogTitle className="titlegreen-text">新增客戶資料</DialogTitle>
                 <DialogContent>
@@ -68,18 +82,22 @@ export default function NewCustomers({ handleAdd }) {
                             axios.post('http://127.0.0.1:3702/coustomer/create', values)
                                 .then((response) => {
                                     console.log(response.data);
+                                    setAlertOpen(true);
                                 })
                                 .catch((error) => {
                                     console.log(error);
                                 });
-
                             handleAdd();
                             handleClose();
+                            
                         }}
                     >
                         {({ handleSubmit, handleChange, values, errors, touched }) => (
-                            <Box component={Form} onSubmit={handleSubmit} sx={{'& label.Mui-focused': {
-                                color: '#4cceac'}}}>
+                            <Box component={Form} onSubmit={handleSubmit} sx={{
+                                '& label.Mui-focused': {
+                                    color: '#4cceac'
+                                }
+                            }}>
                                 <Grid container spacing={3}>
                                     <Grid xs={6}>
                                         <TextField
@@ -147,9 +165,9 @@ export default function NewCustomers({ handleAdd }) {
                                         />
                                     </Grid>
                                 </Grid>
-                                <DialogActions sx={{mt:2}}>
-                                    <Button variant="contained" onClick={handleClose} color="error">取消</Button>
-                                    <Button variant="contained" color="info" type="submit">儲存</Button>
+                                <DialogActions sx={{ mt: 2, ml: 1 }}>
+                                    <Button variant="contained" color="info" type="submit" fullWidth startIcon={<SaveAsIcon style={{ fontSize: 28 }} />}
+                                    >儲存</Button>
                                 </DialogActions>
                             </Box>
                         )}
