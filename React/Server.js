@@ -81,7 +81,7 @@ connection.connect(function (error) {
 
 app.get("/attdance", function (req, res) {
   connection.query(
-    "select attendance.id,employee.employee_account,employee_name,DATE_FORMAT(starttime, '%Y-%m-%d %H:%i') as starttime,DATE_FORMAT(endtime, '%Y-%m-%d %H:%i') as endtime,att_status_name from attendance JOIN employee ON attendance.employee_account = employee.employee_account JOIN att_status_type ON attendance.status = att_status_type.id; ",
+    "select attendance.id,employee.employee_account,employee_name,DATE_FORMAT(starttime, '%Y-%m-%d %H:%i') as starttime,DATE_FORMAT(endtime, '%Y-%m-%d %H:%i') as endtime,att_status_name from attendance JOIN employee ON attendance.employee_account = employee.employee_account JOIN att_status_type ON attendance.status = att_status_type.id  order by id desc;",
     function (error, data) {
       res.send(JSON.stringify(data));
       console.log(data);
