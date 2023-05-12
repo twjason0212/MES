@@ -99,7 +99,6 @@ function App() {
             <Route path='/pendingwork' element={<Layout><PendingWork /></Layout>} />-
             <Route path='/pendingworkLeader' element={<Layout><PendingWorkLeader /></Layout>} />-
             <Route path='/worlorderall' element={<Layout><WorlOrderAll /></Layout>} />-
-            <Route path='/employee' element={<Layout><Employee /></Layout>} />-
 
             {/* <Route path="/attendance" element={<Attendance />} /> */}
             <Route path="/total_leave" element={<Layout><TotalLeave /></Layout>} />
